@@ -4,6 +4,11 @@ version = "0.1.0"
 description = "Neural network for image recognition from scratch using numpy"
 readme = "README.md"
 requires-python = ">=3.11"
+packages = [{ include = "src" }]
 dependencies = [
     "numpy>=2.1.3",
 ]
+
+[tool.poe.tasks]
+run.help = "Run program"
+run.cmd = "uv run src/main.py"
