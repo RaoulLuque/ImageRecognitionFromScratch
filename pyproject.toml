@@ -26,7 +26,7 @@ format.help = "Format code with ruff"
 format.cmd = "ruff format ."
 
 types.help = "Statically check types using mypy"
-types.cmd = "mypy --cache-fine-grained app"
+types.cmd = "mypy --cache-fine-grained --check-untyped-defs src"
 
 checks.help = "Execute ruff, format and types tasks in sequence: Run ruff checks, formats and mypy"
 checks.sequence = ["ruff", "format", "types"]
