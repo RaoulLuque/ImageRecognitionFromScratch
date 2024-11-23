@@ -1,0 +1,9 @@
+[project]
+name = "image-recognition-neural-network"
+version = "0.1.0"
+description = "Neural network for image recognition from scratch using numpy"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.1.3",
+]
