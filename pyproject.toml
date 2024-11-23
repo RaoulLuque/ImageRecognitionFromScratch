@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 packages = [{ include = "src" }]
 dependencies = [
+    "nptyping>=2.0.1",
     "numpy>=2.1.3",
 ]
 

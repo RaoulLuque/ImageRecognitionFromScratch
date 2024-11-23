@@ -1,15 +1,34 @@
 import numpy as np
+from nptyping.ndarray import NDArray
 
-# Base layer class
+
 class Layer:
+    input: NDArray | None
+    output: NDArray | None
+    """
+    Base class for layers in the neural network
+    """
     def __init__(self):
-        self.input: np.ndarray | None = None
-        self.output: np.ndarray | None = None
+        """
+        Initialize input and output of the layer as none
+        """
+        self.input: NDArray | None = None  # type: ignore
+        self.output: NDArray | None = None  # type: ignore
 
-    # computes the output Y of a layer for a given input X
-    def forward_propagation(self, input_data: np.ndarray) -> np.ndarray:
+    def forward_propagation(self, input_data: NDArray) -> NDArray:
+        """
+        Computest the output of a layer for a given input
+        :param input_data:
+        :return:
+        """
         raise NotImplementedError
 
-    # computes dE/dX for a given dE/dY (and update parameters if any)
-    def backward_propagation(self, output_error, learning_rate):
+
+    def backward_propagation(self, output_error: NDArray, learning_rate) -> NDArray:
+        """
+        Computes the input error for a given output error
+        :param output_error:
+        :param learning_rate:
+        :return:
+        """
         raise NotImplementedError
