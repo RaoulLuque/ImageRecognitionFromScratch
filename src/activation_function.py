@@ -17,3 +17,13 @@ def ReLu_derivative(x):
     :return: Output of the derivative of the rectified linear unit function
     """
     return np.where(x <= 0, 0, 1)
+
+
+def tanh(x):
+    """Computes the hyperbolic tangent function."""
+    return np.tanh(x)
+
+
+def tanh_prime(x):
+    """Computes the derivative of the hyperbolic tangent function."""
+    return 1-np.tanh(x)**2
