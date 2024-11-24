@@ -1,4 +1,35 @@
 import numpy as np
+from enum import Enum
+
+
+class ActivationFunction(Enum):
+    """Enum class for activation functions."""
+    ReLu = "ReLu"
+    tanh = "tanh"
+
+    def function(self, x: np.ndarray) -> np.ndarray:
+        """
+        Returns the activation function.
+        :param x: Input to the activation function.
+        :return: Result of the activation function.
+        """
+        match self:
+            case ActivationFunction.ReLu:
+                return ReLu(x)
+            case ActivationFunction.tanh:
+                return tanh(x)
+
+    def derivative(self, x: np.ndarray) -> np.ndarray:
+        """
+        Returns the derivative of the activation function.
+        :param x: Input of the derivative of the activation function.
+        :return: Result of the derivative of the activation function.
+        """
+        match self:
+            case ActivationFunction.ReLu:
+                return ReLu_derivative(x)
+            case ActivationFunction.tanh:
+                return tanh_derivative(x)
 
 
 def ReLu(x):

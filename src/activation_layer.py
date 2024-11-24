@@ -1,6 +1,8 @@
 from layer import Layer
 from nptyping import NDArray
 
+from src.activation_function import ActivationFunction
+
 
 class ActivationLayer(Layer):
     """
@@ -8,17 +10,16 @@ class ActivationLayer(Layer):
 
     Is used as intermediate layer to apply activation functions. The respective activation function is passed as a parameter on initialization.
     """
-    def __init__(self, activation, activation_derivative):
+    def __init__(self, activation_function: ActivationFunction):
         super().__init__()
-        self.activation = activation
-        self.activation_prime = activation_derivative
+        self.activation_function = activation_function
 
     def forward_propagation(self, input_data: NDArray) -> NDArray:
         self.input = input_data
-        self.output = self.activation(self.input)
+        self.output = self.activation_function.function(self.input)
         return self.output
 
     # Returns input_error=dE/dX for a given output_error=dE/dY.
     # learning_rate is not used because there is no "learnable" parameters.
     def backward_propagation(self, output_error: NDArray, learning_rate: NDArray) -> NDArray:
-        return self.activation_prime(self.input) * output_error
+        return self.activation_function.derivative(self.input) * output_error
