@@ -24,6 +24,6 @@ def tanh(x):
     return np.tanh(x)
 
 
-def tanh_prime(x):
+def tanh_derivative(x):
     """Computes the derivative of the hyperbolic tangent function."""
     return 1-np.tanh(x)**2
