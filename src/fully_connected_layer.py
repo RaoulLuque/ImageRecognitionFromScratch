@@ -23,12 +23,14 @@ class FCLayer(Layer):
         self.output: NDArray[Shape["self.weights.shape[1]"], Any] = np.dot(self.input, self.weights) + self.bias
         return self.output
 
-    # computes dE/dW, dE/dB for a given output_error=dE/dY. Returns input_error=dE/dX.
+    # computes dC/dW, dC/dB for a given output_error=dC/dZ. Returns input_error=dC/dA.
     def backward_propagation(self, output_error: NDArray, learning_rate: NDArray) -> NDArray:
-        input_error: NDArray = np.dot(output_error, self.weights.T)
         weights_error: NDArray = np.dot(self.input.T, output_error)
 
         # Update weights and bias
         self.weights -= learning_rate * weights_error
         self.bias -= learning_rate * output_error
+
+        # Compute error to propagate to previous layer (multiply dC/dZ by dZ/dA to obtain dC/dA)
+        input_error: NDArray = np.dot(output_error, self.weights.T)
         return input_error

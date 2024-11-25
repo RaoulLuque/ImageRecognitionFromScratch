@@ -19,7 +19,7 @@ class ActivationLayer(Layer):
         self.output = self.activation_function.function(self.input)
         return self.output
 
-    # Returns input_error=dE/dX for a given output_error=dE/dY.
+    # Returns input_error=dC/dZ for a given output_error=dC/dA.
     # learning_rate is not used because there is no "learnable" parameters.
     def backward_propagation(self, output_error: NDArray, learning_rate: NDArray) -> NDArray:
         return self.activation_function.derivative(self.input) * output_error
