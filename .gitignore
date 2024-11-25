@@ -14,3 +14,4 @@ wheels/
 
 # Project specific files
 /tmp
+tmp_result.txt
