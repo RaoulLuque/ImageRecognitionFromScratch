@@ -51,10 +51,38 @@ def ReLu_derivative(x):
 
 
 def tanh(x):
-    """Computes the hyperbolic tangent function."""
+    """
+    Computes the hyperbolic tangent function.
+    :param x: Input
+    :return: Output of the hyperbolic tangent function.
+    """
     return np.tanh(x)
 
 
 def tanh_derivative(x):
-    """Computes the derivative of the hyperbolic tangent function."""
+    """
+    Computes the derivative of the hyperbolic tangent function.
+    :param x: Input
+    :return: Output of the derivative of the hyperbolic tangent function.
+    """
     return 1-np.tanh(x)**2
+
+
+def softmax(x):
+    """
+    Computes the softmax function.
+    :param x: Input
+    :return: Output of the softmax function.
+    """
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
+
+
+def softmax_derivative(x):
+    """
+    Computes the derivative of the softmax function.
+    :param x: Input
+    :return: Output of the derivative of the softmax function.
+    """
+    return softmax(x) * (1 - softmax(x))
+
