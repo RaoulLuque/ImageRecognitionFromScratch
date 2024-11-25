@@ -1,3 +1,5 @@
+import numpy as np
+
 from src.activation_function import ActivationFunction
 from src.activation_layer import ActivationLayer
 from src.fully_connected_layer import FCLayer
@@ -23,6 +25,16 @@ def main():
     y_test = to_categorical(y_test)
 
     # Create neural network
+    model = create_model()
+
+    # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
+    model.set_loss_function(LossFunction.mse)
+    model.fit(x_train[0:5000], y_train[0:5000], epochs=100, learning_rate=0.1)
+
+    test_model(model, x_test, y_test)
+
+
+def create_model() -> Network:
     model = Network()
     model.add_layer(FCLayer(28 * 28, 100))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
     model.add_layer(ActivationLayer(ActivationFunction.tanh))
@@ -30,10 +42,23 @@ def main():
     model.add_layer(ActivationLayer(ActivationFunction.tanh))
     model.add_layer(FCLayer(50, 10))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
     model.add_layer(ActivationLayer(ActivationFunction.tanh))
+    return model
 
-    # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
-    model.set_loss_function(LossFunction.mse)
-    model.fit(x_train[0:1000], y_train[0:1000], epochs=35, learning_rate=0.1)
+
+def test_model(model: Network, x_test, y_test):
+    predictions = model.predict(x_test)
+    predictions_flattened = np.array(predictions).reshape(len(predictions), 10)
+
+    # Convert predictions to label indices
+    predicted_labels = np.argmax(predictions_flattened, axis=1)
+    actual_labels = np.argmax(y_test, axis=1)
+
+    # Compare predicted labels with true labels
+    correct_predictions = np.sum(predicted_labels == actual_labels)
+
+    print(f"Number of correctly recognized images: {correct_predictions} out of {len(x_test)}")
+    error = (len(x_test) - correct_predictions) / len(x_test)
+    print(f"The error rate is {error * 100}%")
 
 
 if __name__ == "__main__":
