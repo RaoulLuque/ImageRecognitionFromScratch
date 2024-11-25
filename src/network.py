@@ -2,6 +2,7 @@ from nptyping.ndarray import NDArray
 
 from src.layer import Layer
 from src.loss_function import LossFunction
+from src.optimizations import shuffle_in_unison
 
 
 class Network:
@@ -61,6 +62,8 @@ class Network:
 
         # training loop
         for i in range(epochs):
+            x_train, y_train = shuffle_in_unison(x_train, y_train)
+
             err = 0
             for j in range(number_of_samples):
                 # forward propagation

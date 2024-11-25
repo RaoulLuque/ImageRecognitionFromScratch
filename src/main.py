@@ -29,7 +29,7 @@ def main():
 
     # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
     model.set_loss_function(LossFunction.mse)
-    model.fit(x_train[0:5000], y_train[0:5000], epochs=100, learning_rate=0.1)
+    model.fit(x_train[0:5000], y_train[0:5000], epochs=25, learning_rate=0.1)
 
     test_model(model, x_test, y_test)
 
