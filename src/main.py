@@ -3,14 +3,11 @@ import numpy as np
 from src.activation_function import ActivationFunction
 from src.activation_layer import ActivationLayer
 from src.fully_connected_layer import FCLayer
+from src.learning_rate_schedulers import LearningRateScheduler
 from src.loss_function import LossFunction
 from src.network import Network
 from src.read_data import read_data, to_categorical
-
-# Hyper parameters
-EPOCHS = 100
-LEARNING_RATE = 0.1
-BATCH_SIZE = 32
+from src.config import EPOCHS, BATCH_SIZE
 
 
 def main():
@@ -34,7 +31,7 @@ def main():
 
     # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
     model.set_loss_function(LossFunction.mse)
-    model.fit(x_train[0:5000], y_train[0:5000], epochs=EPOCHS, learning_rate=LEARNING_RATE, batch_size=BATCH_SIZE)
+    model.fit(x_train[0:5000], y_train[0:5000], epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.naive, batch_size=BATCH_SIZE)
 
     test_model(model, x_test, y_test)
 

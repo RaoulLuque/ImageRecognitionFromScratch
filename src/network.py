@@ -2,7 +2,9 @@ import numpy as np
 from nptyping.ndarray import NDArray
 
 from src.layer import Layer
+from src.learning_rate_schedulers import LearningRateScheduler
 from src.loss_function import LossFunction
+from src.config import LEARNING_RATE
 from src.optimizations import shuffle_in_unison, create_batches
 
 
@@ -50,22 +52,26 @@ class Network:
 
         return result
 
-    def fit(self, x_train: NDArray, y_train: NDArray, epochs: int, learning_rate, batch_size: int = 1):
+    def fit(self, x_train: NDArray, y_train: NDArray, epochs: int, learning_rate_scheduler: LearningRateScheduler, batch_size: int = 1):
         """
         Train the network on the given training data.
         :param x_train: Training data for the network.
         :param y_train: Training labels for the network.
         :param epochs: Number of epochs to train the network for.
-        :param learning_rate: Learning rate to be used to training the network.
+        :param learning_rate_scheduler: Learning rate scheduler to be used by the network.
         :param batch_size: Size of the batches to use for training. Defaults to 1 (stochastic descent)
-        :return:
         """
         number_of_samples = len(x_train)
+        learning_rate = LEARNING_RATE
 
         # training loop
         for i in range(epochs):
+            # Shuffle data and create batches
             x_train, y_train = shuffle_in_unison(x_train, y_train)
             x_train_batches, y_train_batches = create_batches(x_train, y_train, batch_size)
+
+            # Set learning rate for this epoch
+            learning_rate = learning_rate_scheduler.get_learning_rate(learning_rate, i)
 
             # Error of the epoch to be displayed
             err = 0
