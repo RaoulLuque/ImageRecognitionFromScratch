@@ -1,28 +1,26 @@
-import numpy as np
-from tensorflow.keras import datasets
-from tensorflow.keras import utils
-
 from src.activation_function import ActivationFunction
 from src.activation_layer import ActivationLayer
 from src.fully_connected_layer import FCLayer
 from src.loss_function import LossFunction
 from src.network import Network
+from src.read_data import read_data, to_categorical
 
 
 def main():
-    # load MNIST dataset from server
-    (x_train, y_train), (x_test, y_test) = datasets.mnist.load_data()
+    (x_train, y_train, x_test, y_test) = read_data()
 
     # reshape and normalize input data
     x_train = x_train.reshape(x_train.shape[0], 1, 28 * 28)
     x_train = x_train.astype('float32')
     x_train /= 255
-    y_train = utils.to_categorical(y_train)
+    # Convert labels into one-hot encoding
+    y_train = to_categorical(y_train)
 
     x_test = x_test.reshape(x_test.shape[0], 1, 28 * 28)
     x_test = x_test.astype('float32')
     x_test /= 255
-    y_test = utils.to_categorical(y_test)
+
+    y_test = to_categorical(y_test)
 
     # Create neural network
     model = Network()

@@ -8,7 +8,6 @@ packages = [{ include = "src" }]
 dependencies = [
     "nptyping>=2.5.0",
     "numpy<2.0.0",
-    "tensorflow>=2.14.0",
 ]
 
 [dependency-groups]
