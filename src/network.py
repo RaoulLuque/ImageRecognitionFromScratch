@@ -1,8 +1,9 @@
+import numpy as np
 from nptyping.ndarray import NDArray
 
 from src.layer import Layer
 from src.loss_function import LossFunction
-from src.optimizations import shuffle_in_unison
+from src.optimizations import shuffle_in_unison, create_batches
 
 
 class Network:
@@ -49,13 +50,14 @@ class Network:
 
         return result
 
-    def fit(self, x_train, y_train, epochs, learning_rate):
+    def fit(self, x_train: NDArray, y_train: NDArray, epochs: int, learning_rate, batch_size: int = 1):
         """
         Train the network on the given training data.
         :param x_train: Training data for the network.
         :param y_train: Training labels for the network.
         :param epochs: Number of epochs to train the network for.
         :param learning_rate: Learning rate to be used to training the network.
+        :param batch_size: Size of the batches to use for training. Defaults to 1 (stochastic descent)
         :return:
         """
         number_of_samples = len(x_train)
@@ -63,22 +65,28 @@ class Network:
         # training loop
         for i in range(epochs):
             x_train, y_train = shuffle_in_unison(x_train, y_train)
+            x_train_batches, y_train_batches = create_batches(x_train, y_train, batch_size)
 
+            # Error of the epoch to be displayed
             err = 0
-            for j in range(number_of_samples):
-                # forward propagation
-                output = x_train[j]
-                for layer in self.layers:
-                    output = layer.forward_propagation(output)
+            for j in range(len(x_train_batches)):
+                batch_error_to_propagate: NDArray = np.zeros((1, 10))
+                for k in range(len(x_train_batches[j])):
+                    # forward propagation
+                    output = x_train_batches[j][k]
+                    for layer in self.layers:
+                        output = layer.forward_propagation(output)
 
-                # compute loss (for display purpose only)
-                err += self.loss_function.function(y_train[j], output)
+                    # compute loss (for display purpose only)
+                    err += self.loss_function.function(y_train_batches[j][k], output)
+                    batch_error_to_propagate += self.loss_function.derivative(y_train_batches[j][k], output)
+
+                # calculate average error for the batch
+                batch_error_to_propagate /= len(x_train_batches[j])
 
                 # backward propagation
-                error = self.loss_function.derivative(y_train[j], output)
-                # Iterate the layers backward because error is propagated from the last layer to the first
                 for layer in reversed(self.layers):
-                    error = layer.backward_propagation(error, learning_rate)
+                    batch_error_to_propagate = layer.backward_propagation(batch_error_to_propagate, learning_rate)
 
             # calculate average error on all samples
             err /= number_of_samples

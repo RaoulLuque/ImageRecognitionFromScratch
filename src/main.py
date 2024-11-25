@@ -7,6 +7,11 @@ from src.loss_function import LossFunction
 from src.network import Network
 from src.read_data import read_data, to_categorical
 
+# Hyper parameters
+EPOCHS = 100
+LEARNING_RATE = 0.1
+BATCH_SIZE = 32
+
 
 def main():
     (x_train, y_train, x_test, y_test) = read_data()
@@ -29,7 +34,7 @@ def main():
 
     # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
     model.set_loss_function(LossFunction.mse)
-    model.fit(x_train[0:5000], y_train[0:5000], epochs=25, learning_rate=0.1)
+    model.fit(x_train[0:5000], y_train[0:5000], epochs=EPOCHS, learning_rate=LEARNING_RATE, batch_size=BATCH_SIZE)
 
     test_model(model, x_test, y_test)
 
