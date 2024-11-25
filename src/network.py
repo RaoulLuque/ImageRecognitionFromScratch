@@ -80,4 +80,4 @@ class Network:
             # calculate average error on all samples
             err /= number_of_samples
             print(f"epoch {i+1}" + " " * (len(str(epochs)) - len(str(i+1))) +
-                  f"/{epochs}    error={err} learning rate={learning_rate}")
+                  f"/{epochs}    error=" + "{:.12f}".format(err) + f" learning rate={learning_rate}")
