@@ -38,12 +38,9 @@ class FCLayer(Layer):
                     self.beta2_t = 1
                     self.t = 0
 
-    def forward_propagation(self, input_data: NDArray, size_of_current_batch: int, current_sample_index: int) -> NDArray:
-        if current_sample_index == 0:
-            # If batch has just started, initialize and reset input array to save input data for backpropagation at the end of the batch
-            self.input = np.zeros((size_of_current_batch, 1, self.weights.shape[0]))
-        self.input[current_sample_index] = input_data
-        self.output: NDArray[Shape["self.number_of_neurons"], Any] = np.dot(self.input[current_sample_index], self.weights) + self.bias
+    def forward_propagation(self, input_data: NDArray) -> NDArray:
+        self.input = input_data
+        self.output: NDArray[Shape["self.number_of_neurons"], Any] = np.dot(self.input, self.weights) + self.bias
         return self.output
 
     # computes dC/dW, dC/dB for a given output_error=dC/dZ. Returns input_error=dC/dA.

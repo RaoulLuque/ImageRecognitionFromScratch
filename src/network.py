@@ -80,19 +80,15 @@ class Network:
             # Error of the epoch to be displayed
             err = 0
             for current_batch_index in range(len(x_train_batches)):
-                size_of_current_batch = len(x_train_batches[current_batch_index])
-                # Initialize matrix to save vectors containing the error to propagate for each sample in the batch
-                # batch_error_to_propagate[i] contains the error for sample i in the batch
-                batch_error_to_propagate: NDArray = np.zeros((size_of_current_batch, 1, 10))
-                for current_sample_index in range(size_of_current_batch):
-                    # forward propagation
-                    output = x_train_batches[current_batch_index][current_sample_index]
-                    for layer in self.layers:
-                        output = layer.forward_propagation(output, size_of_current_batch, current_sample_index)
+                # Process the entire batch x_training_bathes[current_batch_index] at once
+                # forward propagation
+                output = x_train_batches[current_batch_index]
+                for layer in self.layers:
+                    output = layer.forward_propagation(output)
 
-                    # compute loss (for display purpose only)
-                    err += self.loss_function.function(y_train_batches[current_batch_index][current_sample_index], output)
-                    batch_error_to_propagate[current_sample_index] = self.loss_function.derivative(y_train_batches[current_batch_index][current_sample_index], output)
+                # compute loss (for display purpose only)
+                err += self.loss_function.function(y_train_batches[current_batch_index], output)
+                batch_error_to_propagate = self.loss_function.derivative(y_train_batches[current_batch_index].reshape(output.shape), output)
 
                 # backward propagation
                 for layer in reversed(self.layers):

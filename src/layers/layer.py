@@ -16,13 +16,11 @@ class Layer:
         self.output: NDArray | None = None  # type: ignore
         self.number_of_neurons: int | None = None
 
-    def forward_propagation(self, input_data: NDArray, size_of_current_batch: int, current_sample_index: int) -> NDArray:
+    def forward_propagation(self, input_data: NDArray) -> NDArray:
         """
         Computest the output of a layer for a given input. Possibly has side effects on attributes of the layer,
         which is why, for predictions, the predict method should be used.
         :param input_data: Input data.
-        :param size_of_current_batch: Size of the current batch (necessary for mini-batch implementation).
-        :param current_sample_index: Index of the current sample in the batch (necessary for mini-batch implementation).
         :return: Output of the layer given the input.
         """
         raise NotImplementedError
