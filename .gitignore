@@ -13,8 +13,7 @@ wheels/
 /.idea
 
 # Logging
-*.log
-log.txt
+learning.log
 
 # Project specific files
 /tmp
