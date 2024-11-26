@@ -1,102 +1,102 @@
-epoch 1  /100    error=0.297495937150 learning rate=0.1
-epoch 2  /100    error=0.056112603294 learning rate=0.1
-epoch 3  /100    error=0.044625124734 learning rate=0.1
-epoch 4  /100    error=0.040403268107 learning rate=0.1
-epoch 5  /100    error=0.037357164197 learning rate=0.1
-epoch 6  /100    error=0.035184292713 learning rate=0.1
-epoch 7  /100    error=0.033224926065 learning rate=0.1
-epoch 8  /100    error=0.031632006798 learning rate=0.1
-epoch 9  /100    error=0.030229128681 learning rate=0.1
-epoch 10 /100    error=0.029033929250 learning rate=0.1
-epoch 11 /100    error=0.028031002227 learning rate=0.1
-epoch 12 /100    error=0.027117300076 learning rate=0.1
-epoch 13 /100    error=0.026324958986 learning rate=0.1
-epoch 14 /100    error=0.025670397265 learning rate=0.1
-epoch 15 /100    error=0.025030273361 learning rate=0.1
-epoch 16 /100    error=0.024537418833 learning rate=0.1
-epoch 17 /100    error=0.023983985338 learning rate=0.1
-epoch 18 /100    error=0.023562595676 learning rate=0.1
-epoch 19 /100    error=0.023144655359 learning rate=0.1
-epoch 20 /100    error=0.022720670533 learning rate=0.1
-epoch 21 /100    error=0.022347853615 learning rate=0.1
-epoch 22 /100    error=0.021998819842 learning rate=0.1
-epoch 23 /100    error=0.021692679066 learning rate=0.1
-epoch 24 /100    error=0.021436845305 learning rate=0.1
-epoch 25 /100    error=0.021100113532 learning rate=0.1
-epoch 26 /100    error=0.020865593333 learning rate=0.1
-epoch 27 /100    error=0.020548668448 learning rate=0.1
-epoch 28 /100    error=0.020350932683 learning rate=0.1
-epoch 29 /100    error=0.020075757969 learning rate=0.1
-epoch 30 /100    error=0.019930984239 learning rate=0.1
-epoch 31 /100    error=0.019695556649 learning rate=0.1
-epoch 32 /100    error=0.019517892455 learning rate=0.1
-epoch 33 /100    error=0.019307502820 learning rate=0.1
-epoch 34 /100    error=0.019075320874 learning rate=0.1
-epoch 35 /100    error=0.018950856672 learning rate=0.1
-epoch 36 /100    error=0.018781772798 learning rate=0.1
-epoch 37 /100    error=0.018606971726 learning rate=0.1
-epoch 38 /100    error=0.018465817096 learning rate=0.1
-epoch 39 /100    error=0.018266462498 learning rate=0.1
-epoch 40 /100    error=0.018160246307 learning rate=0.1
-epoch 41 /100    error=0.017995402309 learning rate=0.1
-epoch 42 /100    error=0.017881286665 learning rate=0.1
-epoch 43 /100    error=0.017719612524 learning rate=0.1
-epoch 44 /100    error=0.017626940372 learning rate=0.1
-epoch 45 /100    error=0.017413590709 learning rate=0.1
-epoch 46 /100    error=0.017371784732 learning rate=0.1
-epoch 47 /100    error=0.017245076974 learning rate=0.1
-epoch 48 /100    error=0.017149975172 learning rate=0.1
-epoch 49 /100    error=0.016996728208 learning rate=0.1
-epoch 50 /100    error=0.016946810609 learning rate=0.1
-epoch 51 /100    error=0.016817360129 learning rate=0.1
-epoch 52 /100    error=0.016760483632 learning rate=0.1
-epoch 53 /100    error=0.016572052872 learning rate=0.1
-epoch 54 /100    error=0.016558038530 learning rate=0.1
-epoch 55 /100    error=0.016440401027 learning rate=0.1
-epoch 56 /100    error=0.016364529934 learning rate=0.1
-epoch 57 /100    error=0.016268739691 learning rate=0.1
-epoch 58 /100    error=0.016246084572 learning rate=0.1
-epoch 59 /100    error=0.016103857039 learning rate=0.1
-epoch 60 /100    error=0.016034864922 learning rate=0.1
-epoch 61 /100    error=0.015984239425 learning rate=0.1
-epoch 62 /100    error=0.015908304579 learning rate=0.1
-epoch 63 /100    error=0.015832670857 learning rate=0.1
-epoch 64 /100    error=0.015760746989 learning rate=0.1
-epoch 65 /100    error=0.015675126329 learning rate=0.1
-epoch 66 /100    error=0.015617797954 learning rate=0.1
-epoch 67 /100    error=0.015545115225 learning rate=0.1
-epoch 68 /100    error=0.015505807328 learning rate=0.1
-epoch 69 /100    error=0.015470499400 learning rate=0.1
-epoch 70 /100    error=0.015370803393 learning rate=0.1
-epoch 71 /100    error=0.015290513081 learning rate=0.1
-epoch 72 /100    error=0.015239578040 learning rate=0.1
-epoch 73 /100    error=0.015179228714 learning rate=0.1
-epoch 74 /100    error=0.015128259433 learning rate=0.1
-epoch 75 /100    error=0.015111502669 learning rate=0.1
-epoch 76 /100    error=0.015021746858 learning rate=0.1
-epoch 77 /100    error=0.014953653614 learning rate=0.1
-epoch 78 /100    error=0.014921519864 learning rate=0.1
-epoch 79 /100    error=0.014896528392 learning rate=0.1
-epoch 80 /100    error=0.014870302930 learning rate=0.1
-epoch 81 /100    error=0.014772077546 learning rate=0.1
-epoch 82 /100    error=0.014744168231 learning rate=0.1
-epoch 83 /100    error=0.014697675824 learning rate=0.1
-epoch 84 /100    error=0.014643585080 learning rate=0.1
-epoch 85 /100    error=0.014628430206 learning rate=0.1
-epoch 86 /100    error=0.014605730137 learning rate=0.1
-epoch 87 /100    error=0.014560812733 learning rate=0.1
-epoch 88 /100    error=0.014480355373 learning rate=0.1
-epoch 89 /100    error=0.014433142957 learning rate=0.1
-epoch 90 /100    error=0.014383480340 learning rate=0.1
-epoch 91 /100    error=0.014367828597 learning rate=0.1
-epoch 92 /100    error=0.014390962354 learning rate=0.1
-epoch 93 /100    error=0.014326794548 learning rate=0.1
-epoch 94 /100    error=0.014226631547 learning rate=0.1
-epoch 95 /100    error=0.014256548400 learning rate=0.1
-epoch 96 /100    error=0.014201455657 learning rate=0.1
-epoch 97 /100    error=0.014129982724 learning rate=0.1
-epoch 98 /100    error=0.014107742655 learning rate=0.1
-epoch 99 /100    error=0.014126801448 learning rate=0.1
-epoch 100/100    error=0.014079930261 learning rate=0.1
-Number of correctly recognized images: 9328 out of 10000
-The error rate is 6.72%
+epoch 1  /100   time: 24.61s   error=0.4039   learning rate=0.1000
+epoch 2  /100   time: 20.19s   error=0.2147   learning rate=0.1000
+epoch 3  /100   time: 20.62s   error=0.1691   learning rate=0.1000
+epoch 4  /100   time: 22.78s   error=0.1404   learning rate=0.1000
+epoch 5  /100   time: 24.10s   error=0.1213   learning rate=0.1000
+epoch 6  /100   time: 21.79s   error=0.1052   learning rate=0.1000
+epoch 7  /100   time: 21.18s   error=0.0929   learning rate=0.1000
+epoch 8  /100   time: 20.81s   error=0.0828   learning rate=0.1000
+epoch 9  /100   time: 20.22s   error=0.0739   learning rate=0.1000
+epoch 10 /100   time: 22.38s   error=0.0662   learning rate=0.1000
+epoch 11 /100   time: 21.49s   error=0.0594   learning rate=0.1000
+epoch 12 /100   time: 20.00s   error=0.0537   learning rate=0.1000
+epoch 13 /100   time: 20.42s   error=0.0484   learning rate=0.1000
+epoch 14 /100   time: 20.95s   error=0.0438   learning rate=0.1000
+epoch 15 /100   time: 20.12s   error=0.0397   learning rate=0.1000
+epoch 16 /100   time: 19.85s   error=0.0360   learning rate=0.1000
+epoch 17 /100   time: 20.44s   error=0.0326   learning rate=0.1000
+epoch 18 /100   time: 20.69s   error=0.0298   learning rate=0.1000
+epoch 19 /100   time: 21.91s   error=0.0271   learning rate=0.1000
+epoch 20 /100   time: 20.06s   error=0.0248   learning rate=0.1000
+epoch 21 /100   time: 20.71s   error=0.0226   learning rate=0.1000
+epoch 22 /100   time: 19.91s   error=0.0206   learning rate=0.1000
+epoch 23 /100   time: 20.14s   error=0.0191   learning rate=0.1000
+epoch 24 /100   time: 20.25s   error=0.0176   learning rate=0.1000
+epoch 25 /100   time: 20.24s   error=0.0161   learning rate=0.1000
+epoch 26 /100   time: 19.96s   error=0.0149   learning rate=0.1000
+epoch 27 /100   time: 20.34s   error=0.0138   learning rate=0.1000
+epoch 28 /100   time: 20.28s   error=0.0129   learning rate=0.1000
+epoch 29 /100   time: 19.84s   error=0.0119   learning rate=0.1000
+epoch 30 /100   time: 20.10s   error=0.0111   learning rate=0.1000
+epoch 31 /100   time: 20.34s   error=0.0103   learning rate=0.1000
+epoch 32 /100   time: 20.12s   error=0.0097   learning rate=0.1000
+epoch 33 /100   time: 20.03s   error=0.0091   learning rate=0.1000
+epoch 34 /100   time: 19.98s   error=0.0085   learning rate=0.1000
+epoch 35 /100   time: 21.05s   error=0.0081   learning rate=0.1000
+epoch 36 /100   time: 20.61s   error=0.0076   learning rate=0.1000
+epoch 37 /100   time: 20.70s   error=0.0072   learning rate=0.1000
+epoch 38 /100   time: 19.55s   error=0.0068   learning rate=0.1000
+epoch 39 /100   time: 20.25s   error=0.0064   learning rate=0.1000
+epoch 40 /100   time: 19.70s   error=0.0061   learning rate=0.1000
+epoch 41 /100   time: 19.50s   error=0.0058   learning rate=0.1000
+epoch 42 /100   time: 21.87s   error=0.0055   learning rate=0.1000
+epoch 43 /100   time: 19.35s   error=0.0053   learning rate=0.1000
+epoch 44 /100   time: 19.40s   error=0.0050   learning rate=0.1000
+epoch 45 /100   time: 20.58s   error=0.0048   learning rate=0.1000
+epoch 46 /100   time: 19.99s   error=0.0046   learning rate=0.1000
+epoch 47 /100   time: 19.59s   error=0.0044   learning rate=0.1000
+epoch 48 /100   time: 19.80s   error=0.0042   learning rate=0.1000
+epoch 49 /100   time: 19.61s   error=0.0041   learning rate=0.1000
+epoch 50 /100   time: 19.70s   error=0.0039   learning rate=0.1000
+epoch 51 /100   time: 19.49s   error=0.0038   learning rate=0.1000
+epoch 52 /100   time: 20.03s   error=0.0037   learning rate=0.1000
+epoch 53 /100   time: 19.69s   error=0.0035   learning rate=0.1000
+epoch 54 /100   time: 19.81s   error=0.0034   learning rate=0.1000
+epoch 55 /100   time: 19.94s   error=0.0033   learning rate=0.1000
+epoch 56 /100   time: 19.82s   error=0.0032   learning rate=0.1000
+epoch 57 /100   time: 19.78s   error=0.0031   learning rate=0.1000
+epoch 58 /100   time: 19.80s   error=0.0030   learning rate=0.1000
+epoch 59 /100   time: 19.60s   error=0.0029   learning rate=0.1000
+epoch 60 /100   time: 19.94s   error=0.0028   learning rate=0.1000
+epoch 61 /100   time: 19.58s   error=0.0027   learning rate=0.1000
+epoch 62 /100   time: 19.96s   error=0.0027   learning rate=0.1000
+epoch 63 /100   time: 19.63s   error=0.0026   learning rate=0.1000
+epoch 64 /100   time: 20.11s   error=0.0025   learning rate=0.1000
+epoch 65 /100   time: 20.13s   error=0.0025   learning rate=0.1000
+epoch 66 /100   time: 19.71s   error=0.0024   learning rate=0.1000
+epoch 67 /100   time: 19.96s   error=0.0023   learning rate=0.1000
+epoch 68 /100   time: 19.86s   error=0.0023   learning rate=0.1000
+epoch 69 /100   time: 20.08s   error=0.0022   learning rate=0.1000
+epoch 70 /100   time: 19.97s   error=0.0022   learning rate=0.1000
+epoch 71 /100   time: 19.76s   error=0.0021   learning rate=0.1000
+epoch 72 /100   time: 20.08s   error=0.0021   learning rate=0.1000
+epoch 73 /100   time: 19.45s   error=0.0020   learning rate=0.1000
+epoch 74 /100   time: 19.65s   error=0.0020   learning rate=0.1000
+epoch 75 /100   time: 19.98s   error=0.0019   learning rate=0.1000
+epoch 76 /100   time: 19.52s   error=0.0019   learning rate=0.1000
+epoch 77 /100   time: 19.76s   error=0.0019   learning rate=0.1000
+epoch 78 /100   time: 20.79s   error=0.0018   learning rate=0.1000
+epoch 79 /100   time: 21.61s   error=0.0018   learning rate=0.1000
+epoch 80 /100   time: 20.90s   error=0.0018   learning rate=0.1000
+epoch 81 /100   time: 21.25s   error=0.0017   learning rate=0.1000
+epoch 82 /100   time: 21.33s   error=0.0017   learning rate=0.1000
+epoch 83 /100   time: 20.92s   error=0.0017   learning rate=0.1000
+epoch 84 /100   time: 22.45s   error=0.0016   learning rate=0.1000
+epoch 85 /100   time: 22.61s   error=0.0016   learning rate=0.1000
+epoch 86 /100   time: 25.02s   error=0.0016   learning rate=0.1000
+epoch 87 /100   time: 23.30s   error=0.0015   learning rate=0.1000
+epoch 88 /100   time: 20.20s   error=0.0015   learning rate=0.1000
+epoch 89 /100   time: 22.26s   error=0.0015   learning rate=0.1000
+epoch 90 /100   time: 20.34s   error=0.0015   learning rate=0.1000
+epoch 91 /100   time: 23.17s   error=0.0014   learning rate=0.1000
+epoch 92 /100   time: 21.72s   error=0.0014   learning rate=0.1000
+epoch 93 /100   time: 20.67s   error=0.0014   learning rate=0.1000
+epoch 94 /100   time: 19.63s   error=0.0014   learning rate=0.1000
+epoch 95 /100   time: 19.58s   error=0.0014   learning rate=0.1000
+epoch 96 /100   time: 19.65s   error=0.0013   learning rate=0.1000
+epoch 97 /100   time: 19.77s   error=0.0013   learning rate=0.1000
+epoch 98 /100   time: 27.50s   error=0.0013   learning rate=0.1000
+epoch 99 /100   time: 27.31s   error=0.0013   learning rate=0.1000
+epoch 100/100   time: 21.03s   error=0.0013   learning rate=0.1000
+Number of correctly recognized images: 9690 out of 10000
+The error rate is 3.1%
