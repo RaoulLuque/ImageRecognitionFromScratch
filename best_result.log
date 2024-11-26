@@ -1,32 +1,54 @@
-epoch 1 /30   time: 24.05s   error=0.2433   learning rate=0.0100
-epoch 2 /30   time: 24.44s   error=0.1095   learning rate=0.0100
-epoch 3 /30   time: 24.19s   error=0.0787   learning rate=0.0100
-epoch 4 /30   time: 23.84s   error=0.0577   learning rate=0.0100
-epoch 5 /30   time: 23.82s   error=0.0450   learning rate=0.0100
-epoch 6 /30   time: 23.93s   error=0.0341   learning rate=0.0100
-epoch 7 /30   time: 24.20s   error=0.0284   learning rate=0.0100
-epoch 8 /30   time: 23.79s   error=0.0218   learning rate=0.0100
-epoch 9 /30   time: 23.83s   error=0.0186   learning rate=0.0100
-epoch 10/30   time: 24.29s   error=0.0140   learning rate=0.0100
-epoch 11/30   time: 23.92s   error=0.0130   learning rate=0.0100
-epoch 12/30   time: 23.83s   error=0.0105   learning rate=0.0100
-epoch 13/30   time: 23.79s   error=0.0094   learning rate=0.0100
-epoch 14/30   time: 24.07s   error=0.0085   learning rate=0.0100
-epoch 15/30   time: 24.75s   error=0.0080   learning rate=0.0100
-epoch 16/30   time: 23.78s   error=0.0063   learning rate=0.0100
-epoch 17/30   time: 23.81s   error=0.0080   learning rate=0.0100
-epoch 18/30   time: 23.76s   error=0.0043   learning rate=0.0100
-epoch 19/30   time: 23.94s   error=0.0064   learning rate=0.0100
-epoch 20/30   time: 24.12s   error=0.0062   learning rate=0.0100
-epoch 21/30   time: 23.83s   error=0.0064   learning rate=0.0100
-epoch 22/30   time: 23.96s   error=0.0049   learning rate=0.0100
-epoch 23/30   time: 23.86s   error=0.0060   learning rate=0.0100
-epoch 24/30   time: 23.94s   error=0.0053   learning rate=0.0100
-epoch 25/30   time: 24.15s   error=0.0028   learning rate=0.0100
-epoch 26/30   time: 23.81s   error=0.0066   learning rate=0.0100
-epoch 27/30   time: 24.42s   error=0.0039   learning rate=0.0100
-epoch 28/30   time: 23.94s   error=0.0034   learning rate=0.0100
-epoch 29/30   time: 24.00s   error=0.0089   learning rate=0.0100
-epoch 30/30   time: 24.21s   error=0.0039   learning rate=0.0100
-Number of correctly recognized images: 9736 out of 10000
-The error rate is 2.64%
+--- --- --- --- --- NEW MODEL --- --- --- --- ---
+Hyperparameters: EPOCHS=50, LEARNING_RATE=0.001, BATCH_SIZE=32
+epoch 1 /50   time: 23.06s   error=6.96e-01   learning rate=1.00e-03
+epoch 2 /50   time: 22.99s   error=3.31e-01   learning rate=1.00e-03
+epoch 3 /50   time: 23.55s   error=2.67e-01   learning rate=1.00e-03
+epoch 4 /50   time: 23.03s   error=2.30e-01   learning rate=1.00e-03
+epoch 5 /50   time: 22.87s   error=2.03e-01   learning rate=1.00e-03
+epoch 6 /50   time: 23.06s   error=1.86e-01   learning rate=1.00e-03
+epoch 7 /50   time: 23.01s   error=1.72e-01   learning rate=1.00e-03
+epoch 8 /50   time: 22.87s   error=1.60e-01   learning rate=1.00e-03
+epoch 9 /50   time: 23.12s   error=1.48e-01   learning rate=1.00e-03
+epoch 10/50   time: 23.35s   error=1.41e-01   learning rate=1.00e-03
+epoch 11/50   time: 23.10s   error=1.32e-01   learning rate=1.00e-03
+epoch 12/50   time: 25.85s   error=1.26e-01   learning rate=1.00e-03
+epoch 13/50   time: 26.47s   error=1.19e-01   learning rate=1.00e-03
+epoch 14/50   time: 24.39s   error=1.14e-01   learning rate=1.00e-03
+epoch 15/50   time: 23.97s   error=1.08e-01   learning rate=1.00e-03
+epoch 16/50   time: 25.60s   error=1.05e-01   learning rate=1.00e-03
+epoch 17/50   time: 23.63s   error=9.87e-02   learning rate=1.00e-03
+epoch 18/50   time: 25.22s   error=9.70e-02   learning rate=1.00e-03
+epoch 19/50   time: 26.44s   error=9.17e-02   learning rate=1.00e-03
+epoch 20/50   time: 26.12s   error=8.74e-02   learning rate=1.00e-03
+epoch 21/50   time: 32.91s   error=8.47e-02   learning rate=1.00e-03
+epoch 22/50   time: 41.30s   error=8.12e-02   learning rate=1.00e-03
+epoch 23/50   time: 35.07s   error=7.97e-02   learning rate=1.00e-03
+epoch 24/50   time: 31.19s   error=7.48e-02   learning rate=1.00e-03
+epoch 25/50   time: 32.54s   error=7.51e-02   learning rate=1.00e-03
+epoch 26/50   time: 35.29s   error=7.12e-02   learning rate=1.00e-03
+epoch 27/50   time: 31.44s   error=6.79e-02   learning rate=1.00e-03
+epoch 28/50   time: 30.51s   error=6.60e-02   learning rate=1.00e-03
+epoch 29/50   time: 37.60s   error=6.34e-02   learning rate=1.00e-03
+epoch 30/50   time: 29.72s   error=6.10e-02   learning rate=1.00e-03
+epoch 31/50   time: 23.01s   error=6.03e-02   learning rate=1.00e-03
+epoch 32/50   time: 28.24s   error=5.81e-02   learning rate=1.00e-03
+epoch 33/50   time: 36.06s   error=5.71e-02   learning rate=1.00e-03
+epoch 34/50   time: 34.17s   error=5.31e-02   learning rate=1.00e-03
+epoch 35/50   time: 31.86s   error=5.14e-02   learning rate=1.00e-03
+epoch 36/50   time: 29.64s   error=5.19e-02   learning rate=1.00e-03
+epoch 37/50   time: 31.52s   error=5.03e-02   learning rate=1.00e-03
+epoch 38/50   time: 34.21s   error=4.88e-02   learning rate=1.00e-03
+epoch 39/50   time: 36.88s   error=4.84e-02   learning rate=1.00e-03
+epoch 40/50   time: 33.85s   error=4.59e-02   learning rate=1.00e-03
+epoch 41/50   time: 31.72s   error=4.33e-02   learning rate=1.00e-03
+epoch 42/50   time: 26.43s   error=4.27e-02   learning rate=1.00e-03
+epoch 43/50   time: 23.69s   error=4.29e-02   learning rate=1.00e-03
+epoch 44/50   time: 28.92s   error=4.06e-02   learning rate=1.00e-03
+epoch 45/50   time: 23.44s   error=4.00e-02   learning rate=1.00e-03
+epoch 46/50   time: 24.05s   error=3.82e-02   learning rate=1.00e-03
+epoch 47/50   time: 28.95s   error=3.72e-02   learning rate=1.00e-03
+epoch 48/50   time: 26.34s   error=3.56e-02   learning rate=1.00e-03
+epoch 49/50   time: 37.56s   error=3.54e-02   learning rate=1.00e-03
+epoch 50/50   time: 27.89s   error=3.50e-02   learning rate=1.00e-03
+Number of correctly recognized images: 9780 out of 10000
+The error rate is 2.1999999999999997%
