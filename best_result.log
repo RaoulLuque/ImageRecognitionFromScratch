@@ -1,0 +1,32 @@
+epoch 1 /30   time: 24.05s   error=0.2433   learning rate=0.0100
+epoch 2 /30   time: 24.44s   error=0.1095   learning rate=0.0100
+epoch 3 /30   time: 24.19s   error=0.0787   learning rate=0.0100
+epoch 4 /30   time: 23.84s   error=0.0577   learning rate=0.0100
+epoch 5 /30   time: 23.82s   error=0.0450   learning rate=0.0100
+epoch 6 /30   time: 23.93s   error=0.0341   learning rate=0.0100
+epoch 7 /30   time: 24.20s   error=0.0284   learning rate=0.0100
+epoch 8 /30   time: 23.79s   error=0.0218   learning rate=0.0100
+epoch 9 /30   time: 23.83s   error=0.0186   learning rate=0.0100
+epoch 10/30   time: 24.29s   error=0.0140   learning rate=0.0100
+epoch 11/30   time: 23.92s   error=0.0130   learning rate=0.0100
+epoch 12/30   time: 23.83s   error=0.0105   learning rate=0.0100
+epoch 13/30   time: 23.79s   error=0.0094   learning rate=0.0100
+epoch 14/30   time: 24.07s   error=0.0085   learning rate=0.0100
+epoch 15/30   time: 24.75s   error=0.0080   learning rate=0.0100
+epoch 16/30   time: 23.78s   error=0.0063   learning rate=0.0100
+epoch 17/30   time: 23.81s   error=0.0080   learning rate=0.0100
+epoch 18/30   time: 23.76s   error=0.0043   learning rate=0.0100
+epoch 19/30   time: 23.94s   error=0.0064   learning rate=0.0100
+epoch 20/30   time: 24.12s   error=0.0062   learning rate=0.0100
+epoch 21/30   time: 23.83s   error=0.0064   learning rate=0.0100
+epoch 22/30   time: 23.96s   error=0.0049   learning rate=0.0100
+epoch 23/30   time: 23.86s   error=0.0060   learning rate=0.0100
+epoch 24/30   time: 23.94s   error=0.0053   learning rate=0.0100
+epoch 25/30   time: 24.15s   error=0.0028   learning rate=0.0100
+epoch 26/30   time: 23.81s   error=0.0066   learning rate=0.0100
+epoch 27/30   time: 24.42s   error=0.0039   learning rate=0.0100
+epoch 28/30   time: 23.94s   error=0.0034   learning rate=0.0100
+epoch 29/30   time: 24.00s   error=0.0089   learning rate=0.0100
+epoch 30/30   time: 24.21s   error=0.0039   learning rate=0.0100
+Number of correctly recognized images: 9736 out of 10000
+The error rate is 2.64%

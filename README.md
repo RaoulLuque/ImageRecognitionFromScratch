@@ -15,7 +15,7 @@
   ```
 - 9-10% error rate
 - 100 epochs
-- Fixed learning rate of 0,1%
+- Fixed learning rate of 0.1
 
 ## Second model
 [9eac97e](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/9eac97e44408121367c2a4befaad8b49598b5123)
@@ -28,14 +28,15 @@
   model.add_layer(FCLayer(128, 10))       # input_shape=(1, 128)     ;   output_shape=(1, 10)
   model.add_layer(ActivationLayer(ActivationFunction.tanh, 10))
   ```
-- 6,75% error rate
+- 6.75% error rate
 - 100 epochs
-- Fixed learning rate of 0,1%
+- Fixed learning rate of 0.1
 
 ## Third model
 [73111ee](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/73111ee333557ac0d6c4aefa3cfc2a775a0cccdd)
 - Mini batch gradient descent (batch size of 32)
 - Cross entropy loss function
+- Softmax activation function on last layer
 - Model layout:
   ```
   model.add_layer(FCLayer(28 * 28, 128))  # input_shape=(1, 28*28)   ;   output_shape=(1, 128)
@@ -43,6 +44,23 @@
   model.add_layer(FCLayer(128, 10))       # input_shape=(1, 128)     ;   output_shape=(1, 10)
   model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
   ```
-- 3,1% error rate
+- 3.1% error rate
 - 100 epochs
-- Fixed learning rate of 0,1%
+- Fixed learning rate of 0.1
+
+## Fourth model
+
+- Mini batch gradient descent (batch size of 32)
+- Cross entropy loss function
+- Softmax activation function on last layer
+- Adam optimizer
+- Model layout:
+  ```
+  model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)   ;   output_shape=(1, 128)
+  model.add_layer(ActivationLayer(ActivationFunction.tanh, 128))
+  model.add_layer(FCLayer(128, 10, optimizer=Optimizer.Adam))       # input_shape=(1, 128)     ;   output_shape=(1, 10)
+  model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
+  ```
+- 2.64% error rate
+- 30 epochs
+- Fixed learning rate of 0.01
