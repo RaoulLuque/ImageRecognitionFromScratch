@@ -1,4 +1,10 @@
+
 # Models
+The following is a brief summary of different models that represent different checkpoints in development process.
+
+To run the code or a specific model, please refer to the [running a model](#running-a-model) section.
+
+The logs of the respective models can be found by clicking the links below the respective model to browse the repositories at the respective state and opening the [best_result.log](best_result.log) or [best_result.txt](best_result.log) file (depending on how old the model is).
 
 ## First model
 [3f5521c](https://github.com/RaoulLuque/image-recognition-neural-network/tree/3f5521c3a99c06911f46d639afd329db93781204)
@@ -64,3 +70,37 @@
 - 2.64% error rate
 - 30 epochs
 - Fixed learning rate of 0.01
+
+
+# Running a model
+To start up the application, one will have to install the dependencies first. [uv](https://github.com/astral-sh/uv) is recommended to be installed. An installation guide can be found [here](https://docs.astral.sh/uv/getting-started/). If [pipx](https://pipx.pypa.io/stable/) is already installed on the machine, it is as easy as
+````commandline
+pipx install uv
+````
+
+After having installed uv, to create a venv and install the necessary dependencies, run:
+```commandline
+uv python install
+uv sync --all-extras --dev
+```
+The above will install all dependencies. To finish the setup of the python environment, please also run:
+```commandline
+set -a
+source .env
+```
+
+Now the project could be run with
+```commandline
+uv run src/main.py
+```
+However, the project uses [poethepoet](https://github.com/nat-n/poethepoet) as a task runner. To install poethepoet, run with pipx installed
+````commandline
+pipx install poethepoet
+````
+
+Now the application can be started by running
+```commandline
+poe run
+```
+
+To run a specific model, click on the link provided below the model in this README, and download the source code of that specific commit and proceed as described above.
