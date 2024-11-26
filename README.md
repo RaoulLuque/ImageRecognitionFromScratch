@@ -33,7 +33,7 @@
 - Fixed learning rate of 0,1%
 
 ## Third model
-
+[73111ee](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/73111ee333557ac0d6c4aefa3cfc2a775a0cccdd)
 - Mini batch gradient descent (batch size of 32)
 - Cross entropy loss function
 - Model layout:
