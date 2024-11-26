@@ -1,6 +1,6 @@
 import numpy as np
 
-from layer import Layer
+from src.layers.layer import Layer
 from nptyping import NDArray
 
 from src.layers.activation_function import ActivationFunction

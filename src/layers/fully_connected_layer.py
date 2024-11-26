@@ -1,6 +1,6 @@
 from typing import Any
 
-from layer import Layer
+from src.layers.layer import Layer
 import numpy as np
 from nptyping import NDArray, Shape
 
