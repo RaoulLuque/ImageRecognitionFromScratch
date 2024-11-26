@@ -12,4 +12,19 @@
   model.add_layer(FCLayer(50, 10))  # input_shape=(1, 50)            ;   output_shape=(1, 10)
   model.add_layer(ActivationLayer(ActivationFunction.tanh))
   ```
-- 9-10% error rate after 100 epochs
+- 9-10% error rate
+- 100 epochs
+- Fixed learning rate of 0,1%
+
+## Second model
+- Mini batch gradient descent
+  - Model layout:
+    ```
+    model.add_layer(FCLayer(28 * 28, 128))  # input_shape=(1, 28*28)   ;   output_shape=(1, 128)
+    model.add_layer(ActivationLayer(ActivationFunction.tanh, 128))
+    model.add_layer(FCLayer(128, 10))       # input_shape=(1, 128)     ;   output_shape=(1, 10)
+    model.add_layer(ActivationLayer(ActivationFunction.tanh, 10))
+    ```
+- 6,75% error rate
+- 100 epochs
+- Fixed learning rate of 0,1%
