@@ -9,6 +9,7 @@ from src.fully_connected_layer import FCLayer
 from src.learning_rate_schedulers import LearningRateScheduler
 from src.loss_function import LossFunction
 from src.network import Network
+from src.optimizers import Optimizer
 from src.read_data import read_data, to_categorical
 from src.config import EPOCHS, BATCH_SIZE, LOG_FILE
 
@@ -64,11 +65,11 @@ def main():
 
 def create_model() -> Network:
     model = Network()
-    model.add_layer(FCLayer(28 * 28, 128))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
+    model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
     model.add_layer(ActivationLayer(ActivationFunction.tanh, 128))
     # model.add_layer(FCLayer(100, 50))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
     # model.add_layer(ActivationLayer(ActivationFunction.tanh, 50))
-    model.add_layer(FCLayer(128, 10))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
+    model.add_layer(FCLayer(128, 10, optimizer=Optimizer.Adam))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
     return model
 

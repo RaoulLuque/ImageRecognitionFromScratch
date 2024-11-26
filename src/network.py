@@ -7,7 +7,7 @@ from src.layer import Layer
 from src.learning_rate_schedulers import LearningRateScheduler
 from src.loss_function import LossFunction
 from src.config import LEARNING_RATE, LOG_FILE
-from src.optimizations import shuffle_in_unison, create_batches
+from src.utils import shuffle_in_unison, create_batches
 
 
 class Network:
@@ -67,7 +67,7 @@ class Network:
         learning_rate = LEARNING_RATE
 
         # training loop
-        for i in range(epochs):
+        for epoch_index in range(epochs):
             start_time = time.time()
 
             # Shuffle data and create batches
@@ -75,34 +75,34 @@ class Network:
             x_train_batches, y_train_batches = create_batches(x_train, y_train, batch_size)
 
             # Set learning rate for this epoch
-            learning_rate = learning_rate_scheduler.get_learning_rate(learning_rate, i)
+            learning_rate = learning_rate_scheduler.get_learning_rate(learning_rate, epoch_index)
 
             # Error of the epoch to be displayed
             err = 0
-            for j in range(len(x_train_batches)):
-                size_of_current_batch = len(x_train_batches[j])
+            for current_batch_index in range(len(x_train_batches)):
+                size_of_current_batch = len(x_train_batches[current_batch_index])
                 # Initialize matrix to save vectors containing the error to propagate for each sample in the batch
                 # batch_error_to_propagate[i] contains the error for sample i in the batch
                 batch_error_to_propagate: NDArray = np.zeros((size_of_current_batch, 1, 10))
-                for k in range(size_of_current_batch):
+                for current_sample_index in range(size_of_current_batch):
                     # forward propagation
-                    output = x_train_batches[j][k]
+                    output = x_train_batches[current_batch_index][current_sample_index]
                     for layer in self.layers:
-                        output = layer.forward_propagation(output, size_of_current_batch, k)
+                        output = layer.forward_propagation(output, size_of_current_batch, current_sample_index)
 
                     # compute loss (for display purpose only)
-                    err += self.loss_function.function(y_train_batches[j][k], output)
-                    batch_error_to_propagate[k] = self.loss_function.derivative(y_train_batches[j][k], output)
+                    err += self.loss_function.function(y_train_batches[current_batch_index][current_sample_index], output)
+                    batch_error_to_propagate[current_sample_index] = self.loss_function.derivative(y_train_batches[current_batch_index][current_sample_index], output)
 
                 # backward propagation
                 for layer in reversed(self.layers):
-                    batch_error_to_propagate = layer.backward_propagation(batch_error_to_propagate, learning_rate)
+                    batch_error_to_propagate = layer.backward_propagation(batch_error_to_propagate, learning_rate, epoch_index + 1)
 
             # calculate average error on all samples
             err /= number_of_samples
             end_time = time.time()
             elapsed_time = end_time - start_time
-            string_to_be_logged = (f"epoch {i+1}" + " " * (len(str(epochs)) - len(str(i+1)))+ f"/{epochs}   "
+            string_to_be_logged = (f"epoch {epoch_index + 1}" + " " * (len(str(epochs)) - len(str(epoch_index + 1))) + f"/{epochs}   "
                                    + "time: " + "{:.2f}".format(elapsed_time) + "s   "
                                    + "error=" + "{:.4f}".format(err) + "   "
                                    + "learning rate=" + "{:.4f}".format(learning_rate))
