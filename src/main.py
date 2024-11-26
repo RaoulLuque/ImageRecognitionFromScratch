@@ -1,3 +1,6 @@
+import pickle
+import time
+
 import numpy as np
 
 from src.activation_function import ActivationFunction
@@ -34,12 +37,26 @@ def main():
 
     y_test = to_categorical(y_test)
 
-    # Create neural network
-    model = create_model()
+    # Change model_to_load to filename in models/ to load a model. Otherwise a new model will be trained.
+    model_to_load = None
+    model = None
 
-    # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
-    model.set_loss_function(LossFunction.categorical_cross_entropy)
-    model.fit(x_train, y_train, epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.const, batch_size=BATCH_SIZE)
+    if model_to_load is None:
+        # Create neural network
+        model = create_model()
+
+        # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
+        model.set_loss_function(LossFunction.categorical_cross_entropy)
+        model.fit(x_train, y_train, epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.const, batch_size=BATCH_SIZE)
+
+        # Save the model
+        model_path = f"models/model_{time.time()}.pkl"
+        with open(model_path, "wb") as f:
+            pickle.dump(model, f)
+    else:
+        model_path = f"models/{model_to_load}"
+        with open(model_path, "rb") as f:
+            model = pickle.load(f)
 
     test_model(model, x_test, y_test)
 
