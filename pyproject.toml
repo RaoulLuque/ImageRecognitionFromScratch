@@ -1,5 +1,5 @@
 [project]
-name = "image-recognition-neural-network"
+name = "ImageRecognitionFromScratch"
 version = "0.1.0"
 description = "Neural network for image recognition from scratch using numpy"
 readme = "README.md"

@@ -5,4 +5,4 @@ _EPSILON = 1e-7
 # Hyperparameters for network training
 EPOCHS = 100
 LEARNING_RATE = 0.1
-BATCH_SIZE = 1
+BATCH_SIZE = 32

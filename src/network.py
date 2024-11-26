@@ -47,7 +47,7 @@ class Network:
         for i in range(samples):
             output = input_data[i]
             for layer in self.layers:
-                output = layer.forward_propagation(output)
+                output = layer.predict(output)
             result.append(output)
 
         return result
@@ -76,19 +76,19 @@ class Network:
             # Error of the epoch to be displayed
             err = 0
             for j in range(len(x_train_batches)):
-                batch_error_to_propagate: NDArray = np.zeros((1, 10))
-                for k in range(len(x_train_batches[j])):
+                size_of_current_batch = len(x_train_batches[j])
+                # Initialize matrix to save vectors containing the error to propagate for each sample in the batch
+                # batch_error_to_propagate[i] contains the error for sample i in the batch
+                batch_error_to_propagate: NDArray = np.zeros((size_of_current_batch, 1, 10))
+                for k in range(size_of_current_batch):
                     # forward propagation
                     output = x_train_batches[j][k]
                     for layer in self.layers:
-                        output = layer.forward_propagation(output)
+                        output = layer.forward_propagation(output, size_of_current_batch, k)
 
                     # compute loss (for display purpose only)
                     err += self.loss_function.function(y_train_batches[j][k], output)
-                    batch_error_to_propagate += self.loss_function.derivative(y_train_batches[j][k], output)
-
-                # calculate average error for the batch
-                batch_error_to_propagate /= len(x_train_batches[j])
+                    batch_error_to_propagate[k] = self.loss_function.derivative(y_train_batches[j][k], output)
 
                 # backward propagation
                 for layer in reversed(self.layers):

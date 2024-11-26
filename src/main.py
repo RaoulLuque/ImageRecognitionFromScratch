@@ -31,19 +31,19 @@ def main():
 
     # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
     model.set_loss_function(LossFunction.mse)
-    model.fit(x_train[0:5000], y_train[0:5000], epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.naive, batch_size=BATCH_SIZE)
+    model.fit(x_train, y_train, epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.const, batch_size=BATCH_SIZE)
 
     test_model(model, x_test, y_test)
 
 
 def create_model() -> Network:
     model = Network()
-    model.add_layer(FCLayer(28 * 28, 100))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
-    model.add_layer(ActivationLayer(ActivationFunction.tanh))
-    model.add_layer(FCLayer(100, 50))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
-    model.add_layer(ActivationLayer(ActivationFunction.tanh))
-    model.add_layer(FCLayer(50, 10))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
-    model.add_layer(ActivationLayer(ActivationFunction.tanh))
+    model.add_layer(FCLayer(28 * 28, 128))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
+    model.add_layer(ActivationLayer(ActivationFunction.tanh, 128))
+    # model.add_layer(FCLayer(100, 50))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
+    # model.add_layer(ActivationLayer(ActivationFunction.tanh, 50))
+    model.add_layer(FCLayer(128, 10))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
+    model.add_layer(ActivationLayer(ActivationFunction.tanh, 10))
     return model
 
 
