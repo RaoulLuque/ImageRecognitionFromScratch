@@ -1,3 +1,5 @@
+import time
+
 import numpy as np
 from nptyping.ndarray import NDArray
 
@@ -66,6 +68,8 @@ class Network:
 
         # training loop
         for i in range(epochs):
+            start_time = time.time()
+
             # Shuffle data and create batches
             x_train, y_train = shuffle_in_unison(x_train, y_train)
             x_train_batches, y_train_batches = create_batches(x_train, y_train, batch_size)
@@ -96,5 +100,7 @@ class Network:
 
             # calculate average error on all samples
             err /= number_of_samples
+            end_time = time.time()
+            elapsed_time = end_time - start_time
             print(f"epoch {i+1}" + " " * (len(str(epochs)) - len(str(i+1))) +
-                  f"/{epochs}    error=" + "{:.12f}".format(err) + f" learning rate={learning_rate}")
+                  f"/{epochs}   " "time: " + "{:.2f}".format(elapsed_time) + "s   error=" + "{:.4f}".format(err) + "   learning rate=" + "{:.4f}".format(learning_rate))
