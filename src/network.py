@@ -3,9 +3,9 @@ import time
 import numpy as np
 from nptyping.ndarray import NDArray
 
-from src.layer import Layer
-from src.learning_rate_schedulers import LearningRateScheduler
-from src.loss_function import LossFunction
+from src.layers.layer import Layer
+from src.add_ons.learning_rate_schedulers import LearningRateScheduler
+from src.add_ons.loss_function import LossFunction
 from src.config import LEARNING_RATE, LOG_FILE
 from src.utils import shuffle_in_unison, create_batches
 

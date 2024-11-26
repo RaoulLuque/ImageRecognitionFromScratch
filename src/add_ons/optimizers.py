@@ -7,7 +7,12 @@ from src.config import EPSILON
 
 
 class Optimizer(Enum):
-    """Enum class for optimizers."""
+    """
+    Enum class for optimizers.
+
+    Adam is implemented according to the paper: https://arxiv.org/abs/1412.6980. Adam parameters are updated in each
+    backpropagation step, but the t parameter is updated only after the end of each epoch6.
+    """
     Adam = "Adam"
 
     def update_parameters(

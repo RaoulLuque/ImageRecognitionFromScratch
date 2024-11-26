@@ -4,7 +4,7 @@ from layer import Layer
 import numpy as np
 from nptyping import NDArray, Shape
 
-from src.optimizers import Optimizer
+from src.add_ons.optimizers import Optimizer
 
 
 class FCLayer(Layer):

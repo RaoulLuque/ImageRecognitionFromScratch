@@ -3,14 +3,14 @@ import pickle
 
 import numpy as np
 
-from src.activation_function import ActivationFunction
-from src.activation_layer import ActivationLayer
-from src.fully_connected_layer import FCLayer
-from src.learning_rate_schedulers import LearningRateScheduler
-from src.loss_function import LossFunction
+from src.layers.activation_function import ActivationFunction
+from src.layers.activation_layer import ActivationLayer
+from src.layers.fully_connected_layer import FCLayer
+from src.add_ons.learning_rate_schedulers import LearningRateScheduler
+from src.add_ons.loss_function import LossFunction
 from src.network import Network
-from src.optimizers import Optimizer
-from src.read_data import read_data, to_categorical
+from src.add_ons.optimizers import Optimizer
+from src.utils.read_data import read_data, to_categorical
 from src.config import EPOCHS, BATCH_SIZE, LOG_FILE
 
 
