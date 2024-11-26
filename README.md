@@ -8,7 +8,7 @@ The logs of the respective models can be found by clicking the links below the r
 
 ## First model
 [3f5521c](https://github.com/RaoulLuque/image-recognition-neural-network/tree/3f5521c3a99c06911f46d639afd329db93781204)
-- Stochastic gradient descent (batch size of 32)
+- Stochastic gradient descent (batch size of 1)
 - Mean square error function
 - Model layout:
   ```
@@ -55,7 +55,7 @@ The logs of the respective models can be found by clicking the links below the r
 - Fixed learning rate of 0.1
 
 ## Fourth model
-
+[d578b4b](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/d578b4b0c7c053d292ae270f1e7d40fed14926c5)
 - Mini batch gradient descent (batch size of 32)
 - Cross entropy loss function
 - Softmax activation function on last layer
