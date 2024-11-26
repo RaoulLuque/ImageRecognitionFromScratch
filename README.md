@@ -17,6 +17,7 @@
 - Fixed learning rate of 0,1%
 
 ## Second model
+[9eac97e](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/9eac97e44408121367c2a4befaad8b49598b5123)
 - Mini batch gradient descent
   - Model layout:
     ```
