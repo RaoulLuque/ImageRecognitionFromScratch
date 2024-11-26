@@ -28,7 +28,12 @@ class ActivationLayer(Layer):
     # Returns input_error=dC/dZ for a given output_error=dC/dA by multiplying dA/dZ by dC/dA.
     # learning_rate is not used because there is no "learnable" parameters.
     def backward_propagation(self, output_error: NDArray, learning_rate: NDArray) -> NDArray:
-        return np.multiply(self.activation_function.derivative(self.input), output_error)
+        # If the activation function is softmax, the derivative is not applied since it has been applied already in the
+        # loss layer, which has to be categorical cross entropy.
+        if self.activation_function == ActivationFunction.softmax:
+            return output_error
+        else:
+            return np.multiply(self.activation_function.derivative(self.input), output_error)
 
     def predict(self, input_data: NDArray) -> NDArray:
         return self.activation_function.function(input_data)

@@ -6,6 +6,7 @@ class ActivationFunction(Enum):
     """Enum class for activation functions."""
     ReLu = "ReLu"
     tanh = "tanh"
+    softmax = "softmax"
 
     def function(self, x: np.ndarray) -> np.ndarray:
         """
@@ -18,6 +19,8 @@ class ActivationFunction(Enum):
                 return ReLu(x)
             case ActivationFunction.tanh:
                 return tanh(x)
+            case ActivationFunction.softmax:
+                return softmax(x)
 
     def derivative(self, x: np.ndarray) -> np.ndarray:
         """
@@ -30,6 +33,8 @@ class ActivationFunction(Enum):
                 return ReLu_derivative(x)
             case ActivationFunction.tanh:
                 return tanh_derivative(x)
+            case ActivationFunction.softmax:
+                return softmax_derivative(x)
 
 
 def ReLu(x):
@@ -81,6 +86,9 @@ def softmax(x):
 def softmax_derivative(x):
     """
     Computes the derivative of the softmax function.
+
+    *ATTENTION* This derivative in the last layer of backpropagation, since we compute the combined derivative
+    of the softmax activation function and the (categorical) cross entropy loss function.
     :param x: Input
     :return: Output of the derivative of the softmax function.
     """
