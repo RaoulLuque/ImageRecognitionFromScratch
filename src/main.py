@@ -1,5 +1,5 @@
+import datetime
 import pickle
-import time
 
 import numpy as np
 
@@ -42,7 +42,7 @@ def main():
     model = None
 
     if model_to_load is None:
-        # Create neural network
+        # If there is no model to load, create a new neural network
         model = create_model()
 
         # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
@@ -50,8 +50,9 @@ def main():
         model.fit(x_train, y_train, epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.const, batch_size=BATCH_SIZE)
 
         # Save the model
-        model_path = f"models/model_{time.time()}.pkl"
+        model_path = f"models/model_{datetime.datetime.now().strftime('%Y_%m_%dT%H:%M:%S')}.pkl"
         with open(model_path, "wb") as f:
+            # noinspection PyTypeChecker
             pickle.dump(model, f)
     else:
         model_path = f"models/{model_to_load}"
