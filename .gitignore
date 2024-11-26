@@ -12,6 +12,10 @@ wheels/
 # PyCharm
 /.idea
 
+# Logging
+*.log
+log.txt
+
 # Project specific files
 /tmp
 tmp_result.txt

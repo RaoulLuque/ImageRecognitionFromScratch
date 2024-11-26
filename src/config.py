@@ -6,3 +6,6 @@ _EPSILON = 1e-7
 EPOCHS = 100
 LEARNING_RATE = 0.1
 BATCH_SIZE = 32
+
+# Logging
+LOG_FILE = "learning.log"

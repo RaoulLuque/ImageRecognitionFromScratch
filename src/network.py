@@ -6,7 +6,7 @@ from nptyping.ndarray import NDArray
 from src.layer import Layer
 from src.learning_rate_schedulers import LearningRateScheduler
 from src.loss_function import LossFunction
-from src.config import LEARNING_RATE
+from src.config import LEARNING_RATE, LOG_FILE
 from src.optimizations import shuffle_in_unison, create_batches
 
 
@@ -102,5 +102,10 @@ class Network:
             err /= number_of_samples
             end_time = time.time()
             elapsed_time = end_time - start_time
-            print(f"epoch {i+1}" + " " * (len(str(epochs)) - len(str(i+1))) +
-                  f"/{epochs}   " "time: " + "{:.2f}".format(elapsed_time) + "s   error=" + "{:.4f}".format(err) + "   learning rate=" + "{:.4f}".format(learning_rate))
+            string_to_be_logged = (f"epoch {i+1}" + " " * (len(str(epochs)) - len(str(i+1)))+ f"/{epochs}   "
+                                   + "time: " + "{:.2f}".format(elapsed_time) + "s   "
+                                   + "error=" + "{:.4f}".format(err) + "   "
+                                   + "learning rate=" + "{:.4f}".format(learning_rate))
+            print(string_to_be_logged)
+            with open(LOG_FILE, 'a') as log_file:
+                log_file.write(string_to_be_logged + "\n")

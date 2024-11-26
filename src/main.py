@@ -7,10 +7,18 @@ from src.learning_rate_schedulers import LearningRateScheduler
 from src.loss_function import LossFunction
 from src.network import Network
 from src.read_data import read_data, to_categorical
-from src.config import EPOCHS, BATCH_SIZE
+from src.config import EPOCHS, BATCH_SIZE, LOG_FILE
 
 
 def main():
+    # Create log file if it does not exist already
+    try:
+        with open(LOG_FILE, 'x') as log_file:
+            pass
+    except:
+        pass
+
+    # Read training and test data
     (x_train, y_train, x_test, y_test) = read_data()
 
     # reshape and normalize input data
@@ -58,9 +66,16 @@ def test_model(model: Network, x_test, y_test):
     # Compare predicted labels with true labels
     correct_predictions = np.sum(predicted_labels == actual_labels)
 
-    print(f"Number of correctly recognized images: {correct_predictions} out of {len(x_test)}")
+    # Log the results
+    string_to_be_logged = f"Number of correctly recognized images: {correct_predictions} out of {len(x_test)}"
+    print(string_to_be_logged)
+    with open(LOG_FILE, 'a') as log_file:
+        log_file.write(string_to_be_logged + "\n")
     error = (len(x_test) - correct_predictions) / len(x_test)
-    print(f"The error rate is {error * 100}%")
+    string_to_be_logged = f"The error rate is {error * 100}%"
+    print(string_to_be_logged)
+    with open(LOG_FILE, 'a') as log_file:
+        log_file.write(string_to_be_logged + "\n")
 
 
 if __name__ == "__main__":
