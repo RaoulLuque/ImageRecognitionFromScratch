@@ -5,13 +5,14 @@ import numpy as np
 
 from src.layers.activation_function import ActivationFunction
 from src.layers.activation_layer import ActivationLayer
+from src.layers.dropout_layer import DropoutLayer
 from src.layers.fully_connected_layer import FCLayer
 from src.add_ons.learning_rate_schedulers import LearningRateScheduler
 from src.add_ons.loss_function import LossFunction
 from src.network import Network
 from src.add_ons.optimizers import Optimizer
 from src.utils.read_data import read_data, to_categorical
-from src.config import EPOCHS, BATCH_SIZE, LOG_FILE
+from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE
 
 
 def main():
@@ -21,6 +22,12 @@ def main():
             pass
     except:
         pass
+
+    # Log hyper Parameters:
+    string_to_be_logged = f"--- --- --- --- --- NEW MODEL --- --- --- --- ---\nHyperparameters: EPOCHS={EPOCHS}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={BATCH_SIZE}\n"
+    print(string_to_be_logged)
+    with open(LOG_FILE, 'a') as log_file:
+        log_file.write(string_to_be_logged)
 
     # Read training and test data
     (x_train, y_train, x_test, y_test) = read_data()
@@ -66,7 +73,8 @@ def main():
 def create_model() -> Network:
     model = Network()
     model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
-    model.add_layer(ActivationLayer(ActivationFunction.tanh, 128))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 128))
+    model.add_layer(DropoutLayer(0.2, 128))
     # model.add_layer(FCLayer(100, 50))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
     # model.add_layer(ActivationLayer(ActivationFunction.tanh, 50))
     model.add_layer(FCLayer(128, 10, optimizer=Optimizer.Adam))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
