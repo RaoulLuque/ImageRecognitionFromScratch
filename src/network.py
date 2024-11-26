@@ -104,8 +104,8 @@ class Network:
             elapsed_time = end_time - start_time
             string_to_be_logged = (f"epoch {epoch_index + 1}" + " " * (len(str(epochs)) - len(str(epoch_index + 1))) + f"/{epochs}   "
                                    + "time: " + "{:.2f}".format(elapsed_time) + "s   "
-                                   + "error=" + "{:.4f}".format(err) + "   "
-                                   + "learning rate=" + "{:.4f}".format(learning_rate))
+                                   + "error=" + "{:.2e}".format(err) + "   "
+                                   + "learning rate=" + "{:.2e}".format(learning_rate))
             print(string_to_be_logged)
             with open(LOG_FILE, 'a') as log_file:
                 log_file.write(string_to_be_logged + "\n")
