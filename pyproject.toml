@@ -8,12 +8,38 @@ packages = [{ include = "src" }]
 dependencies = [
     "nptyping>=2.5.0",
     "numpy<2.0.0",
+    "opencv-python-headless>=4.10.0.84",
+    "scipy>=1.14.1",
 ]
 
 [dependency-groups]
 dev = [
+    "pytest==8.3.3",
+    "pytest-cov==5.0.0",
+    "pytest-mock<4.0.0,>=3.14.0",
     "mypy>=1.13.0",
     "ruff>=0.8.0",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = """
+--doctest-modules --junitxml=reports/test-results.xml
+--cov=src --cov-report=xml:reports/coverage-summary.xml
+--cov-report=html:reports/html_dir
+--cov-report=lcov:reports/lcov.info
+--cov-report term-missing
+"""
+testpaths = [
+    "src/tests",
+]
+filterwarnings = "ignore::DeprecationWarning"
+
+[tool.coverage.run]
+data_file = 'reports/.coverage'
+omit = [
+    # omit anything in a "tests" directory anywhere
+    "*/tests/*",
 ]
 
 [tool.poe.tasks]
@@ -31,3 +57,6 @@ types.cmd = "mypy --cache-fine-grained --check-untyped-defs src"
 
 checks.help = "Execute ruff, format and types tasks in sequence: Run ruff checks, formats and mypy"
 checks.sequence = ["ruff", "format", "types"]
+
+test.help = "Run tests using pytest. Results are found in reports/"
+test.cmd = "pytest"

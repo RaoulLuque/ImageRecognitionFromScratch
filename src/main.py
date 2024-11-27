@@ -46,8 +46,10 @@ def main():
 
     y_test = to_categorical(y_test)
 
+
+
     # Change model_to_load to filename in models/ to load a model. Otherwise, a new model will be trained.
-    model_to_load = "model_2024_11_27T02:22:02.pkl"
+    model_to_load = None
     model = None
     start_time = time.time()
     if model_to_load is None:

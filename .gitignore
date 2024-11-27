@@ -19,3 +19,8 @@ learning.log
 /tmp
 tmp_result.txt
 /models/model_*.pkl
+
+# Tests
+reports/
+**/.coverage
+**/reports
