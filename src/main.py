@@ -67,7 +67,7 @@ def main():
             x_train,
             y_train,
             epochs=EPOCHS,
-            learning_rate_scheduler=LearningRateScheduler.const,
+            learning_rate_scheduler=LearningRateScheduler.tuned,
             batch_size=BATCH_SIZE,
             data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA)
         )
