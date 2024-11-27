@@ -4,6 +4,7 @@ import time
 
 import numpy as np
 
+from src.add_ons.data_augmentation import DataAugmentation
 from src.layers.activation_function import ActivationFunction
 from src.layers.activation_layer import ActivationLayer
 from src.layers.dropout_layer import DropoutLayer
@@ -46,8 +47,6 @@ def main():
 
     y_test = to_categorical(y_test)
 
-
-
     # Change model_to_load to filename in models/ to load a model. Otherwise, a new model will be trained.
     model_to_load = None
     model = None
@@ -64,7 +63,8 @@ def main():
 
         # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
         model.set_loss_function(LossFunction.categorical_cross_entropy)
-        model.fit(x_train, y_train, epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.const, batch_size=BATCH_SIZE)
+        default_data_augmentation = DataAugmentation()
+        model.fit(x_train, y_train, epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.const, batch_size=BATCH_SIZE, data_augmentation=default_data_augmentation)
 
         # Save the model
         model_path = f"models/model_{datetime.datetime.now().strftime('%Y_%m_%dT%H:%M:%S')}_epochs_{EPOCHS}_learning_rate_{LEARNING_RATE}_batch_size_{BATCH_SIZE}.pkl"

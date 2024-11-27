@@ -3,6 +3,7 @@ import time
 import numpy as np
 from nptyping.ndarray import NDArray
 
+from src.add_ons.data_augmentation import DataAugmentation
 from src.layers.layer import Layer
 from src.add_ons.learning_rate_schedulers import LearningRateScheduler
 from src.add_ons.loss_function import LossFunction
@@ -54,13 +55,22 @@ class Network:
 
         return result
 
-    def fit(self, x_train: NDArray, y_train: NDArray, epochs: int, learning_rate_scheduler: LearningRateScheduler, batch_size: int = 1):
+    def fit(
+            self,
+            x_train: NDArray,
+            y_train: NDArray,
+            epochs: int,
+            learning_rate_scheduler: LearningRateScheduler = LearningRateScheduler.const,
+            data_augmentation: DataAugmentation | None = None,
+            batch_size: int = 1
+    ):
         """
         Train the network on the given training data.
         :param x_train: Training data for the network.
         :param y_train: Training labels for the network.
         :param epochs: Number of epochs to train the network for.
-        :param learning_rate_scheduler: Learning rate scheduler to be used by the network.
+        :param learning_rate_scheduler: Learning rate scheduler to be used by the network. Uses const by default.
+        :param data_augmentation: Optional data augmentation to be used for training. It is applied to each batch before training. Uses None by default.
         :param batch_size: Size of the batches to use for training. Defaults to 1 (stochastic descent)
         """
         number_of_samples = len(x_train)
@@ -80,6 +90,10 @@ class Network:
             # Error of the epoch to be displayed
             err = 0
             for current_batch_index in range(len(x_train_batches)):
+                if data_augmentation is not None:
+                    # Apply data augmentation
+                    x_train_batches[current_batch_index] = data_augmentation.batch_apply(x_train_batches[current_batch_index])
+
                 size_of_current_batch = len(x_train_batches[current_batch_index])
                 # Initialize matrix to save vectors containing the error to propagate for each sample in the batch
                 # batch_error_to_propagate[i] contains the error for sample i in the batch
