@@ -14,7 +14,7 @@ from src.add_ons.loss_function import LossFunction
 from src.network import Network
 from src.add_ons.optimizers import Optimizer
 from src.utils.read_data import read_data, to_categorical
-from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE
+from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_ALTERING_DATA
 
 
 def main():
@@ -63,8 +63,14 @@ def main():
 
         # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
         model.set_loss_function(LossFunction.categorical_cross_entropy)
-        default_data_augmentation = DataAugmentation()
-        model.fit(x_train, y_train, epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.const, batch_size=BATCH_SIZE, data_augmentation=default_data_augmentation)
+        model.fit(
+            x_train,
+            y_train,
+            epochs=EPOCHS,
+            learning_rate_scheduler=LearningRateScheduler.const,
+            batch_size=BATCH_SIZE,
+            data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA)
+        )
 
         # Save the model
         model_path = f"models/model_{datetime.datetime.now().strftime('%Y_%m_%dT%H:%M:%S')}_epochs_{EPOCHS}_learning_rate_{LEARNING_RATE}_batch_size_{BATCH_SIZE}.pkl"

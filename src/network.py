@@ -1,6 +1,7 @@
 import time
 
 import numpy as np
+import random
 from nptyping.ndarray import NDArray
 
 from src.add_ons.data_augmentation import DataAugmentation
@@ -91,8 +92,10 @@ class Network:
             err = 0
             for current_batch_index in range(len(x_train_batches)):
                 if data_augmentation is not None:
-                    # Apply data augmentation
-                    x_train_batches[current_batch_index] = data_augmentation.batch_apply(x_train_batches[current_batch_index])
+                    # Apply data augmentation with a certain chance
+                    if random.random() < data_augmentation.chance_of_altering_data:
+                        # Apply data augmentation
+                        x_train_batches[current_batch_index] = data_augmentation.batch_apply(x_train_batches[current_batch_index])
 
                 size_of_current_batch = len(x_train_batches[current_batch_index])
                 # Initialize matrix to save vectors containing the error to propagate for each sample in the batch

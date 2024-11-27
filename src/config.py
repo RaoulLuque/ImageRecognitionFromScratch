@@ -7,5 +7,8 @@ EPOCHS = 200
 LEARNING_RATE = 0.0005
 BATCH_SIZE = 16
 
+# Hyperparameters for data generation
+CHANCE_OF_ALTERING_DATA = 0.8
+
 # Logging
 LOG_FILE = "learning.log"

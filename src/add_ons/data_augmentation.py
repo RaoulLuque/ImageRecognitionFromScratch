@@ -6,7 +6,8 @@ from nptyping import NDArray
 
 
 class DataAugmentation:
-    def __init__(self, horizontal_shift_range: float = 0.2, vertical_shift_range: float = 0.2, rotation_range: float = 25, zoom_range: float = 0.2):
+    def __init__(self, chance_of_altering_data: float = 1.0, horizontal_shift_range: float = 0.2, vertical_shift_range: float = 0.2, rotation_range: float = 25, zoom_range: float = 0.2):
+        self.chance_of_altering_data = chance_of_altering_data
         self.horizontal_shift_range = horizontal_shift_range
         self.vertical_shift_range = vertical_shift_range
         self.rotation_range = rotation_range
