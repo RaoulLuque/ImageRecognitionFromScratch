@@ -1,5 +1,6 @@
 import datetime
 import pickle
+import time
 
 import numpy as np
 
@@ -23,8 +24,8 @@ def main():
     except:
         pass
 
-    # Log hyper Parameters:
-    string_to_be_logged = f"--- --- --- --- --- NEW MODEL --- --- --- --- ---\nHyperparameters: EPOCHS={EPOCHS}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={BATCH_SIZE}\n"
+    # Log new model
+    string_to_be_logged = "--- --- --- --- --- NEW MODEL --- --- --- --- ---"
     print(string_to_be_logged)
     with open(LOG_FILE, 'a') as log_file:
         log_file.write(string_to_be_logged)
@@ -45,20 +46,26 @@ def main():
 
     y_test = to_categorical(y_test)
 
-    # Change model_to_load to filename in models/ to load a model. Otherwise a new model will be trained.
-    model_to_load = None
+    # Change model_to_load to filename in models/ to load a model. Otherwise, a new model will be trained.
+    model_to_load = "model_2024_11_27T02:22:02.pkl"
     model = None
-
+    start_time = time.time()
     if model_to_load is None:
         # If there is no model to load, create a new neural network
         model = create_model()
+
+        # Log hyper Parameters:
+        string_to_be_logged = f"Hyperparameters: EPOCHS={EPOCHS}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={BATCH_SIZE}\n"
+        print(string_to_be_logged)
+        with open(LOG_FILE, 'a') as log_file:
+            log_file.write(string_to_be_logged)
 
         # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
         model.set_loss_function(LossFunction.categorical_cross_entropy)
         model.fit(x_train, y_train, epochs=EPOCHS, learning_rate_scheduler=LearningRateScheduler.const, batch_size=BATCH_SIZE)
 
         # Save the model
-        model_path = f"models/model_{datetime.datetime.now().strftime('%Y_%m_%dT%H:%M:%S')}.pkl"
+        model_path = f"models/model_{datetime.datetime.now().strftime('%Y_%m_%dT%H:%M:%S')}_epochs_{EPOCHS}_learning_rate_{LEARNING_RATE}_batch_size_{BATCH_SIZE}.pkl"
         with open(model_path, "wb") as f:
             # noinspection PyTypeChecker
             pickle.dump(model, f)
@@ -67,6 +74,12 @@ def main():
         with open(model_path, "rb") as f:
             model = pickle.load(f)
 
+    end_time = time.time()
+    elapsed_time_minutes = (end_time - start_time) / 60
+    string_to_be_logged = f"Total training time:" + "{:.2f}".format(elapsed_time_minutes) + "minutes"
+    print(string_to_be_logged)
+    with open(LOG_FILE, 'a') as log_file:
+        log_file.write(string_to_be_logged + "\n")
     test_model(model, x_test, y_test)
 
 
