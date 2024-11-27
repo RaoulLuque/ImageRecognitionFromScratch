@@ -72,7 +72,7 @@ The logs of the respective models can be found by clicking the links below the r
 - Fixed learning rate of 0.01
 
 ## Fifth model
-
+[1a608e1](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/1a608e1aa6394129d516857bde713eeddd258f84)
 - Mini batch gradient descent (batch size of 32)
 - Cross entropy loss function
 - Softmax activation function on last layer
@@ -91,7 +91,7 @@ The logs of the respective models can be found by clicking the links below the r
 - Fixed learning rate of 0.001
 
 ## Sixth model
-
+[251738c](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/251738c9ff68e2344f4ee6ded2dfd62f122815c1)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
 - Softmax activation function on last layer
@@ -100,10 +100,10 @@ The logs of the respective models can be found by clicking the links below the r
   - Model layout:
     ```
     model.add_layer(
-      FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))             # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
+      FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))             # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
       model.add_layer(ActivationLayer(ActivationFunction.ReLu, 128))
       model.add_layer(DropoutLayer(0.2, 128))
-      model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
+      model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam))  # input_shape=(1, 128)      ;   output_shape=(1, 50)
       model.add_layer(ActivationLayer(ActivationFunction.ReLu, 50))
       model.add_layer(DropoutLayer(0.2, 50))
       model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam))   # input_shape=(1, 50)       ;   output_shape=(1, 10)
