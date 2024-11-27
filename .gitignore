@@ -18,4 +18,4 @@ learning.log
 # Project specific files
 /tmp
 tmp_result.txt
-/models
+/models/model_*.pkl
