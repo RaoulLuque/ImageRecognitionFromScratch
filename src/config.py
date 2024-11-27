@@ -3,12 +3,12 @@
 EPSILON = 1e-8
 
 # Hyperparameters for network training
-EPOCHS = 200
+EPOCHS = 50
 LEARNING_RATE = 0.0005
-BATCH_SIZE = 16
+BATCH_SIZE = 32
 
 # Hyperparameters for data generation
-CHANCE_OF_ALTERING_DATA = 0.8
+CHANCE_OF_ALTERING_DATA = 0.35
 
 # Logging
 LOG_FILE = "learning.log"
