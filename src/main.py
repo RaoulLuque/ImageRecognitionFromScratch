@@ -72,12 +72,14 @@ def main():
 
 def create_model() -> Network:
     model = Network()
-    model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
+    model.add_layer(
+        FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 128))
     model.add_layer(DropoutLayer(0.2, 128))
-    # model.add_layer(FCLayer(100, 50))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
-    # model.add_layer(ActivationLayer(ActivationFunction.tanh, 50))
-    model.add_layer(FCLayer(128, 10, optimizer=Optimizer.Adam))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
+    model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 50))
+    model.add_layer(DropoutLayer(0.2, 50))
+    model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
     return model
 

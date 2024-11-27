@@ -3,9 +3,9 @@
 EPSILON = 1e-8
 
 # Hyperparameters for network training
-EPOCHS = 50
-LEARNING_RATE = 0.001
-BATCH_SIZE = 32
+EPOCHS = 200
+LEARNING_RATE = 0.0005
+BATCH_SIZE = 16
 
 # Logging
 LOG_FILE = "learning.log"
