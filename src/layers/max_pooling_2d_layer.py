@@ -1,10 +1,7 @@
-from typing import Any
-
 from src.layers.layer import Layer
 import numpy as np
-from nptyping import NDArray, Shape
+from nptyping import NDArray
 
-from src.add_ons.optimizers import Optimizer
 from src.utils.convolution_utils import im2col_indices, col2im_indices
 
 
@@ -20,16 +17,14 @@ class MaxPoolingLayer2D(Layer):
     C    = number of channels in the input data (= 1)
     H    = height of the input data (= 28)
     W    = width of the input data (= 28)
-    NF/K = number of filters in the layer
-    HF/F = height of the filter (= 5)
-    WF/F = width of the filter (= 5)
+    PS   = size (height and width) of the pooling filter (= 2)
     S    = stride (= 1)
     P    = padding (= 2 = "same", i.e. as much that layers have same height and width - in our case 2, since stride = 1 and HF = WF = 5)
-    HO   = height of the output data (= (H - HF + 2P) / S + 1 = (28 - 5 + 2 * 2) / 1 + 1 = 28)
-    WO   = width of the output data (= (W - WF + 2P) / S + 1 = (28 - 5 + 2 * 2) / 1 + 1 = 28)
+    HO   = height of the output data (= (H - HF) / S + 1 = (28 - 5) / 1 + 1 = 14)
+    WO   = width of the output data (= (W - WF) / S + 1 = (28 - 5) / 1 + 1 = 14)
 
     The input data is of shape D x C x H x W = (size_of_current_batch, 1, 28, 28)
-    # The output data is of shape D x NF x HO x WO = (size_of_current_batch, number_of_filters, 28, 28)
+    The output data is of shape D x C x HO x WO = (size_of_current_batch, number_of_filters, 14, 14)
 
 
     """
