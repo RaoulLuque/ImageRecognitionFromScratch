@@ -55,21 +55,26 @@ def main():
         # If there is no model to load, create a new neural network
         model = create_model()
 
+        # Set other parameters
+        learning_rate_scheduler = LearningRateScheduler.const
+        data_augmentation = DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA)
+
         # Log hyper Parameters:
-        string_to_be_logged = f"Hyperparameters: EPOCHS={EPOCHS}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={BATCH_SIZE}\n"
+        string_to_be_logged = f"Hyperparameters: EPOCHS={EPOCHS}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={BATCH_SIZE}, LEARNING_RATE_SCHEDULER={learning_rate_scheduler}, DATA_AUGMENTATION={data_augmentation is not None}, CHANCE_OF_ALTERING_DATA={CHANCE_OF_ALTERING_DATA}\n"
         print(string_to_be_logged)
         with open(LOG_FILE, 'a') as log_file:
             log_file.write(string_to_be_logged)
 
         # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
+
         model.set_loss_function(LossFunction.categorical_cross_entropy)
         model.fit(
             x_train,
             y_train,
             epochs=EPOCHS,
-            learning_rate_scheduler=LearningRateScheduler.tuned,
+            learning_rate_scheduler=learning_rate_scheduler,
             batch_size=BATCH_SIZE,
-            data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA)
+            data_augmentation=data_augmentation,
         )
 
         # Save the model
@@ -93,13 +98,14 @@ def main():
 
 def create_model() -> Network:
     model = Network()
-    model.add_layer(
-        FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
+    model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 128))
     model.add_layer(DropoutLayer(0.2, 128))
-    model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
+
+    model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam))  # input_shape=(1, 128)      ;   output_shape=(1, 50)
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 50))
     model.add_layer(DropoutLayer(0.2, 50))
+
     model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
     return model
