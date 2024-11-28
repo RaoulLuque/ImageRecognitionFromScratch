@@ -121,7 +121,7 @@ The logs of the respective models can be found by clicking the links below the r
 - Adam optimizer
 - Dropout layers
 - (Default) Data augmentation (0.25 Chance to do so)
-  - Model layout:
+- Model layout:
     ```
     model.add_layer(
       model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
