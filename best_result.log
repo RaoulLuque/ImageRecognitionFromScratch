@@ -1,204 +1,104 @@
---- --- --- --- --- NEW MODEL --- --- --- --- ---
-Hyperparameters: EPOCHS=200, LEARNING_RATE=0.0005, BATCH_SIZE=16
-epoch 1  /200   time: 30.54s   error=1.35e+00   learning rate=5.00e-04
-epoch 2  /200   time: 32.43s   error=6.35e-01   learning rate=5.00e-04
-epoch 3  /200   time: 30.72s   error=4.97e-01   learning rate=5.00e-04
-epoch 4  /200   time: 30.58s   error=4.29e-01   learning rate=5.00e-04
-epoch 5  /200   time: 31.08s   error=3.78e-01   learning rate=5.00e-04
-epoch 6  /200   time: 31.06s   error=3.49e-01   learning rate=5.00e-04
-epoch 7  /200   time: 31.48s   error=3.21e-01   learning rate=5.00e-04
-epoch 8  /200   time: 31.61s   error=2.97e-01   learning rate=5.00e-04
-epoch 9  /200   time: 31.14s   error=2.80e-01   learning rate=5.00e-04
-epoch 10 /200   time: 47.86s   error=2.61e-01   learning rate=5.00e-04
-epoch 11 /200   time: 38.60s   error=2.51e-01   learning rate=5.00e-04
-epoch 12 /200   time: 37.55s   error=2.38e-01   learning rate=5.00e-04
-epoch 13 /200   time: 37.06s   error=2.28e-01   learning rate=5.00e-04
-epoch 14 /200   time: 37.43s   error=2.15e-01   learning rate=5.00e-04
-epoch 15 /200   time: 37.42s   error=2.09e-01   learning rate=5.00e-04
-epoch 16 /200   time: 37.68s   error=2.01e-01   learning rate=5.00e-04
-epoch 17 /200   time: 32.27s   error=1.91e-01   learning rate=5.00e-04
-epoch 18 /200   time: 29.86s   error=1.86e-01   learning rate=5.00e-04
-epoch 19 /200   time: 30.64s   error=1.78e-01   learning rate=5.00e-04
-epoch 20 /200   time: 30.50s   error=1.73e-01   learning rate=5.00e-04
-epoch 21 /200   time: 30.55s   error=1.67e-01   learning rate=5.00e-04
-epoch 22 /200   time: 31.11s   error=1.63e-01   learning rate=5.00e-04
-epoch 23 /200   time: 30.82s   error=1.60e-01   learning rate=5.00e-04
-epoch 24 /200   time: 31.03s   error=1.50e-01   learning rate=5.00e-04
-epoch 25 /200   time: 30.64s   error=1.48e-01   learning rate=5.00e-04
-epoch 26 /200   time: 30.73s   error=1.43e-01   learning rate=5.00e-04
-epoch 27 /200   time: 31.24s   error=1.40e-01   learning rate=5.00e-04
-epoch 28 /200   time: 31.17s   error=1.36e-01   learning rate=5.00e-04
-epoch 29 /200   time: 31.01s   error=1.30e-01   learning rate=5.00e-04
-epoch 30 /200   time: 31.22s   error=1.29e-01   learning rate=5.00e-04
-epoch 31 /200   time: 31.13s   error=1.25e-01   learning rate=5.00e-04
-epoch 32 /200   time: 31.23s   error=1.22e-01   learning rate=5.00e-04
-epoch 33 /200   time: 31.52s   error=1.16e-01   learning rate=5.00e-04
-epoch 34 /200   time: 30.63s   error=1.13e-01   learning rate=5.00e-04
-epoch 35 /200   time: 31.33s   error=1.11e-01   learning rate=5.00e-04
-epoch 36 /200   time: 30.56s   error=1.10e-01   learning rate=5.00e-04
-epoch 37 /200   time: 30.72s   error=1.07e-01   learning rate=5.00e-04
-epoch 38 /200   time: 30.93s   error=1.03e-01   learning rate=5.00e-04
-epoch 39 /200   time: 31.04s   error=1.04e-01   learning rate=5.00e-04
-epoch 40 /200   time: 31.75s   error=1.00e-01   learning rate=5.00e-04
-epoch 41 /200   time: 32.19s   error=9.61e-02   learning rate=5.00e-04
-epoch 42 /200   time: 32.04s   error=9.78e-02   learning rate=5.00e-04
-epoch 43 /200   time: 34.37s   error=9.44e-02   learning rate=5.00e-04
-epoch 44 /200   time: 32.52s   error=9.21e-02   learning rate=5.00e-04
-epoch 45 /200   time: 31.63s   error=8.96e-02   learning rate=5.00e-04
-epoch 46 /200   time: 30.83s   error=8.78e-02   learning rate=5.00e-04
-epoch 47 /200   time: 31.45s   error=8.27e-02   learning rate=5.00e-04
-epoch 48 /200   time: 30.97s   error=8.41e-02   learning rate=5.00e-04
-epoch 49 /200   time: 30.66s   error=8.26e-02   learning rate=5.00e-04
-epoch 50 /200   time: 31.30s   error=7.99e-02   learning rate=5.00e-04
-epoch 51 /200   time: 30.55s   error=7.96e-02   learning rate=5.00e-04
-epoch 52 /200   time: 31.50s   error=7.71e-02   learning rate=5.00e-04
-epoch 53 /200   time: 30.94s   error=7.50e-02   learning rate=5.00e-04
-epoch 54 /200   time: 31.04s   error=7.50e-02   learning rate=5.00e-04
-epoch 55 /200   time: 31.47s   error=7.25e-02   learning rate=5.00e-04
-epoch 56 /200   time: 31.11s   error=7.04e-02   learning rate=5.00e-04
-epoch 57 /200   time: 31.14s   error=7.02e-02   learning rate=5.00e-04
-epoch 58 /200   time: 31.32s   error=6.99e-02   learning rate=5.00e-04
-epoch 59 /200   time: 31.12s   error=6.72e-02   learning rate=5.00e-04
-epoch 60 /200   time: 30.86s   error=6.59e-02   learning rate=5.00e-04
-epoch 61 /200   time: 31.41s   error=6.25e-02   learning rate=5.00e-04
-epoch 62 /200   time: 31.27s   error=6.27e-02   learning rate=5.00e-04
-epoch 63 /200   time: 31.19s   error=6.14e-02   learning rate=5.00e-04
-epoch 64 /200   time: 31.01s   error=5.91e-02   learning rate=5.00e-04
-epoch 65 /200   time: 30.67s   error=5.98e-02   learning rate=5.00e-04
-epoch 66 /200   time: 31.17s   error=5.94e-02   learning rate=5.00e-04
-epoch 67 /200   time: 31.17s   error=5.71e-02   learning rate=5.00e-04
-epoch 68 /200   time: 31.14s   error=5.64e-02   learning rate=5.00e-04
-epoch 69 /200   time: 31.25s   error=5.67e-02   learning rate=5.00e-04
-epoch 70 /200   time: 30.91s   error=5.37e-02   learning rate=5.00e-04
-epoch 71 /200   time: 31.12s   error=5.41e-02   learning rate=5.00e-04
-epoch 72 /200   time: 31.30s   error=5.36e-02   learning rate=5.00e-04
-epoch 73 /200   time: 31.24s   error=5.36e-02   learning rate=5.00e-04
-epoch 74 /200   time: 31.14s   error=5.10e-02   learning rate=5.00e-04
-epoch 75 /200   time: 30.42s   error=5.05e-02   learning rate=5.00e-04
-epoch 76 /200   time: 31.40s   error=4.87e-02   learning rate=5.00e-04
-epoch 77 /200   time: 30.56s   error=4.83e-02   learning rate=5.00e-04
-epoch 78 /200   time: 31.39s   error=4.77e-02   learning rate=5.00e-04
-epoch 79 /200   time: 31.01s   error=4.72e-02   learning rate=5.00e-04
-epoch 80 /200   time: 31.44s   error=4.68e-02   learning rate=5.00e-04
-epoch 81 /200   time: 31.08s   error=4.45e-02   learning rate=5.00e-04
-epoch 82 /200   time: 30.98s   error=4.56e-02   learning rate=5.00e-04
-epoch 83 /200   time: 30.70s   error=4.42e-02   learning rate=5.00e-04
-epoch 84 /200   time: 30.96s   error=4.53e-02   learning rate=5.00e-04
-epoch 85 /200   time: 30.45s   error=4.36e-02   learning rate=5.00e-04
-epoch 86 /200   time: 31.07s   error=4.30e-02   learning rate=5.00e-04
-epoch 87 /200   time: 30.67s   error=4.35e-02   learning rate=5.00e-04
-epoch 88 /200   time: 31.60s   error=4.33e-02   learning rate=5.00e-04
-epoch 89 /200   time: 31.05s   error=4.04e-02   learning rate=5.00e-04
-epoch 90 /200   time: 31.07s   error=4.09e-02   learning rate=5.00e-04
-epoch 91 /200   time: 30.85s   error=4.00e-02   learning rate=5.00e-04
-epoch 92 /200   time: 31.07s   error=3.97e-02   learning rate=5.00e-04
-epoch 93 /200   time: 30.86s   error=4.04e-02   learning rate=5.00e-04
-epoch 94 /200   time: 31.06s   error=4.06e-02   learning rate=5.00e-04
-epoch 95 /200   time: 31.63s   error=3.76e-02   learning rate=5.00e-04
-epoch 96 /200   time: 31.11s   error=3.73e-02   learning rate=5.00e-04
-epoch 97 /200   time: 31.28s   error=3.68e-02   learning rate=5.00e-04
-epoch 98 /200   time: 31.11s   error=3.64e-02   learning rate=5.00e-04
-epoch 99 /200   time: 30.92s   error=3.60e-02   learning rate=5.00e-04
-epoch 100/200   time: 30.92s   error=3.56e-02   learning rate=5.00e-04
-epoch 101/200   time: 31.46s   error=3.49e-02   learning rate=5.00e-04
-epoch 102/200   time: 31.23s   error=3.67e-02   learning rate=5.00e-04
-epoch 103/200   time: 31.00s   error=3.16e-02   learning rate=5.00e-04
-epoch 104/200   time: 31.04s   error=3.45e-02   learning rate=5.00e-04
-epoch 105/200   time: 30.91s   error=3.34e-02   learning rate=5.00e-04
-epoch 106/200   time: 31.43s   error=3.29e-02   learning rate=5.00e-04
-epoch 107/200   time: 31.16s   error=3.38e-02   learning rate=5.00e-04
-epoch 108/200   time: 31.04s   error=3.12e-02   learning rate=5.00e-04
-epoch 109/200   time: 31.02s   error=3.28e-02   learning rate=5.00e-04
-epoch 110/200   time: 30.64s   error=3.34e-02   learning rate=5.00e-04
-epoch 111/200   time: 31.04s   error=3.37e-02   learning rate=5.00e-04
-epoch 112/200   time: 30.33s   error=3.16e-02   learning rate=5.00e-04
-epoch 113/200   time: 31.72s   error=3.24e-02   learning rate=5.00e-04
-epoch 114/200   time: 30.63s   error=2.98e-02   learning rate=5.00e-04
-epoch 115/200   time: 30.76s   error=3.10e-02   learning rate=5.00e-04
-epoch 116/200   time: 31.02s   error=3.01e-02   learning rate=5.00e-04
-epoch 117/200   time: 30.95s   error=2.93e-02   learning rate=5.00e-04
-epoch 118/200   time: 30.74s   error=3.01e-02   learning rate=5.00e-04
-epoch 119/200   time: 31.34s   error=2.92e-02   learning rate=5.00e-04
-epoch 120/200   time: 30.76s   error=2.91e-02   learning rate=5.00e-04
-epoch 121/200   time: 30.83s   error=2.82e-02   learning rate=5.00e-04
-epoch 122/200   time: 31.60s   error=2.99e-02   learning rate=5.00e-04
-epoch 123/200   time: 30.80s   error=2.74e-02   learning rate=5.00e-04
-epoch 124/200   time: 30.73s   error=2.84e-02   learning rate=5.00e-04
-epoch 125/200   time: 30.87s   error=2.82e-02   learning rate=5.00e-04
-epoch 126/200   time: 31.89s   error=2.78e-02   learning rate=5.00e-04
-epoch 127/200   time: 32.59s   error=2.81e-02   learning rate=5.00e-04
-epoch 128/200   time: 31.23s   error=2.74e-02   learning rate=5.00e-04
-epoch 129/200   time: 31.47s   error=2.79e-02   learning rate=5.00e-04
-epoch 130/200   time: 30.54s   error=2.65e-02   learning rate=5.00e-04
-epoch 131/200   time: 31.30s   error=2.51e-02   learning rate=5.00e-04
-epoch 132/200   time: 30.66s   error=2.73e-02   learning rate=5.00e-04
-epoch 133/200   time: 31.19s   error=2.62e-02   learning rate=5.00e-04
-epoch 134/200   time: 30.93s   error=2.45e-02   learning rate=5.00e-04
-epoch 135/200   time: 30.61s   error=2.62e-02   learning rate=5.00e-04
-epoch 136/200   time: 30.70s   error=2.34e-02   learning rate=5.00e-04
-epoch 137/200   time: 30.62s   error=2.63e-02   learning rate=5.00e-04
-epoch 138/200   time: 30.95s   error=2.38e-02   learning rate=5.00e-04
-epoch 139/200   time: 31.29s   error=2.50e-02   learning rate=5.00e-04
-epoch 140/200   time: 30.64s   error=2.52e-02   learning rate=5.00e-04
-epoch 141/200   time: 31.44s   error=2.54e-02   learning rate=5.00e-04
-epoch 142/200   time: 30.34s   error=2.40e-02   learning rate=5.00e-04
-epoch 143/200   time: 30.67s   error=2.51e-02   learning rate=5.00e-04
-epoch 144/200   time: 31.50s   error=2.46e-02   learning rate=5.00e-04
-epoch 145/200   time: 31.03s   error=2.19e-02   learning rate=5.00e-04
-epoch 146/200   time: 30.90s   error=2.29e-02   learning rate=5.00e-04
-epoch 147/200   time: 31.60s   error=2.50e-02   learning rate=5.00e-04
-epoch 148/200   time: 30.84s   error=2.43e-02   learning rate=5.00e-04
-epoch 149/200   time: 30.93s   error=2.44e-02   learning rate=5.00e-04
-epoch 150/200   time: 31.14s   error=2.27e-02   learning rate=5.00e-04
-epoch 151/200   time: 30.96s   error=2.22e-02   learning rate=5.00e-04
-epoch 152/200   time: 31.31s   error=2.29e-02   learning rate=5.00e-04
-epoch 153/200   time: 30.95s   error=2.12e-02   learning rate=5.00e-04
-epoch 154/200   time: 30.86s   error=2.25e-02   learning rate=5.00e-04
-epoch 155/200   time: 31.08s   error=2.24e-02   learning rate=5.00e-04
-epoch 156/200   time: 30.80s   error=2.20e-02   learning rate=5.00e-04
-epoch 157/200   time: 30.81s   error=2.14e-02   learning rate=5.00e-04
-epoch 158/200   time: 31.06s   error=2.10e-02   learning rate=5.00e-04
-epoch 159/200   time: 30.73s   error=2.17e-02   learning rate=5.00e-04
-epoch 160/200   time: 30.73s   error=2.25e-02   learning rate=5.00e-04
-epoch 161/200   time: 30.50s   error=2.07e-02   learning rate=5.00e-04
-epoch 162/200   time: 30.98s   error=1.93e-02   learning rate=5.00e-04
-epoch 163/200   time: 30.70s   error=2.03e-02   learning rate=5.00e-04
-epoch 164/200   time: 31.04s   error=2.09e-02   learning rate=5.00e-04
-epoch 165/200   time: 30.97s   error=2.06e-02   learning rate=5.00e-04
-epoch 166/200   time: 31.37s   error=1.82e-02   learning rate=5.00e-04
-epoch 167/200   time: 30.66s   error=1.96e-02   learning rate=5.00e-04
-epoch 168/200   time: 30.98s   error=2.02e-02   learning rate=5.00e-04
-epoch 169/200   time: 30.48s   error=1.93e-02   learning rate=5.00e-04
-epoch 170/200   time: 31.23s   error=2.13e-02   learning rate=5.00e-04
-epoch 171/200   time: 30.78s   error=2.10e-02   learning rate=5.00e-04
-epoch 172/200   time: 30.48s   error=1.86e-02   learning rate=5.00e-04
-epoch 173/200   time: 31.34s   error=1.92e-02   learning rate=5.00e-04
-epoch 174/200   time: 30.43s   error=2.01e-02   learning rate=5.00e-04
-epoch 175/200   time: 30.68s   error=1.90e-02   learning rate=5.00e-04
-epoch 176/200   time: 31.13s   error=1.91e-02   learning rate=5.00e-04
-epoch 177/200   time: 30.77s   error=1.94e-02   learning rate=5.00e-04
-epoch 178/200   time: 30.62s   error=1.84e-02   learning rate=5.00e-04
-epoch 179/200   time: 31.59s   error=1.84e-02   learning rate=5.00e-04
-epoch 180/200   time: 30.78s   error=1.96e-02   learning rate=5.00e-04
-epoch 181/200   time: 30.94s   error=1.91e-02   learning rate=5.00e-04
-epoch 182/200   time: 31.05s   error=1.84e-02   learning rate=5.00e-04
-epoch 183/200   time: 30.84s   error=1.97e-02   learning rate=5.00e-04
-epoch 184/200   time: 31.50s   error=1.78e-02   learning rate=5.00e-04
-epoch 185/200   time: 30.82s   error=1.75e-02   learning rate=5.00e-04
-epoch 186/200   time: 31.11s   error=1.73e-02   learning rate=5.00e-04
-epoch 187/200   time: 31.38s   error=1.74e-02   learning rate=5.00e-04
-epoch 188/200   time: 31.00s   error=2.04e-02   learning rate=5.00e-04
-epoch 189/200   time: 31.02s   error=1.91e-02   learning rate=5.00e-04
-epoch 190/200   time: 31.30s   error=1.77e-02   learning rate=5.00e-04
-epoch 191/200   time: 31.01s   error=1.72e-02   learning rate=5.00e-04
-epoch 192/200   time: 31.24s   error=1.98e-02   learning rate=5.00e-04
-epoch 193/200   time: 31.20s   error=1.88e-02   learning rate=5.00e-04
-epoch 194/200   time: 31.04s   error=1.69e-02   learning rate=5.00e-04
-epoch 195/200   time: 30.78s   error=1.78e-02   learning rate=5.00e-04
-epoch 196/200   time: 31.24s   error=1.78e-02   learning rate=5.00e-04
-epoch 197/200   time: 30.72s   error=1.96e-02   learning rate=5.00e-04
-epoch 198/200   time: 31.11s   error=1.69e-02   learning rate=5.00e-04
-epoch 199/200   time: 31.47s   error=1.66e-02   learning rate=5.00e-04
-epoch 200/200   time: 31.41s   error=1.67e-02   learning rate=5.00e-04
-Number of correctly recognized images: 9798 out of 10000
-The error rate is 2.02%
+--- --- --- --- --- NEW MODEL --- --- --- --- ---Hyperparameters: EPOCHS=100, LEARNING_RATE=0.0005, BATCH_SIZE=16, LEARNING_RATE_SCHEDULER=LearningRateScheduler.const, DATA_AUGMENTATION=True, CHANCE_OF_ALTERING_DATA=0.25
+epoch 1  /100   time: 32.80s   error=1.92e+00   learning rate=5.00e-04
+epoch 2  /100   time: 32.72s   error=1.20e+00   learning rate=5.00e-04
+epoch 3  /100   time: 31.84s   error=1.02e+00   learning rate=5.00e-04
+epoch 4  /100   time: 34.32s   error=9.23e-01   learning rate=5.00e-04
+epoch 5  /100   time: 33.07s   error=8.66e-01   learning rate=5.00e-04
+epoch 6  /100   time: 32.16s   error=8.16e-01   learning rate=5.00e-04
+epoch 7  /100   time: 31.99s   error=7.75e-01   learning rate=5.00e-04
+epoch 8  /100   time: 32.07s   error=7.40e-01   learning rate=5.00e-04
+epoch 9  /100   time: 31.90s   error=7.27e-01   learning rate=5.00e-04
+epoch 10 /100   time: 31.99s   error=6.85e-01   learning rate=5.00e-04
+epoch 11 /100   time: 31.92s   error=6.50e-01   learning rate=5.00e-04
+epoch 12 /100   time: 31.96s   error=6.28e-01   learning rate=5.00e-04
+epoch 13 /100   time: 31.97s   error=6.26e-01   learning rate=5.00e-04
+epoch 14 /100   time: 31.87s   error=5.91e-01   learning rate=5.00e-04
+epoch 15 /100   time: 32.33s   error=5.86e-01   learning rate=5.00e-04
+epoch 16 /100   time: 32.03s   error=5.70e-01   learning rate=5.00e-04
+epoch 17 /100   time: 32.18s   error=5.52e-01   learning rate=5.00e-04
+epoch 18 /100   time: 31.90s   error=5.32e-01   learning rate=5.00e-04
+epoch 19 /100   time: 32.11s   error=5.34e-01   learning rate=5.00e-04
+epoch 20 /100   time: 32.20s   error=5.14e-01   learning rate=5.00e-04
+epoch 21 /100   time: 31.92s   error=5.10e-01   learning rate=5.00e-04
+epoch 22 /100   time: 31.88s   error=4.92e-01   learning rate=5.00e-04
+epoch 23 /100   time: 32.73s   error=4.70e-01   learning rate=5.00e-04
+epoch 24 /100   time: 31.96s   error=4.66e-01   learning rate=5.00e-04
+epoch 25 /100   time: 31.75s   error=4.76e-01   learning rate=5.00e-04
+epoch 26 /100   time: 32.11s   error=4.56e-01   learning rate=5.00e-04
+epoch 27 /100   time: 31.69s   error=4.46e-01   learning rate=5.00e-04
+epoch 28 /100   time: 32.18s   error=4.27e-01   learning rate=5.00e-04
+epoch 29 /100   time: 32.03s   error=4.40e-01   learning rate=5.00e-04
+epoch 30 /100   time: 31.96s   error=4.33e-01   learning rate=5.00e-04
+epoch 31 /100   time: 31.73s   error=4.19e-01   learning rate=5.00e-04
+epoch 32 /100   time: 31.71s   error=4.12e-01   learning rate=5.00e-04
+epoch 33 /100   time: 31.79s   error=4.07e-01   learning rate=5.00e-04
+epoch 34 /100   time: 31.82s   error=4.07e-01   learning rate=5.00e-04
+epoch 35 /100   time: 32.09s   error=3.99e-01   learning rate=5.00e-04
+epoch 36 /100   time: 32.19s   error=3.84e-01   learning rate=5.00e-04
+epoch 37 /100   time: 32.05s   error=3.78e-01   learning rate=5.00e-04
+epoch 38 /100   time: 31.91s   error=3.81e-01   learning rate=5.00e-04
+epoch 39 /100   time: 31.99s   error=3.75e-01   learning rate=5.00e-04
+epoch 40 /100   time: 32.74s   error=3.63e-01   learning rate=5.00e-04
+epoch 41 /100   time: 31.65s   error=3.56e-01   learning rate=5.00e-04
+epoch 42 /100   time: 31.79s   error=3.62e-01   learning rate=5.00e-04
+epoch 43 /100   time: 31.60s   error=3.46e-01   learning rate=5.00e-04
+epoch 44 /100   time: 31.82s   error=3.48e-01   learning rate=5.00e-04
+epoch 45 /100   time: 32.35s   error=3.36e-01   learning rate=5.00e-04
+epoch 46 /100   time: 32.71s   error=3.36e-01   learning rate=5.00e-04
+epoch 47 /100   time: 32.00s   error=3.43e-01   learning rate=5.00e-04
+epoch 48 /100   time: 32.54s   error=3.29e-01   learning rate=5.00e-04
+epoch 49 /100   time: 32.41s   error=3.30e-01   learning rate=5.00e-04
+epoch 50 /100   time: 31.95s   error=3.18e-01   learning rate=5.00e-04
+epoch 51 /100   time: 32.62s   error=3.18e-01   learning rate=5.00e-04
+epoch 52 /100   time: 32.22s   error=3.09e-01   learning rate=5.00e-04
+epoch 53 /100   time: 32.45s   error=3.24e-01   learning rate=5.00e-04
+epoch 54 /100   time: 32.46s   error=3.20e-01   learning rate=5.00e-04
+epoch 55 /100   time: 32.71s   error=3.05e-01   learning rate=5.00e-04
+epoch 56 /100   time: 32.49s   error=3.03e-01   learning rate=5.00e-04
+epoch 57 /100   time: 32.81s   error=2.96e-01   learning rate=5.00e-04
+epoch 58 /100   time: 32.61s   error=2.92e-01   learning rate=5.00e-04
+epoch 59 /100   time: 32.37s   error=2.84e-01   learning rate=5.00e-04
+epoch 60 /100   time: 32.19s   error=2.91e-01   learning rate=5.00e-04
+epoch 61 /100   time: 32.11s   error=2.85e-01   learning rate=5.00e-04
+epoch 62 /100   time: 32.24s   error=2.85e-01   learning rate=5.00e-04
+epoch 63 /100   time: 32.25s   error=2.94e-01   learning rate=5.00e-04
+epoch 64 /100   time: 32.55s   error=2.83e-01   learning rate=5.00e-04
+epoch 65 /100   time: 32.24s   error=2.85e-01   learning rate=5.00e-04
+epoch 66 /100   time: 32.30s   error=2.80e-01   learning rate=5.00e-04
+epoch 67 /100   time: 32.05s   error=2.69e-01   learning rate=5.00e-04
+epoch 68 /100   time: 32.35s   error=2.67e-01   learning rate=5.00e-04
+epoch 69 /100   time: 32.53s   error=2.71e-01   learning rate=5.00e-04
+epoch 70 /100   time: 32.24s   error=2.73e-01   learning rate=5.00e-04
+epoch 71 /100   time: 32.20s   error=2.59e-01   learning rate=5.00e-04
+epoch 72 /100   time: 32.38s   error=2.63e-01   learning rate=5.00e-04
+epoch 73 /100   time: 32.70s   error=2.59e-01   learning rate=5.00e-04
+epoch 74 /100   time: 32.24s   error=2.62e-01   learning rate=5.00e-04
+epoch 75 /100   time: 32.49s   error=2.66e-01   learning rate=5.00e-04
+epoch 76 /100   time: 32.49s   error=2.52e-01   learning rate=5.00e-04
+epoch 77 /100   time: 36.76s   error=2.61e-01   learning rate=5.00e-04
+epoch 78 /100   time: 32.60s   error=2.58e-01   learning rate=5.00e-04
+epoch 79 /100   time: 32.16s   error=2.51e-01   learning rate=5.00e-04
+epoch 80 /100   time: 32.73s   error=2.47e-01   learning rate=5.00e-04
+epoch 81 /100   time: 32.43s   error=2.45e-01   learning rate=5.00e-04
+epoch 82 /100   time: 32.22s   error=2.38e-01   learning rate=5.00e-04
+epoch 83 /100   time: 32.38s   error=2.45e-01   learning rate=5.00e-04
+epoch 84 /100   time: 31.96s   error=2.41e-01   learning rate=5.00e-04
+epoch 85 /100   time: 32.36s   error=2.49e-01   learning rate=5.00e-04
+epoch 86 /100   time: 32.38s   error=2.36e-01   learning rate=5.00e-04
+epoch 87 /100   time: 32.27s   error=2.40e-01   learning rate=5.00e-04
+epoch 88 /100   time: 32.18s   error=2.32e-01   learning rate=5.00e-04
+epoch 89 /100   time: 32.18s   error=2.28e-01   learning rate=5.00e-04
+epoch 90 /100   time: 32.15s   error=2.26e-01   learning rate=5.00e-04
+epoch 91 /100   time: 32.29s   error=2.39e-01   learning rate=5.00e-04
+epoch 92 /100   time: 32.08s   error=2.31e-01   learning rate=5.00e-04
+epoch 93 /100   time: 32.52s   error=2.34e-01   learning rate=5.00e-04
+epoch 94 /100   time: 32.21s   error=2.23e-01   learning rate=5.00e-04
+epoch 95 /100   time: 32.36s   error=2.23e-01   learning rate=5.00e-04
+epoch 96 /100   time: 32.28s   error=2.25e-01   learning rate=5.00e-04
+epoch 97 /100   time: 32.10s   error=2.24e-01   learning rate=5.00e-04
+epoch 98 /100   time: 32.72s   error=2.24e-01   learning rate=5.00e-04
+epoch 99 /100   time: 32.22s   error=2.24e-01   learning rate=5.00e-04
+epoch 100/100   time: 32.70s   error=2.27e-01   learning rate=5.00e-04
+Total training time:53.82minutes
+Number of correctly recognized images: 9807 out of 10000
+The error rate is 1.9300000000000002%
