@@ -10,16 +10,16 @@ class EarlyStopping:
     Class for early stopping.
     """
 
-    def __init__(self, patience: int = 10, min_delta: float = 0.0, restore_best_weights: bool = True, monitor: str = "val_loss"):
+    def __init__(self, patience: int = 10, min_delta_rel: float = 0.0, restore_best_weights: bool = True, monitor: str = "val_loss"):
         """
         Initialize the early stopping object.
         :param patience: Number of epochs with no improvement after which training will be stopped.
-        :param min_delta: Minimum change in the monitored quantity to qualify as an improvement.
+        :param min_delta_rel: Minimum relative change in the monitored quantity to qualify as an improvement.
         :param restore_best_weights: Whether to restore model weights from the epoch with the best value of the monitored quantity.
         :param monitor: Quantity/Metric to be monitored.
         """
         self.patience: int = patience
-        self.min_delta: float = min_delta
+        self.min_delta_rel: float = min_delta_rel
         self.restore_best_weights: bool = restore_best_weights
         self.monitor: str = monitor
         # Metric values and weights will always be kept at a same length of patience
@@ -75,7 +75,7 @@ class EarlyStopping:
             self.weights.append(weights_current_epoch)
 
     def __is_stopping_condition_fulfilled(self) -> bool:
-        if self.metric_values[0] <= np.min(self.metric_values) + self.min_delta:
+        if self.metric_values[0] <= np.min(self.metric_values) * (1 + self.min_delta_rel):
             return True
         return False
 

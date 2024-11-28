@@ -15,7 +15,7 @@ from src.add_ons.loss_function import LossFunction
 from src.network import Network
 from src.add_ons.optimizers import Optimizer
 from src.utils.read_data import read_data, to_categorical
-from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_ALTERING_DATA, PATIENCE
+from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_ALTERING_DATA, PATIENCE, MIN_DELTA_REL
 
 
 def main():
@@ -59,9 +59,10 @@ def main():
         # Log hyper Parameters:
         string_to_be_logged = f"Hyperparameters: EPOCHS={model.epochs}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={model.batch_size}, LEARNING_RATE_SCHEDULER={model.learning_rate_scheduler}, DATA_AUGMENTATION={model.data_augmentation is not None}, EARLY_STOPPING={model.early_stopping is not None}"
         if model.data_augmentation is not None:
-            string_to_be_logged += f", CHANCE_OF_ALTERING_DATA={model.data_augmentation.chance_of_altering_data}\n"
-        else:
-            string_to_be_logged += "\n"
+            string_to_be_logged += f", CHANCE_OF_ALTERING_DATA={model.data_augmentation.chance_of_altering_data}"
+        if model.early_stopping is not None:
+            string_to_be_logged += f", PATIENCE={model.early_stopping.patience}, MIN_DELTA_REL={model.early_stopping.min_delta_rel}"
+        string_to_be_logged += "\n"
         print(string_to_be_logged)
         with open(LOG_FILE, 'a') as log_file:
             log_file.write(string_to_be_logged)
@@ -70,8 +71,8 @@ def main():
 
         model.set_loss_function(LossFunction.categorical_cross_entropy)
         model.fit(
-            x_train[:1600],
-            y_train[:1600],
+            x_train,
+            y_train,
         )
 
         # Save the model
@@ -113,7 +114,7 @@ def create_model() -> Network:
             learning_rate_scheduler=LearningRateScheduler.const,
             batch_size=BATCH_SIZE,
             data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
-            early_stopping=EarlyStopping(patience=PATIENCE),
+            early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
     )
 
     return model
