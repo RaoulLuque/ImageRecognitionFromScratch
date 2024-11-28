@@ -211,4 +211,5 @@ class Convolution2D(Layer):
         return input_error
 
     def predict(self, input_data: NDArray) -> NDArray:
-        return np.dot(input_data, self.weights) + self.bias
+        # This is a convolutional layer, so we can just forward propagate
+        return self.forward_propagation(input_data, 0, 0)

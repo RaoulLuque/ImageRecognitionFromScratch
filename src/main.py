@@ -8,11 +8,12 @@ from src.add_ons.data_augmentation import DataAugmentation
 from src.add_ons.early_stopping import EarlyStopping
 from src.layers.activation_function import ActivationFunction
 from src.layers.activation_layer import ActivationLayer
-from src.layers.convolution2d_layer import Convolution2D
+from src.layers.convolution_2d_layer import Convolution2D
 from src.layers.dropout_layer import DropoutLayer
 from src.layers.fully_connected_layer import FCLayer
 from src.add_ons.learning_rate_schedulers import LearningRateScheduler
 from src.add_ons.loss_function import LossFunction
+from src.layers.max_pooling_2d_layer import MaxPoolingLayer2D
 from src.network import Network
 from src.add_ons.optimizers import Optimizer
 from src.utils.read_data import read_data, to_categorical
@@ -124,27 +125,29 @@ def create_model() -> Network:
 def create_convolution_model() -> Network:
     model = Network()
 
-    # input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 32, 28, 28)
+    # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 32, 28, 28)
     model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=32, optimizer=Optimizer.Adam))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(DropoutLayer(0.2, 0))
 
-    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=64,
-                                  optimizer=Optimizer.Adam))
+    # Block 2: input_shape=(BATCH_SIZE, 32, 28, 28) output_shape=(BATCH_SIZE, 64, 14, 14)
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=64, optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, H_height_input=28, W_width_input=28))
+    model.add_layer(DropoutLayer(0.2, 0))
+
+    # Block 3: input_shape=(BATCH_SIZE, 64, 14, 14) output_shape=(BATCH_SIZE, 96, 14, 14)
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=96, optimizer=Optimizer.Adam))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(DropoutLayer(0.2, 0))
 
-    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=96,
-                                  optimizer=Optimizer.Adam))
+    # Block 4: input_shape=(BATCH_SIZE, 96, 14, 14) output_shape=(BATCH_SIZE, 128, 7, 7)
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=128, optimizer=Optimizer.Adam))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, H_height_input=14, W_width_input=14))
     model.add_layer(DropoutLayer(0.2, 0))
 
-    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=128,
-                                  optimizer=Optimizer.Adam))
-    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
-    model.add_layer(DropoutLayer(0.2, 0))
-
-
+    # Block 5: input_shape=(BATCH_SIZE, 128, 7, 7) output_shape=(BATCH_SIZE, 128 * 7 * 7)
     model.add_layer(FCLayer(128 * 28 * 28, 10, optimizer=Optimizer.Adam))
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
 
