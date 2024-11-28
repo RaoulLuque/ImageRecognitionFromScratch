@@ -49,6 +49,15 @@ class Convolution2D(Layer):
     ):
         """
         Initialize the convolutional layer. For parameters description see class docstring.
+        :param D_batch_size: number of samples in the batch
+        :param C_number_channels: number of channels in the input data
+        :param H_height_input: height of the input data
+        :param W_width_input: width of the input data
+        :param NF_number_of_filters: number of filters in the layer
+        :param HF_height_filter: height of the filter
+        :param WF_width_filter: width of the filter
+        :param S_stride: stride
+        :param P_padding: padding
         :param optimizer: optimizer to use for updating weights and bias or None
         """
         super().__init__()
@@ -90,11 +99,13 @@ class Convolution2D(Layer):
                     self.beta2_t = 1
                     self.t = 0
 
-    def forward_propagation(self, input_data: NDArray) -> NDArray:
+    def forward_propagation(self, input_data: NDArray, size_of_current_batch: int, current_sample_index: int) -> NDArray:
         """
         Forward propagation for the convolutional layer. Computes the output of the layer given the input data.
 
         :param input_data: input data for the layer. Shape: (D, C, H, W) = (size_of_current_batch, 1, 28, 28)
+        :param size_of_current_batch: (not used for convolutional layers) number of samples in the batch
+        :param current_sample_index: (not used for convolutional layers) index of the current sample in the batch
         """
         # This is an HF_height_filter x WF_width_filter convolution with stride = 1 and padding = 1
         # Therefore, our input_data is of form D_batch_size x C x H_input x W_input
@@ -129,6 +140,8 @@ class Convolution2D(Layer):
         :param output_error_matrix: output error matrix for the layer.
         Shape: (D, NF, HO, WO) = (size_of_current_batch, number_of_filters, height_of_output, width_of_output)
         = (size_of_current_batch, number_of_filters, 28, 28)
+        :param learning_rate: learning rate for the optimization algorithm. Used to update the weights and bias.
+        :param epoch: current epoch of the training process. Used for the Adam optimizer.
         """
         # Compute bias error
         bias_error = np.sum(output_error_matrix, axis=(0, 2, 3))
