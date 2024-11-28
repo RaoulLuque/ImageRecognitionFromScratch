@@ -114,7 +114,7 @@ The logs of the respective models can be found by clicking the links below the r
 - Fixed learning rate of 0.0005
 
 ## Seventh model
-[251738c](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/251738c9ff68e2344f4ee6ded2dfd62f122815c1)
+[0ae6882](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/0ae68824cf0889e8a7dcfc6b965cf504ea153767)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
 - Softmax activation function on last layer
