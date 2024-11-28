@@ -5,6 +5,7 @@ import time
 import numpy as np
 
 from src.add_ons.data_augmentation import DataAugmentation
+from src.add_ons.early_stopping import EarlyStopping
 from src.layers.activation_function import ActivationFunction
 from src.layers.activation_layer import ActivationLayer
 from src.layers.dropout_layer import DropoutLayer
@@ -14,7 +15,7 @@ from src.add_ons.loss_function import LossFunction
 from src.network import Network
 from src.add_ons.optimizers import Optimizer
 from src.utils.read_data import read_data, to_categorical
-from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_ALTERING_DATA
+from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_ALTERING_DATA, PATIENCE
 
 
 def main():
@@ -55,12 +56,12 @@ def main():
         # If there is no model to load, create a new neural network
         model = create_model()
 
-        # Set other parameters
-        learning_rate_scheduler = LearningRateScheduler.const
-        data_augmentation = DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA)
-
         # Log hyper Parameters:
-        string_to_be_logged = f"Hyperparameters: EPOCHS={EPOCHS}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={BATCH_SIZE}, LEARNING_RATE_SCHEDULER={learning_rate_scheduler}, DATA_AUGMENTATION={data_augmentation is not None}, CHANCE_OF_ALTERING_DATA={CHANCE_OF_ALTERING_DATA}\n"
+        string_to_be_logged = f"Hyperparameters: EPOCHS={model.epochs}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={model.batch_size}, LEARNING_RATE_SCHEDULER={model.learning_rate_scheduler}, DATA_AUGMENTATION={model.data_augmentation is not None}, EARLY_STOPPING={model.early_stopping is not None}"
+        if model.data_augmentation is not None:
+            string_to_be_logged += f", CHANCE_OF_ALTERING_DATA={model.data_augmentation.chance_of_altering_data}\n"
+        else:
+            string_to_be_logged += "\n"
         print(string_to_be_logged)
         with open(LOG_FILE, 'a') as log_file:
             log_file.write(string_to_be_logged)
@@ -69,12 +70,8 @@ def main():
 
         model.set_loss_function(LossFunction.categorical_cross_entropy)
         model.fit(
-            x_train,
-            y_train,
-            epochs=EPOCHS,
-            learning_rate_scheduler=learning_rate_scheduler,
-            batch_size=BATCH_SIZE,
-            data_augmentation=data_augmentation,
+            x_train[:1600],
+            y_train[:1600],
         )
 
         # Save the model
@@ -89,7 +86,7 @@ def main():
 
     end_time = time.time()
     elapsed_time_minutes = (end_time - start_time) / 60
-    string_to_be_logged = f"Total training time:" + "{:.2f}".format(elapsed_time_minutes) + "minutes"
+    string_to_be_logged = "Total training time:" + "{:.2f}".format(elapsed_time_minutes) + "minutes"
     print(string_to_be_logged)
     with open(LOG_FILE, 'a') as log_file:
         log_file.write(string_to_be_logged + "\n")
@@ -108,6 +105,17 @@ def create_model() -> Network:
 
     model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
+
+    # Set (hyper)parameters
+    model.set_hyperparameters(
+            epochs=EPOCHS,
+            learning_rate=LEARNING_RATE,
+            learning_rate_scheduler=LearningRateScheduler.const,
+            batch_size=BATCH_SIZE,
+            data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
+            early_stopping=EarlyStopping(patience=PATIENCE),
+    )
+
     return model
 
 

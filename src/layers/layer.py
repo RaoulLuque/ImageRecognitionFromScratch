@@ -1,4 +1,3 @@
-import numpy as np
 from nptyping.ndarray import NDArray
 
 

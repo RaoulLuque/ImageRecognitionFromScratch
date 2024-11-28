@@ -5,10 +5,11 @@ import random
 from nptyping.ndarray import NDArray
 
 from src.add_ons.data_augmentation import DataAugmentation
+from src.add_ons.early_stopping import EarlyStopping
 from src.layers.layer import Layer
 from src.add_ons.learning_rate_schedulers import LearningRateScheduler
 from src.add_ons.loss_function import LossFunction
-from src.config import LEARNING_RATE, LOG_FILE
+from src.config import LOG_FILE
 from src.utils.utils import shuffle_in_unison, create_batches
 
 
@@ -23,6 +24,13 @@ class Network:
     def __init__(self):
         self.layers: list[Layer] = []
         self.loss_function: LossFunction | None = None
+        # Hyperparameters
+        self.learning_rate: float | None = None
+        self.learning_rate_scheduler: LearningRateScheduler | None = None
+        self.epochs: int | None = None
+        self.batch_size: int | None = None
+        self.data_augmentation: DataAugmentation | None = None
+        self.early_stopping: EarlyStopping | None = None
 
     def add_layer(self, layer: Layer):
         """
@@ -37,6 +45,35 @@ class Network:
         :param loss_function: Loss function to use.
         """
         self.loss_function = loss_function
+
+    def set_hyperparameters(
+            self,
+            learning_rate: float,
+            learning_rate_scheduler: LearningRateScheduler = LearningRateScheduler.const,
+            epochs: int = 100,
+            batch_size: int = 1,
+            data_augmentation: DataAugmentation | None = None,
+            early_stopping: EarlyStopping | None = None,
+    ):
+        """
+        Set the hyperparameters for training the network.
+        :param learning_rate: Learning rate to use for training.
+        :param learning_rate_scheduler: Learning rate scheduler to use. Depending on which scheduler is used,
+        might use or overwrite the learning rate parameter. Defaults to const.
+        :param epochs: Number of epochs to train the network for. Defaults to 100.
+        :param batch_size: Size of the batches to use for training. Defaults to 1 for stochastic gradient descent.
+        :param data_augmentation: Optional data augmentation to use for training.
+        It is applied to each batch before training. Defaults to None.
+        :param early_stopping: Optional early stopping to use for training.
+
+
+        """
+        self.learning_rate = learning_rate
+        self.learning_rate_scheduler = learning_rate_scheduler
+        self.epochs = epochs
+        self.batch_size = batch_size
+        self.data_augmentation = data_augmentation
+        self.early_stopping = early_stopping
 
     def predict(self, input_data: NDArray) -> list[NDArray]:
         """
@@ -60,42 +97,34 @@ class Network:
             self,
             x_train: NDArray,
             y_train: NDArray,
-            epochs: int,
-            learning_rate_scheduler: LearningRateScheduler = LearningRateScheduler.const,
-            data_augmentation: DataAugmentation | None = None,
-            batch_size: int = 1
     ):
         """
         Train the network on the given training data.
         :param x_train: Training data for the network.
         :param y_train: Training labels for the network.
-        :param epochs: Number of epochs to train the network for.
-        :param learning_rate_scheduler: Learning rate scheduler to be used by the network. Uses const by default.
-        :param data_augmentation: Optional data augmentation to be used for training. It is applied to each batch before training. Uses None by default.
-        :param batch_size: Size of the batches to use for training. Defaults to 1 (stochastic descent)
         """
         number_of_samples = len(x_train)
-        learning_rate = LEARNING_RATE
+        learning_rate = self.learning_rate
 
         # training loop
-        for epoch_index in range(epochs):
+        for epoch_index in range(self.epochs):
             start_time = time.time()
 
             # Shuffle data and create batches
             x_train, y_train = shuffle_in_unison(x_train, y_train)
-            x_train_batches, y_train_batches = create_batches(x_train, y_train, batch_size)
+            x_train_batches, y_train_batches = create_batches(x_train, y_train, self.batch_size)
 
             # Set learning rate for this epoch
-            learning_rate = learning_rate_scheduler.get_learning_rate(learning_rate, epoch_index)
+            learning_rate = self.learning_rate_scheduler.get_learning_rate(learning_rate, epoch_index)
 
             # Error of the epoch to be displayed
             err = 0
             for current_batch_index in range(len(x_train_batches)):
-                if data_augmentation is not None:
+                if self.data_augmentation is not None:
                     # Apply data augmentation with a certain chance
-                    if random.random() < data_augmentation.chance_of_altering_data:
+                    if random.random() < self.data_augmentation.chance_of_altering_data:
                         # Apply data augmentation
-                        x_train_batches[current_batch_index] = data_augmentation.batch_apply(x_train_batches[current_batch_index])
+                        x_train_batches[current_batch_index] = self.data_augmentation.batch_apply(x_train_batches[current_batch_index])
 
                 size_of_current_batch = len(x_train_batches[current_batch_index])
                 # Initialize matrix to save vectors containing the error to propagate for each sample in the batch
@@ -119,10 +148,16 @@ class Network:
             err /= number_of_samples
             end_time = time.time()
             elapsed_time = end_time - start_time
-            string_to_be_logged = (f"epoch {epoch_index + 1}" + " " * (len(str(epochs)) - len(str(epoch_index + 1))) + f"/{epochs}   "
+            string_to_be_logged = (f"epoch {epoch_index + 1}" + " " * (len(str(self.epochs)) - len(str(epoch_index + 1))) + f"/{self.epochs}   "
                                    + "time: " + "{:.2f}".format(elapsed_time) + "s   "
                                    + "error=" + "{:.2e}".format(err) + "   "
                                    + "learning rate=" + "{:.2e}".format(learning_rate))
             print(string_to_be_logged)
             with open(LOG_FILE, 'a') as log_file:
                 log_file.write(string_to_be_logged + "\n")
+
+            # Early stopping
+            if self.early_stopping is not None:
+                if self.early_stopping.monitor == "val_loss":
+                    if self.early_stopping.should_stop(err, self.layers, epoch_index + 1):
+                        break
