@@ -72,17 +72,17 @@ class Convolution2D(Layer):
         self.WF_width_filter = WF_width_filter
         self.S_stride = S_stride
         self.P_padding = P_padding
-        computed_HE_height_out = (H_height_input - HF_height_filter + 2 * P_padding) / S_stride + 1
-        assert computed_HE_height_out.is_integer(), f"Height of the output data is not an integer: {computed_HE_height_out}"
-        self.HO_height_out = int(computed_HE_height_out)
+        computed_HO_height_out = (H_height_input - HF_height_filter + 2 * P_padding) / S_stride + 1
+        assert computed_HO_height_out.is_integer(), f"Height of the output data is not an integer: {computed_HO_height_out}"
+        self.HO_height_out = int(computed_HO_height_out)
         computed_WO_width_out = (W_width_input - WF_width_filter + 2 * P_padding) / S_stride + 1
         assert computed_WO_width_out.is_integer(), f"Width of the output data is not an integer: {computed_WO_width_out}"
         self.WO_width_out = int(computed_WO_width_out)
 
-        # TO DO: Initialize weights and bias
+        # TODO: Initialize weights and bias
         # Weight matrix has shape NF x C x HF x WF
 
-        # Bias has shape NF x 1 TO DO: Check if this is correct
+        # Bias has shape NF x 1 TODO: Check if this is correct
 
         self.optimizer = optimizer
         if self.optimizer is not None:
@@ -106,10 +106,11 @@ class Convolution2D(Layer):
         :param input_data: input data for the layer. Shape: (D, C, H, W) = (size_of_current_batch, 1, 28, 28)
         :param size_of_current_batch: (not used for convolutional layers) number of samples in the batch
         :param current_sample_index: (not used for convolutional layers) index of the current sample in the batch
+        :return: output of the layer. Shape: (D, NF, HO, WO) = (size_of_current_batch, number_of_filters, 28, 28)
         """
         # This is an HF_height_filter x WF_width_filter convolution with stride = 1 and padding = 1
-        # Therefore, our input_data is of form D_batch_size x C x H_input x W_input
-        # and our resulting input_col will be a (C * HF * WF) x (D * H * W) matrix
+        # Furthermore, our input_data is of form D_batch_size x C x H_input x W_input, therefore
+        # our resulting input_col will be a (C * HF * WF) x (D * H * W) matrix
         input_col = im2col_indices(input_data, self.HF_height_filter, self.WF_width_filter, padding=self.P_padding, stride=self.S_stride)
 
         # Given we have NF_number_of_filters filters, we have a weight matrix of shape NF x C x HF x WF
@@ -132,7 +133,6 @@ class Convolution2D(Layer):
 
         return output
 
-    # computes dC/dW, dC/dB for a given output_error=dC/dZ. Returns input_error=dC/dA.
     def backward_propagation(self, output_error_matrix: NDArray, learning_rate: float, epoch: int) -> NDArray:
         """
         Backward propagation for the convolutional layer. Computes the input error and updates the weights and bias.
@@ -146,7 +146,7 @@ class Convolution2D(Layer):
         # Compute bias error
         bias_error = np.sum(output_error_matrix, axis=(0, 2, 3))
         # Reshape the output_error_matrix to be of shape NF x 1
-        bias_error = bias_error.reshape(self.NF_number_of_filters, -1)  # TO DO: Replace this -1 by the actual dimension
+        bias_error = bias_error.reshape(self.NF_number_of_filters, -1)  # TODO: Replace this -1 by the actual dimension
 
         # Compute weights error
         # Reshape the output_error_matrix from D x NF x HO x WO first to be of
