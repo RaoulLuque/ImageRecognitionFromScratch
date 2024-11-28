@@ -8,6 +8,7 @@ from src.add_ons.data_augmentation import DataAugmentation
 from src.add_ons.early_stopping import EarlyStopping
 from src.layers.activation_function import ActivationFunction
 from src.layers.activation_layer import ActivationLayer
+from src.layers.convolution2d_layer import Convolution2D
 from src.layers.dropout_layer import DropoutLayer
 from src.layers.fully_connected_layer import FCLayer
 from src.add_ons.learning_rate_schedulers import LearningRateScheduler
@@ -115,6 +116,46 @@ def create_model() -> Network:
             batch_size=BATCH_SIZE,
             data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
             early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
+    )
+
+    return model
+
+
+def create_convolution_model() -> Network:
+    model = Network()
+
+    # input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 32, 28, 28)
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=32, optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0))
+
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=64,
+                                  optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0))
+
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=96,
+                                  optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0))
+
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, NF_number_of_filters=128,
+                                  optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0))
+
+
+    model.add_layer(FCLayer(128 * 28 * 28, 10, optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
+
+    # Set (hyper)parameters
+    model.set_hyperparameters(
+        epochs=EPOCHS,
+        learning_rate=LEARNING_RATE,
+        learning_rate_scheduler=LearningRateScheduler.const,
+        batch_size=BATCH_SIZE,
+        data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
+        early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
     )
 
     return model
