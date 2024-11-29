@@ -120,7 +120,7 @@ def create_model() -> Network:
     model.set_hyperparameters(
             epochs=EPOCHS,
             learning_rate=LEARNING_RATE,
-            learning_rate_scheduler=LearningRateScheduler.naive,
+            learning_rate_scheduler=LearningRateScheduler.const,
             batch_size=BATCH_SIZE,
             data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
             early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
