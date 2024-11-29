@@ -102,18 +102,16 @@ def main():
 
 
 def create_model() -> Network:
-    weight_initialization = WeightInitialization.he_bias_zero
-
     model = Network()
-    model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam, weight_initialization=weight_initialization))  # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
+    model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam, weight_initialization=WeightInitialization.he_bias_zero))  # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 128))
     model.add_layer(DropoutLayer(0.2, 128))
 
-    model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam, weight_initialization=weight_initialization))  # input_shape=(1, 128)      ;   output_shape=(1, 50)
+    model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam, weight_initialization=WeightInitialization.he_bias_zero))  # input_shape=(1, 128)      ;   output_shape=(1, 50)
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 50))
     model.add_layer(DropoutLayer(0.2, 50))
 
-    model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam, weight_initialization=weight_initialization))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
+    model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam, weight_initialization=WeightInitialization.he_bias_zero))  # input_shape=(1, 50)       ;   output_shape=(1, 10)
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
 
     # Set (hyper)parameters

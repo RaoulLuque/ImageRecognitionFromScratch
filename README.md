@@ -97,18 +97,18 @@ The logs of the respective models can be found by clicking the links below the r
 - Softmax activation function on last layer
 - Adam optimizer
 - Dropout layers
-  - Model layout:
-    ```
-    model.add_layer(
-      FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))             # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
-      model.add_layer(ActivationLayer(ActivationFunction.ReLu, 128))
-      model.add_layer(DropoutLayer(0.2, 128))
-      model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam))  # input_shape=(1, 128)      ;   output_shape=(1, 50)
-      model.add_layer(ActivationLayer(ActivationFunction.ReLu, 50))
-      model.add_layer(DropoutLayer(0.2, 50))
-      model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam))   # input_shape=(1, 50)       ;   output_shape=(1, 10)
-      model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
-    ```
+- Model layout:
+  ```
+  model.add_layer(
+    FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))             # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 128))
+    model.add_layer(DropoutLayer(0.2, 128))
+    model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam))  # input_shape=(1, 128)      ;   output_shape=(1, 50)
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 50))
+    model.add_layer(DropoutLayer(0.2, 50))
+    model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam))   # input_shape=(1, 50)       ;   output_shape=(1, 10)
+    model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
+  ```
 - 2.02% error rate
 - 200 epochs
 - Fixed learning rate of 0.0005
@@ -151,16 +151,15 @@ The logs of the respective models can be found by clicking the links below the r
 - He weight initialization
 - Model layout:
     ```
-    model.add_layer(
-      model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam))  # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
+    model.add_layer(FCLayer(28 * 28, 128, optimizer=Optimizer.Adam, weight_initialization=WeightInitialization.he_bias_zero))  # input_shape=(1, 28*28)    ;   output_shape=(1, 128)
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 128))
     model.add_layer(DropoutLayer(0.2, 128))
 
-    model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam))         # input_shape=(1, 128)      ;   output_shape=(1, 50)
+    model.add_layer(FCLayer(128, 50, optimizer=Optimizer.Adam, weight_initialization=WeightInitialization.he_bias_zero))       # input_shape=(1, 128)      ;   output_shape=(1, 50)
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 50))
     model.add_layer(DropoutLayer(0.2, 50))
 
-    model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam))          # input_shape=(1, 50)       ;   output_shape=(1, 10)
+    model.add_layer(FCLayer(50, 10, optimizer=Optimizer.Adam, weight_initialization=WeightInitialization.he_bias_zero))        # input_shape=(1, 50)       ;   output_shape=(1, 10)
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10))
     ```
 - 1.58% error rate
