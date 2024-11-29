@@ -11,7 +11,7 @@ class FCLayer(Layer):
     """
     Fully connected layer that inherits from Layer base class
     """
-    def __init__(self, input_size: int, output_size: int, optimizer: Optimizer | None = None):
+    def __init__(self, input_size: int, output_size: int, optimizer: Optimizer | None = None, convolutional_network: bool = False):
         """
         Initializes the weights and bias matrices with random values between -0.5 and 0.5. Also initialize optimizer
         parameters, if it is not None.
@@ -23,6 +23,7 @@ class FCLayer(Layer):
         self.weights: NDArray[Shape["input_size, output_size"], Any] = np.random.rand(input_size, output_size) - 0.5
         self.bias: NDArray[Shape["1, output_size"], Any] = np.random.rand(1, output_size) - 0.5
         self.number_of_neurons = output_size
+        self.convolutional_network = convolutional_network
         self.optimizer = optimizer
         if self.optimizer is not None:
             match self.optimizer:
@@ -39,16 +40,25 @@ class FCLayer(Layer):
                     self.t = 0
 
     def forward_propagation(self, input_data: NDArray, size_of_current_batch: int, current_sample_index: int) -> NDArray:
-        if current_sample_index == 0:
-            # If batch has just started, initialize and reset input array to save input data for backpropagation at the end of the batch
-            self.input = np.zeros((size_of_current_batch, 1, self.weights.shape[0]))
-        self.input[current_sample_index] = input_data
-        self.output: NDArray[Shape["self.number_of_neurons"], Any] = np.dot(self.input[current_sample_index], self.weights) + self.bias
-        return self.output
+        if not self.convolutional_network:
+            if current_sample_index == 0:
+                # If batch has just started, initialize and reset input array to save input data for backpropagation at the end of the batch
+                self.input = np.zeros((size_of_current_batch, 1, self.weights.shape[0]))
+            self.input[current_sample_index] = input_data
+            self.output: NDArray[Shape["self.number_of_neurons"], Any] = np.dot(self.input[current_sample_index], self.weights) + self.bias
+            return self.output
+        else:
+            self.input = input_data
+            self.output: NDArray = np.dot(input_data, self.weights) + self.bias
+            return self.output
 
     # computes dC/dW, dC/dB for a given output_error=dC/dZ. Returns input_error=dC/dA.
     def backward_propagation(self, output_error_matrix: NDArray, learning_rate: float, epoch: int) -> NDArray:
-        weights_error_matrix: NDArray = self.input.transpose(0, 2, 1) @ output_error_matrix
+        if not self.convolutional_network:
+            #
+            weights_error_matrix: NDArray = self.input.transpose(0, 2, 1) @ output_error_matrix
+        else:
+            weights_error_matrix: NDArray = self.input.reshape(self.input.shape[0], 1, -1).transpose(0, 2, 1) @ output_error_matrix.reshape(output_error_matrix.shape[0], 1, -1)
         weights_error: NDArray = np.average(weights_error_matrix, axis=0)
         bias_error: NDArray = np.average(output_error_matrix, axis=0)
         # Compute error to propagate to previous layer (multiply dC/dZ by dZ/dA to obtain dC/dA)

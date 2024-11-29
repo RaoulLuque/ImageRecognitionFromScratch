@@ -79,8 +79,10 @@ class Convolution2D(Layer):
 
         # TODO: Initialize weights and bias
         # Weight matrix has shape NF x C x HF x WF
+        self.weights = np.random.randn(NF_number_of_filters, C_number_channels, HF_height_filter, WF_width_filter) - 0.5
 
         # Bias has shape NF x 1 TODO: Check if this is correct
+        self.bias = np.random.randn(NF_number_of_filters, 1) - 0.5
 
         self.optimizer = optimizer
         if self.optimizer is not None:

@@ -109,10 +109,7 @@ class MaxPoolingLayer2D(Layer):
         # Given the output data and therefore error is of shape D x C x HO x WO = (size_of_current_batch, 1, 14, 14)
         # We want to upscale this to the input shape D x C x H x W = (size_of_current_batch, 1, 28, 28)
         # First initial an empty matrix of shape (PS * PS * 1) x (D * C * HO * WO) = 4 x (D * C * 14 * 14)
-        input_error_col = np.zeros_like(
-            (self.PS_pool_size * self.PS_pool_size * 1,
-             self.D_batch_size * self.C_number_channels * self.H_height_input * self.W_width_input)
-        )
+        input_error_col = np.zeros((self.PS_pool_size * self.PS_pool_size * 1, self.D_batch_size * self.C_number_channels * self.HO_height_out * self.WO_width_out))
 
         # The output error matrix is of shape D x C x HO x WO = (size_of_current_batch, 1, 14, 14)
         # We want to reshape this to be of shape 1 x (D * C * HO * WO) = 1 x (D * C * 14 * 14)

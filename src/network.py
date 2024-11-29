@@ -20,6 +20,7 @@ class Network:
     """
     layers: list[Layer]
     loss_function: LossFunction | None
+    convolution_network: bool = False
 
     def __init__(self):
         self.layers: list[Layer] = []
@@ -54,6 +55,7 @@ class Network:
             batch_size: int = 1,
             data_augmentation: DataAugmentation | None = None,
             early_stopping: EarlyStopping | None = None,
+            convolution_network: bool = False
     ):
         """
         Set the hyperparameters for training the network.
@@ -64,9 +66,8 @@ class Network:
         :param batch_size: Size of the batches to use for training. Defaults to 1 for stochastic gradient descent.
         :param data_augmentation: Optional data augmentation to use for training.
         It is applied to each batch before training. Defaults to None.
-        :param early_stopping: Optional early stopping to use for training.
-
-
+        :param early_stopping: Optional early stopping to use for training. Defaults to None.
+        :param convolution_network: Whether the network is a convolutional network. Defaults to False.
         """
         self.learning_rate = learning_rate
         self.learning_rate_scheduler = learning_rate_scheduler
@@ -74,6 +75,7 @@ class Network:
         self.batch_size = batch_size
         self.data_augmentation = data_augmentation
         self.early_stopping = early_stopping
+        self.convolution_network = convolution_network
 
     def predict(self, input_data: NDArray) -> list[NDArray]:
         """
@@ -112,6 +114,9 @@ class Network:
 
             # Shuffle data and create batches
             x_train, y_train = shuffle_in_unison(x_train, y_train)
+            if self.convolution_network:
+                # Reshape data to be of shape (D, C, H, W) = (size_of_current_batch, 1, 28, 28) for convolution network
+                x_train = x_train.reshape(x_train.shape[0], 1, 28, 28)
             x_train_batches, y_train_batches = create_batches(x_train, y_train, self.batch_size)
 
             # Set learning rate for this epoch
@@ -130,19 +135,33 @@ class Network:
                 # Initialize matrix to save vectors containing the error to propagate for each sample in the batch
                 # batch_error_to_propagate[i] contains the error for sample i in the batch
                 batch_error_to_propagate: NDArray = np.zeros((size_of_current_batch, 1, 10))
-                for current_sample_index in range(size_of_current_batch):
+
+                if not self.convolution_network:
+                    for current_sample_index in range(size_of_current_batch):
+                        # forward propagation
+                        output = x_train_batches[current_batch_index][current_sample_index]
+                        for layer in self.layers:
+                            output = layer.forward_propagation(output, size_of_current_batch, current_sample_index)
+
+                        # compute loss (for display purpose only)
+                        err += self.loss_function.function(y_train_batches[current_batch_index][current_sample_index], output)
+                        batch_error_to_propagate[current_sample_index] = self.loss_function.derivative(y_train_batches[current_batch_index][current_sample_index], output)
+
+                else:
                     # forward propagation
-                    output = x_train_batches[current_batch_index][current_sample_index]
+                    output = x_train_batches[current_batch_index]
                     for layer in self.layers:
-                        output = layer.forward_propagation(output, size_of_current_batch, current_sample_index)
+                        output = layer.forward_propagation(output, size_of_current_batch, current_batch_index)
 
                     # compute loss (for display purpose only)
-                    err += self.loss_function.function(y_train_batches[current_batch_index][current_sample_index], output)
-                    batch_error_to_propagate[current_sample_index] = self.loss_function.derivative(y_train_batches[current_batch_index][current_sample_index], output)
+                    err += self.loss_function.function(y_train_batches[current_batch_index], output)
+                    batch_error_to_propagate = self.loss_function.derivative(y_train_batches[current_batch_index], output)
 
                 # backward propagation
                 for layer in reversed(self.layers):
                     batch_error_to_propagate = layer.backward_propagation(batch_error_to_propagate, learning_rate, epoch_index + 1)
+
+                print(f"Batch {current_batch_index + 1}/{len(x_train_batches)}")
 
             # calculate average error on all samples
             err /= number_of_samples

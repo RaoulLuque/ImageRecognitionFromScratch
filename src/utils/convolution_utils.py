@@ -17,7 +17,7 @@ def get_im2col_indices(input_shape, filter_height: int = 5, filter_width: int = 
     # First figure out what the size of the output should be
     _, C_number_channels, H_height, W_width = input_shape
     assert (H_height + 2 * padding - filter_height) % stride == 0
-    assert (W_width + 2 * padding - filter_height) % stride == 0
+    assert (W_width + 2 * padding - filter_width) % stride == 0
     out_height = (H_height + 2 * padding - filter_height) // stride + 1
     out_width = (W_width + 2 * padding - filter_width) // stride + 1
 
@@ -87,8 +87,10 @@ def col2im_indices(cols: NDArray, input_shape, filter_height: int = 5, filter_wi
     cols_reshaped = cols.reshape(C_number_channels * filter_height * filter_width, -1, D_batch_size)
     cols_reshaped = cols_reshaped.transpose(2, 0, 1)
 
-    # Add reshaped columns to padded input
-    np.add.at(input_padded, (slice(None), k, i, j), cols_reshaped)
+    # After
+    for d in range(D_batch_size):
+        for c in range(C_number_channels):
+            np.add.at(input_padded[d, c], (i, j), cols_reshaped[d, c])
 
     # Return padded input if no padding, otherwise remove padding
     if padding == 0:
