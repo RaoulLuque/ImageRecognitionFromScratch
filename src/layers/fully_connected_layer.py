@@ -1,5 +1,6 @@
 from typing import Any
 
+from src.add_ons.weight_initialization import WeightInitialization
 from src.layers.layer import Layer
 import numpy as np
 from nptyping import NDArray, Shape
@@ -11,17 +12,21 @@ class FCLayer(Layer):
     """
     Fully connected layer that inherits from Layer base class
     """
-    def __init__(self, input_size: int, output_size: int, optimizer: Optimizer | None = None, convolutional_network: bool = False):
+    def __init__(self, input_size: int, output_size: int, optimizer: Optimizer | None = None, convolutional_network: bool = False, weight_initialization: WeightInitialization = WeightInitialization.default_fully_connected):
         """
         Initializes the weights and bias matrices with random values between -0.5 and 0.5. Also initialize optimizer
         parameters, if it is not None.
         :param input_size: number of input neurons (number of neurons in previous layer)
         :param output_size: number of output neurons (number of neurons in this layer)
-        :param optimizer: optimizer to use for updating weights and bias or None
+        :param optimizer: optimizer to use for updating weights and bias or None. Defaults to None
+        :param convolutional_network: whether the layer is part of a convolutional network. Defaults to False
+        :param weight_initialization: weight initialization method. Defaults to default_fully_connected
         """
         super().__init__()
-        self.weights: NDArray[Shape["input_size, output_size"], Any] = np.random.rand(input_size, output_size) - 0.5
-        self.bias: NDArray[Shape["1, output_size"], Any] = np.random.rand(1, output_size) - 0.5
+        # Initialization of weights and bias
+        self.weights: NDArray[Shape["input_size, output_size"], Any] = weight_initialization.initialize_weights(np.array([input_size, output_size]), input_size, output_size)
+        self.bias: NDArray[Shape["1, output_size"], Any] = weight_initialization.initialize_bias(np.array([1, output_size]), input_size, output_size)
+
         self.number_of_neurons = output_size
         self.convolutional_network = convolutional_network
         self.optimizer = optimizer
@@ -55,7 +60,6 @@ class FCLayer(Layer):
     # computes dC/dW, dC/dB for a given output_error=dC/dZ. Returns input_error=dC/dA.
     def backward_propagation(self, output_error_matrix: NDArray, learning_rate: float, epoch: int) -> NDArray:
         if not self.convolutional_network:
-            #
             weights_error_matrix: NDArray = self.input.transpose(0, 2, 1) @ output_error_matrix
         else:
             weights_error_matrix: NDArray = self.input.reshape(self.input.shape[0], 1, -1).transpose(0, 2, 1) @ output_error_matrix.reshape(output_error_matrix.shape[0], 1, -1)

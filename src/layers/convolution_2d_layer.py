@@ -1,3 +1,4 @@
+from src.add_ons.weight_initialization import WeightInitialization
 from src.layers.layer import Layer
 import numpy as np
 from nptyping import NDArray
@@ -43,7 +44,8 @@ class Convolution2D(Layer):
             WF_width_filter: int = 5,
             S_stride: int = 1,
             P_padding: int = 2,
-            optimizer: Optimizer | None = None
+            optimizer: Optimizer | None = None,
+            weight_initialization: WeightInitialization = WeightInitialization.he_bias_zero,
     ):
         """
         Initialize the convolutional layer. For parameters description see class docstring.
@@ -57,6 +59,7 @@ class Convolution2D(Layer):
         :param S_stride: stride
         :param P_padding: padding
         :param optimizer: optimizer to use for updating weights and bias or None
+        :param weight_initialization: weight initialization method. Defaults to He initialization with bias zero.
         """
         super().__init__()
         self.input_col: NDArray | None = None
@@ -76,13 +79,13 @@ class Convolution2D(Layer):
         computed_WO_width_out = (W_width_input - WF_width_filter + 2 * P_padding) / S_stride + 1
         assert computed_WO_width_out.is_integer(), f"Width of the output data is not an integer: {computed_WO_width_out}"
         self.WO_width_out = int(computed_WO_width_out)
+        self.weight_initialization = weight_initialization
 
-        # TODO: Initialize weights and bias
         # Weight matrix has shape NF x C x HF x WF
-        self.weights = np.random.randn(NF_number_of_filters, C_number_channels, HF_height_filter, WF_width_filter) - 0.5
+        self.weights = weight_initialization.initialize_weights(np.array([NF_number_of_filters, C_number_channels, HF_height_filter, WF_width_filter]), C_number_channels * H_height_input * W_width_input, NF_number_of_filters * self.HO_height_out * self.WO_width_out)
 
-        # Bias has shape NF x 1 TODO: Check if this is correct
-        self.bias = np.random.randn(NF_number_of_filters, 1) - 0.5
+        # Bias has shape NF x 1
+        self.bias = weight_initialization.initialize_bias(np.array([NF_number_of_filters, 1]), C_number_channels * H_height_input * W_width_input, NF_number_of_filters * self.HO_height_out * self.WO_width_out)
 
         self.optimizer = optimizer
         if self.optimizer is not None:
