@@ -24,7 +24,7 @@ from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_AL
 
 def main():
     # For debug:
-    np.seterr(all='raise')
+    # np.seterr(all='raise')
 
     # Create log file if it does not exist already
     try:
