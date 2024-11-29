@@ -24,7 +24,7 @@ from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_AL
 
 def main():
     # For debug:
-    # np.seterr(all='raise')
+    np.seterr(all='raise')
 
     # Create log file if it does not exist already
     try:
@@ -61,7 +61,7 @@ def main():
     start_time = time.time()
     if model_to_load is None:
         # If there is no model to load, create a new neural network
-        model = create_small_convolution_model()
+        model = create_model()
 
         # Log hyper Parameters:
         string_to_be_logged = f"Hyperparameters: EPOCHS={model.epochs}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={model.batch_size}, LEARNING_RATE_SCHEDULER={model.learning_rate_scheduler}, CONVOLUTION_MODEL={model.convolution_network}, DATA_AUGMENTATION={model.data_augmentation is not None}, EARLY_STOPPING={model.early_stopping is not None}"
@@ -120,7 +120,7 @@ def create_model() -> Network:
     model.set_hyperparameters(
             epochs=EPOCHS,
             learning_rate=LEARNING_RATE,
-            learning_rate_scheduler=LearningRateScheduler.const,
+            learning_rate_scheduler=LearningRateScheduler.naive,
             batch_size=BATCH_SIZE,
             data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
             early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),

@@ -3,7 +3,7 @@
 EPSILON = 1e-8
 
 # Hyperparameters for network training
-EPOCHS = 125
+EPOCHS = 175
 LEARNING_RATE = 0.0005
 BATCH_SIZE = 16
 CHANCE_OF_ALTERING_DATA = 0.25
