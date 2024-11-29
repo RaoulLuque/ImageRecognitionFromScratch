@@ -161,8 +161,6 @@ class Network:
                 for layer in reversed(self.layers):
                     batch_error_to_propagate = layer.backward_propagation(batch_error_to_propagate, learning_rate, epoch_index + 1)
 
-                print(f"Batch {current_batch_index + 1}/{len(x_train_batches)}")
-
             # calculate average error on all samples
             err /= number_of_samples
             end_time = time.time()
