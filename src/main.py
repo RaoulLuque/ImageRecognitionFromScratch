@@ -79,8 +79,8 @@ def main():
 
         model.set_loss_function(LossFunction.categorical_cross_entropy)
         model.fit(
-            x_train[:800],
-            y_train[:800],
+            x_train,
+            y_train,
         )
 
         # Save the model
