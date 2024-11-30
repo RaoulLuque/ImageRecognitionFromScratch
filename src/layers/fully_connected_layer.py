@@ -61,9 +61,10 @@ class FCLayer(Layer):
     def backward_propagation(self, output_error_matrix: NDArray, learning_rate: float, epoch: int) -> NDArray:
         if not self.convolutional_network:
             weights_error_matrix: NDArray = self.input.transpose(0, 2, 1) @ output_error_matrix
+            weights_error: NDArray = np.average(weights_error_matrix, axis=0)
         else:
-            weights_error_matrix: NDArray = self.input.reshape(self.input.shape[0], 1, -1).transpose(0, 2, 1) @ output_error_matrix.reshape(output_error_matrix.shape[0], 1, -1)
-        weights_error: NDArray = np.average(weights_error_matrix, axis=0)
+            weights_error: NDArray = self.input.T @ output_error_matrix
+
         bias_error: NDArray = np.average(output_error_matrix, axis=0)
         # Compute error to propagate to previous layer (multiply dC/dZ by dZ/dA to obtain dC/dA)
         input_error: NDArray = np.dot(output_error_matrix, self.weights.T)

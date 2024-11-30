@@ -149,7 +149,7 @@ class Convolution2D(Layer):
         # Compute bias error
         bias_error = np.sum(output_error_matrix, axis=(0, 2, 3))
         # Reshape the output_error_matrix to be of shape NF x 1
-        bias_error = bias_error.reshape(self.NF_number_of_filters, -1)  # TODO: Replace this -1 by the actual dimension
+        bias_error = bias_error.reshape(self.NF_number_of_filters, 1)
 
         # Compute weights error
         # Reshape the output_error_matrix from D x NF x HO x WO first to be of

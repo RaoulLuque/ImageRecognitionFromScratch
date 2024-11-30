@@ -106,7 +106,7 @@ class MaxPoolingLayer2D(Layer):
         :param learning_rate: (not used in pooling layer since no learnable parameters exist) learning rate for the optimization algorithm. Used to update the weights and bias.
         :param epoch: (not used in pooling layer since no learnable parameters exist) current epoch of the training process. Used for the Adam optimizer.
         """
-        # Given the output data and therefore error is of shape D x C x HO x WO = (size_of_current_batch, 1, 14, 14)
+        # Since output error shape = output shape, the output errors' shape is D x C x HO x WO = (size_of_current_batch, 1, 14, 14)
         # We want to upscale this to the input shape D x C x H x W = (size_of_current_batch, 1, 28, 28)
         # First initial an empty matrix of shape (PS * PS * 1) x (D * C * HO * WO) = 4 x (D * C * 14 * 14)
         input_error_col = np.zeros((self.PS_pool_size * self.PS_pool_size * 1, self.D_batch_size * self.C_number_channels * self.HO_height_out * self.WO_width_out))

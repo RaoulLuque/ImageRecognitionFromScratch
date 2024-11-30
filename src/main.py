@@ -9,6 +9,7 @@ from src.add_ons.early_stopping import EarlyStopping
 from src.add_ons.weight_initialization import WeightInitialization
 from src.layers.activation_function import ActivationFunction
 from src.layers.activation_layer import ActivationLayer
+from src.layers.batch_normalization import BatchNormalization
 from src.layers.convolution_2d_layer import Convolution2D
 from src.layers.dropout_layer import DropoutLayer
 from src.layers.flatten_layer import FlattenLayer
@@ -78,8 +79,8 @@ def main():
 
         model.set_loss_function(LossFunction.categorical_cross_entropy)
         model.fit(
-            x_train,
-            y_train,
+            x_train[:800],
+            y_train[:800],
         )
 
         # Save the model
@@ -180,6 +181,7 @@ def create_small_convolution_model() -> Network:
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=8, H_height_input=28,
                       W_width_input=28, optimizer=None))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=8, H_height_input=28, W_width_input=28))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=8,
                                       H_height_input=28, W_width_input=28))
@@ -189,6 +191,7 @@ def create_small_convolution_model() -> Network:
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=8, NF_number_of_filters=16, H_height_input=14,
                       W_width_input=14, optimizer=None))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=16,
                                       H_height_input=14, W_width_input=14))

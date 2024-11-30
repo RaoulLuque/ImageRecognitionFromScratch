@@ -144,6 +144,7 @@ class Network:
                             output = layer.forward_propagation(output, size_of_current_batch, current_sample_index)
 
                         # compute loss (for display purpose only)
+                        error_test = self.loss_function.function(y_train_batches[current_batch_index][current_sample_index], output)
                         err += self.loss_function.function(y_train_batches[current_batch_index][current_sample_index], output)
                         batch_error_to_propagate[current_sample_index] = self.loss_function.derivative(y_train_batches[current_batch_index][current_sample_index], output)
 
@@ -154,6 +155,7 @@ class Network:
                         output = layer.forward_propagation(output, size_of_current_batch, current_batch_index)
 
                     # compute loss (for display purpose only)
+                    error_test = self.loss_function.function(y_train_batches[current_batch_index], output)
                     err += self.loss_function.function(y_train_batches[current_batch_index], output)
                     batch_error_to_propagate = self.loss_function.derivative(y_train_batches[current_batch_index], output)
 
