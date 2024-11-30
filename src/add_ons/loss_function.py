@@ -14,7 +14,8 @@ class LossFunction(Enum):
             case LossFunction.mse:
                 return mean_squared_error(y_true, y_pred)
             case LossFunction.categorical_cross_entropy:
-                return categorical_cross_entropy(y_true, y_pred)
+                self.loss = categorical_cross_entropy(y_true, y_pred)
+                return self.loss
 
     def derivative(self, y_true: NDArray, y_pred: NDArray) -> NDArray:
         """Returns the derivative of the loss function."""
@@ -22,7 +23,8 @@ class LossFunction(Enum):
             case LossFunction.mse:
                 return mean_squared_error_derivative(y_true, y_pred)
             case LossFunction.categorical_cross_entropy:
-                return categorical_cross_entropy_derivative(y_true, y_pred)
+                self.loss_gradient = categorical_cross_entropy_derivative(y_true, y_pred)
+                return self.loss_gradient
 
 
 def mean_squared_error(y_true: NDArray, y_pred: NDArray) -> np.floating:
@@ -38,6 +40,7 @@ def mean_squared_error_derivative(y_true: NDArray, y_pred: NDArray) -> NDArray:
 def categorical_cross_entropy(y_true: NDArray, y_pred: NDArray) -> np.floating:
     """Computes the categorical cross entropy loss function."""
     return -np.sum(y_true * np.log(y_pred))
+    # return -np.sum(y_true * np.log(np.exp(y_pred) / np.sum(np.exp(y_pred))))
 
 
 def categorical_cross_entropy_derivative(y_true: NDArray, y_pred: NDArray) -> NDArray:

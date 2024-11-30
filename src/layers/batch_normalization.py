@@ -102,6 +102,11 @@ class BatchNormalization(Layer):
         gamma_error = np.sum(output_error_matrix * self.input_normalized, axis=0)
         beta_error = np.sum(output_error_matrix, axis=0)
 
+        # Cache gradients for debugging
+        self.gamma_error = gamma_error
+        self.beta_error = beta_error
+        self.input_error = input_error
+
         match self.optimizer:
             case None:
                 # Update weights and bias
@@ -135,6 +140,7 @@ class BatchNormalization(Layer):
                     self.beta2_t,
                     self.t,
                     epoch,
+                    increment_t=False,
                 )
 
         return input_error

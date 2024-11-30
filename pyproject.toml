@@ -19,6 +19,7 @@ dev = [
     "pytest-mock<4.0.0,>=3.14.0",
     "mypy>=1.13.0",
     "ruff>=0.8.0",
+    "torch>=2.5.1",
 ]
 
 [tool.pytest.ini_options]

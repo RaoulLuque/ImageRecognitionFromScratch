@@ -75,8 +75,6 @@ def main():
         with open(LOG_FILE, 'a') as log_file:
             log_file.write(string_to_be_logged)
 
-        # Train only on part of the data since all of it would be pretty slow since batches are not implemented yet
-
         model.set_loss_function(LossFunction.categorical_cross_entropy)
         model.fit(
             x_train,

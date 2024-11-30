@@ -9,7 +9,7 @@ from src.add_ons.early_stopping import EarlyStopping
 from src.layers.layer import Layer
 from src.add_ons.learning_rate_schedulers import LearningRateScheduler
 from src.add_ons.loss_function import LossFunction
-from src.config import LOG_FILE
+from src.config import LOG_FILE, DEBUGGING
 from src.utils.utils import shuffle_in_unison, create_batches
 
 
@@ -113,7 +113,8 @@ class Network:
             start_time = time.time()
 
             # Shuffle data and create batches
-            x_train, y_train = shuffle_in_unison(x_train, y_train)
+            if not DEBUGGING:
+                x_train, y_train = shuffle_in_unison(x_train, y_train)
             if self.convolution_network:
                 # Reshape data to be of shape (D, C, H, W) = (size_of_current_batch, 1, 28, 28) for convolution network
                 x_train = x_train.reshape(x_train.shape[0], 1, 28, 28)

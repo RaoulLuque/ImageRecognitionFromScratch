@@ -171,11 +171,10 @@ class Convolution2D(Layer):
         # Convert back to the original shape
         input_error = col2im_indices(input_error_col, self.input.shape, self.HF_height_filter, self.WF_width_filter, padding=self.P_padding, stride=self.S_stride)
 
-        # weights_error_matrix: NDArray = self.input.transpose(0, 2, 1) @ output_error_matrix
-        # weights_error: NDArray = np.average(weights_error_matrix, axis=0)
-        # bias_error: NDArray = np.average(output_error_matrix, axis=0)
-        # # Compute error to propagate to previous layer (multiply dC/dZ by dZ/dA to obtain dC/dA)
-        # input_error: NDArray = np.dot(output_error_matrix, self.weights.T)
+        # Cache gradients for debugging
+        self.weights_error = weights_error
+        self.bias_error = bias_error
+        self.input_error = input_error
 
         match self.optimizer:
             case None:

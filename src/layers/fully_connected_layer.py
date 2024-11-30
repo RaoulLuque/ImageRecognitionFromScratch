@@ -69,6 +69,11 @@ class FCLayer(Layer):
         # Compute error to propagate to previous layer (multiply dC/dZ by dZ/dA to obtain dC/dA)
         input_error: NDArray = np.dot(output_error_matrix, self.weights.T)
 
+        # Cache gradients for debugging
+        self.weights_error = weights_error
+        self.bias_error = bias_error
+        self.input_error = input_error
+
         match self.optimizer:
             case None:
                 # Update weights and bias

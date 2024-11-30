@@ -66,8 +66,12 @@ class FlattenLayer(Layer):
         :param current_sample_index: (not used in this layer type) index of the current sample in the batch
         :return: output of the layer. Shape: (D, C * H * W)
         """
+        # Cache input for debug
+        self.input = input_data.copy()
+
         # The result will be of shape D x (C * H * W)
         output = input_data.reshape(self.D_batch_size, self.C_number_channels * self.H_height_input * self.W_width_input)
+
         return output
 
     def backward_propagation(self, output_error_matrix: NDArray, learning_rate: float, epoch: int) -> NDArray:
