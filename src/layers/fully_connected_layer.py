@@ -62,10 +62,11 @@ class FCLayer(Layer):
         if not self.convolutional_network:
             weights_error_matrix: NDArray = self.input.transpose(0, 2, 1) @ output_error_matrix
             weights_error: NDArray = np.average(weights_error_matrix, axis=0)
+            bias_error: NDArray = np.average(output_error_matrix, axis=0)
         else:
             weights_error: NDArray = self.input.T @ output_error_matrix
+            bias_error: NDArray = np.sum(output_error_matrix, axis=0)
 
-        bias_error: NDArray = np.average(output_error_matrix, axis=0)
         # Compute error to propagate to previous layer (multiply dC/dZ by dZ/dA to obtain dC/dA)
         input_error: NDArray = np.dot(output_error_matrix, self.weights.T)
 
