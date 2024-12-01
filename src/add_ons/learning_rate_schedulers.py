@@ -5,14 +5,15 @@ class LearningRateScheduler(Enum):
     """Enum class for learning rate schedulers."""
     naive = "naive"
     const = "const"
-    tuned = "tuned"
+    tunable = "tunable"
 
-    def get_learning_rate(self, learning_rate: float, epoch: int) -> float:
+    def get_learning_rate(self, learning_rate: float, epoch: int, halve_after: int = 5) -> float:
         """
         Returns the learning rate scheduler.
         :param self: This learning rate scheduler
         :param learning_rate: Current learning rate
         :param epoch: Current epoch
+        :param halve_after: Used for tunable learning rate scheduler. Halve the learning rate after this many epochs.
         :return: New learning rate
         """
         match self:
@@ -20,8 +21,8 @@ class LearningRateScheduler(Enum):
                 return naive_learning_rate_scheduler(learning_rate, epoch)
             case LearningRateScheduler.const:
                 return const_learning_rate_scheduler(learning_rate, epoch)
-            case LearningRateScheduler.tuned:
-                return tuned_learning_rate_scheduler(learning_rate, epoch)
+            case LearningRateScheduler.tunable:
+                return tunable_learning_rate_scheduler(learning_rate, epoch, halve_after)
 
 
 def naive_learning_rate_scheduler(learning_rate: float, epoch: int) -> float:
@@ -47,15 +48,16 @@ def const_learning_rate_scheduler(learning_rate: float, epoch: int) -> float:
     return learning_rate
 
 
-def tuned_learning_rate_scheduler(learning_rate: float, epoch: int) -> float:
+def tunable_learning_rate_scheduler(learning_rate: float, epoch: int, halve_after: int) -> float:
     """
-    Naive learning rate schedular that starts with 0.0005 halves the learning rate every 5 epochs.
+    Tunable learning rate schedular that starts with learning_rate halves the learning rate every halving_parameter epochs.
     :param learning_rate: Current learning rate
     :param epoch: Current epoch
+    :param halve_after: Halve the learning rate after this many epochs
     :return: New learning rate
     """
-    starting_lr = 0.005
-    if epoch < 10:
-        return starting_lr * (epoch + 1) / 10
-    later_lr = 0.0005
-    return later_lr * (0.5 ** ((epoch - 10) // 5))
+    if epoch < halve_after:
+        return learning_rate + (learning_rate / (epoch + 1))
+    if epoch % halve_after == 0:
+        return learning_rate * 0.5
+    return learning_rate

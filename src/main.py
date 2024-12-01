@@ -19,7 +19,8 @@ from src.layers.max_pooling_2d_layer import MaxPoolingLayer2D
 from src.network import Network
 from src.add_ons.optimizers import Optimizer
 from src.utils.read_data import read_data, to_categorical
-from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_ALTERING_DATA, PATIENCE, MIN_DELTA_REL
+from src.config import EPOCHS, BATCH_SIZE, LOG_FILE, LEARNING_RATE, CHANCE_OF_ALTERING_DATA, PATIENCE, MIN_DELTA_REL, \
+    LEARNING_RATE_HALVE_AFTER
 
 
 def main():
@@ -61,10 +62,10 @@ def main():
     start_time = time.time()
     if model_to_load is None:
         # If there is no model to load, create a new neural network
-        model = create_model()
+        model = create_small_convolution_model()
 
         # Log hyper Parameters:
-        string_to_be_logged = f"Hyperparameters: EPOCHS={model.epochs}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={model.batch_size}, LEARNING_RATE_SCHEDULER={model.learning_rate_scheduler}, CONVOLUTION_MODEL={model.convolution_network}, DATA_AUGMENTATION={model.data_augmentation is not None}, EARLY_STOPPING={model.early_stopping is not None}"
+        string_to_be_logged = f"Hyperparameters: EPOCHS={model.epochs}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={model.batch_size}, LEARNING_RATE_SCHEDULER={model.learning_rate_scheduler}, LEARNING_RATE_HALVER_AFTER={model.learning_rate_halve_after}, \n CONVOLUTION_MODEL={model.convolution_network}, DATA_AUGMENTATION={model.data_augmentation is not None}, EARLY_STOPPING={model.early_stopping is not None}"
         if model.data_augmentation is not None:
             string_to_be_logged += f", CHANCE_OF_ALTERING_DATA={model.data_augmentation.chance_of_altering_data}"
         if model.early_stopping is not None:
@@ -205,10 +206,11 @@ def create_small_convolution_model() -> Network:
     model.set_hyperparameters(
         epochs=EPOCHS,
         learning_rate=LEARNING_RATE,
-        learning_rate_scheduler=LearningRateScheduler.const,
+        learning_rate_scheduler=LearningRateScheduler.tunable,
+        learning_rate_halve_after=LEARNING_RATE_HALVE_AFTER,
         batch_size=BATCH_SIZE,
         data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
-        # early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
+        early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
         convolution_network=True,
     )
 

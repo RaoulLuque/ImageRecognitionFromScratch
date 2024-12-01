@@ -51,6 +51,7 @@ class Network:
             self,
             learning_rate: float,
             learning_rate_scheduler: LearningRateScheduler = LearningRateScheduler.const,
+            learning_rate_halve_after: int = 5,
             epochs: int = 100,
             batch_size: int = 1,
             data_augmentation: DataAugmentation | None = None,
@@ -62,6 +63,7 @@ class Network:
         :param learning_rate: Learning rate to use for training.
         :param learning_rate_scheduler: Learning rate scheduler to use. Depending on which scheduler is used,
         might use or overwrite the learning rate parameter. Defaults to const.
+        :param learning_rate_halve_after: Used for tunable learning rate scheduler. Halve the learning rate after this many epochs.
         :param epochs: Number of epochs to train the network for. Defaults to 100.
         :param batch_size: Size of the batches to use for training. Defaults to 1 for stochastic gradient descent.
         :param data_augmentation: Optional data augmentation to use for training.
@@ -71,6 +73,7 @@ class Network:
         """
         self.learning_rate = learning_rate
         self.learning_rate_scheduler = learning_rate_scheduler
+        self.learning_rate_halve_after = learning_rate_halve_after
         self.epochs = epochs
         self.batch_size = batch_size
         self.data_augmentation = data_augmentation
@@ -124,7 +127,7 @@ class Network:
             x_train_batches, y_train_batches = create_batches(x_train, y_train, self.batch_size)
 
             # Set learning rate for this epoch
-            learning_rate = self.learning_rate_scheduler.get_learning_rate(learning_rate, epoch_index)
+            learning_rate = self.learning_rate_scheduler.get_learning_rate(learning_rate, epoch_index, self.learning_rate_halve_after)
 
             # Error of the epoch to be displayed
             err = 0
