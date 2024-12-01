@@ -36,10 +36,11 @@ class Layer:
         """
         raise NotImplementedError
 
-    def predict(self, input_data: NDArray) -> NDArray:
+    def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
         """
         Computes the output of a layer for a given input outside of training
         :param input_data: Input data.
+        :param batch_size: Size of the batch, necessary for some layers to determine the shape of the output.
         :return: Output of the layer given the input data.
         """
         raise NotImplementedError

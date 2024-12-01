@@ -145,6 +145,6 @@ class BatchNormalization(Layer):
 
         return input_error
 
-    def predict(self, input_data: NDArray) -> NDArray:
+    def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
         # This is a pooling layer, so we can just forward propagate
-        return self.forward_propagation(input_data, 0, 0)
+        return self.forward_propagation(input_data, batch_size, 0)

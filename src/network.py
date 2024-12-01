@@ -77,23 +77,26 @@ class Network:
         self.early_stopping = early_stopping
         self.convolution_network = convolution_network
 
-    def predict(self, input_data: NDArray) -> list[NDArray]:
+    def predict(self, input_data: NDArray) -> NDArray:
         """
         Predict the output for a given input data.
         :param input_data: Input data to predict the output for.
         :return: A list containing the predicted output for each input data sample. Each prediction is a numpy array
         with the probability for each possible label.
         """
+        if self.convolution_network:
+            # Additional 1 for the batch size or channel dimension
+            input_data = input_data.reshape(input_data.shape[0], 1, 1, 28, 28)
         samples = len(input_data)
         result = []
 
         for i in range(samples):
             output = input_data[i]
             for layer in self.layers:
-                output = layer.predict(output)
+                output = layer.predict(output, 1)
             result.append(output)
 
-        return result
+        return np.array(result)
 
     def fit(
             self,

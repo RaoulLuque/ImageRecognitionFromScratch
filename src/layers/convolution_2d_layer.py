@@ -107,10 +107,13 @@ class Convolution2D(Layer):
         Forward propagation for the convolutional layer. Computes the output of the layer given the input data.
 
         :param input_data: input data for the layer. Shape: (D, C, H, W) = (size_of_current_batch, 1, 28, 28)
-        :param size_of_current_batch: (not used for convolutional layers) number of samples in the batch
+        :param size_of_current_batch: number of samples in the batch, used to updated batch_size if it changes during training or model is predicting
         :param current_sample_index: (not used for convolutional layers) index of the current sample in the batch
         :return: output of the layer. Shape: (D, NF, HO, WO) = (size_of_current_batch, number_of_filters, 28, 28)
         """
+        # Set batch_size, if it changes or model is predicting
+        self.D_batch_size = size_of_current_batch
+
         # This is an HF_height_filter x WF_width_filter convolution with stride = 1 and padding = 1
         # Furthermore, our input_data is of form D_batch_size x C x H_input x W_input, therefore
         # our resulting input_col will be a (C * HF * WF) x (D * H * W) matrix
@@ -212,6 +215,6 @@ class Convolution2D(Layer):
                 )
         return input_error
 
-    def predict(self, input_data: NDArray) -> NDArray:
+    def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
         # This is a convolutional layer, so we can just forward propagate
-        return self.forward_propagation(input_data, 0, 0)
+        return self.forward_propagation(input_data, batch_size, 0)

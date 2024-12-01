@@ -70,6 +70,9 @@ class MaxPoolingLayer2D(Layer):
         :param current_sample_index: (not used for pooling layers) index of the current sample in the batch
         :return: output of the layer. Shape: (D, C, HO, WO) = (size_of_current_batch, number_of_filters, 14, 14)
         """
+        # Set batch_size, if it changes or model is predicting
+        self.D_batch_size = size_of_current_batch
+
         # This is an PS_pool_size x PS_pool_size max pooling layer with stride = 2 and padding = 0
         # Furthermore, our input_data is of form D_batch_size x C_number_channels x H_input x W_input,
 
@@ -130,6 +133,6 @@ class MaxPoolingLayer2D(Layer):
 
         return input_error
 
-    def predict(self, input_data: NDArray) -> NDArray:
+    def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
         # This is a pooling layer, so we can just forward propagate
-        return self.forward_propagation(input_data, 0, 0)
+        return self.forward_propagation(input_data, batch_size, 0)

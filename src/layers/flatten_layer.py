@@ -66,6 +66,9 @@ class FlattenLayer(Layer):
         :param current_sample_index: (not used in this layer type) index of the current sample in the batch
         :return: output of the layer. Shape: (D, C * H * W)
         """
+        # Set batch_size, if it changes or model is predicting
+        self.D_batch_size = size_of_current_batch
+
         # Cache input for debug
         self.input = input_data.copy()
 
@@ -87,6 +90,6 @@ class FlattenLayer(Layer):
         input_error = output_error_matrix.reshape(self.D_batch_size, self.C_number_channels, self.H_height_input, self.W_width_input)
         return input_error
 
-    def predict(self, input_data: NDArray) -> NDArray:
+    def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
         # This is a flatten layer, so we can just forward propagate
-        return self.forward_propagation(input_data, 0, 0)
+        return self.forward_propagation(input_data, batch_size, 0)

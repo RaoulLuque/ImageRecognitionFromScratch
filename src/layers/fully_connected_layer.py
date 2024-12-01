@@ -111,5 +111,5 @@ class FCLayer(Layer):
                 )
         return input_error
 
-    def predict(self, input_data: NDArray) -> NDArray:
+    def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
         return np.dot(input_data, self.weights) + self.bias

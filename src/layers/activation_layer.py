@@ -43,5 +43,5 @@ class ActivationLayer(Layer):
         else:
             return np.multiply(self.activation_function.derivative(self.input), output_error)
 
-    def predict(self, input_data: NDArray) -> NDArray:
+    def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
         return self.activation_function.function(input_data)

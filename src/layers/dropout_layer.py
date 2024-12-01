@@ -37,5 +37,5 @@ class DropoutLayer(Layer):
         # because these should not be adjusted
         return output_error * self.mask
 
-    def predict(self, input_data: NDArray) -> NDArray:
+    def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
         return input_data
