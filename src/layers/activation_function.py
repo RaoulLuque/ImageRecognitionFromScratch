@@ -79,8 +79,9 @@ def softmax(x):
     :param x: Input
     :return: Output of the softmax function.
     """
-    e_x = np.exp(x - np.max(x))
-    return e_x / e_x.sum()
+    x_max = np.max(x, axis=-1, keepdims=True)
+    exp_x = np.exp(x - x_max)
+    return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
 
 
 def softmax_derivative(x):
