@@ -82,10 +82,12 @@ class Convolution2D(Layer):
         self.weight_initialization = weight_initialization
 
         # Weight matrix has shape NF x C x HF x WF
-        self.weights = weight_initialization.initialize_weights(np.array([NF_number_of_filters, C_number_channels, HF_height_filter, WF_width_filter]), C_number_channels * H_height_input * W_width_input, NF_number_of_filters * self.HO_height_out * self.WO_width_out)
+        # self.weights = weight_initialization.initialize_weights(np.array([NF_number_of_filters, C_number_channels, HF_height_filter, WF_width_filter]), C_number_channels * H_height_input * W_width_input, NF_number_of_filters * self.HO_height_out * self.WO_width_out)
+        self.weights = np.random.randn(NF_number_of_filters, C_number_channels, HF_height_filter, WF_width_filter) * np.sqrt(2 / C_number_channels * H_height_input * W_width_input)
 
         # Bias has shape NF x 1
-        self.bias = weight_initialization.initialize_bias(np.array([NF_number_of_filters, 1]), C_number_channels * H_height_input * W_width_input, NF_number_of_filters * self.HO_height_out * self.WO_width_out)
+        # self.bias = weight_initialization.initialize_bias(np.array([NF_number_of_filters, 1]), C_number_channels * H_height_input * W_width_input, NF_number_of_filters * self.HO_height_out * self.WO_width_out)
+        self.bias = np.random.randn(NF_number_of_filters, 1) * np.sqrt(2 / C_number_channels * H_height_input * W_width_input)
 
         self.optimizer = optimizer
         if self.optimizer is not None:

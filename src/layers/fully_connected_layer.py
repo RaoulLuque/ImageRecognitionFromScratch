@@ -24,8 +24,10 @@ class FCLayer(Layer):
         """
         super().__init__()
         # Initialization of weights and bias
-        self.weights = weight_initialization.initialize_weights(np.array([input_size, output_size]), input_size, output_size)
-        self.bias = weight_initialization.initialize_bias(np.array([1, output_size]), input_size, output_size)
+        # self.weights = weight_initialization.initialize_weights(np.array([input_size, output_size]), input_size, output_size)
+        # self.bias = weight_initialization.initialize_bias(np.array([1, output_size]), input_size, output_size)
+        self.weights = np.random.randn(input_size, output_size) * np.sqrt(2 / input_size)
+        self.bias = np.random.randn(1, output_size) * np.sqrt(2 / input_size)
 
         self.number_of_neurons = output_size
         self.convolutional_network = convolutional_network
