@@ -176,7 +176,7 @@ def create_small_convolution_model() -> Network:
     model = Network()
     optimizer = Optimizer.Adam
 
-    # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 8, 28, 28)
+    # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 8, 14, 14)
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=8, H_height_input=28,
                       W_width_input=28, optimizer=optimizer))
@@ -186,7 +186,7 @@ def create_small_convolution_model() -> Network:
                                       H_height_input=28, W_width_input=28))
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
 
-    # Block 2: input_shape=(BATCH_SIZE, 8, 28, 28) output_shape=(BATCH_SIZE, 16, 14, 14)
+    # Block 2: input_shape=(BATCH_SIZE, 8, 14, 14) output_shape=(BATCH_SIZE, 16, 7, 7)
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=8, NF_number_of_filters=16, H_height_input=14,
                       W_width_input=14, optimizer=optimizer))
