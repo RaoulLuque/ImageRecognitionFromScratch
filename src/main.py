@@ -174,11 +174,12 @@ def create_convolution_model() -> Network:
 
 def create_small_convolution_model() -> Network:
     model = Network()
+    optimizer = Optimizer.Adam
 
     # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 8, 28, 28)
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=8, H_height_input=28,
-                      W_width_input=28, optimizer=None))
+                      W_width_input=28, optimizer=optimizer))
     # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=8, H_height_input=28, W_width_input=28))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=8,
@@ -188,7 +189,7 @@ def create_small_convolution_model() -> Network:
     # Block 2: input_shape=(BATCH_SIZE, 8, 28, 28) output_shape=(BATCH_SIZE, 16, 14, 14)
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=8, NF_number_of_filters=16, H_height_input=14,
-                      W_width_input=14, optimizer=None))
+                      W_width_input=14, optimizer=optimizer))
     # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=16,
@@ -199,7 +200,7 @@ def create_small_convolution_model() -> Network:
     model.add_layer(FlattenLayer(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=7, W_width_input=7))
 
     # Block 4: input_shape=(BATCH_SIZE, 128 * 7 * 7) output_shape=(BATCH_SIZE, 10)
-    model.add_layer(FCLayer(16 * 7 * 7, 10, optimizer=None, convolutional_network=True))
+    model.add_layer(FCLayer(16 * 7 * 7, 10, optimizer=optimizer, convolutional_network=True))
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10, convolutional_network=True))
 
     # Set (hyper)parameters
