@@ -1,7 +1,7 @@
 from enum import Enum
 
 import cupy as np
-from nptyping import NDArray
+from typing import Any as NDArray
 
 from src.config import EPSILON
 

@@ -1,5 +1,5 @@
 import cupy as np
-from nptyping import NDArray
+from typing import Any as NDArray
 
 from src.config import EPSILON, LOG_FILE
 from src.layers.layer import Layer

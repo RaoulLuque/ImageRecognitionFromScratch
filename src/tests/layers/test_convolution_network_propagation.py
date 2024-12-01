@@ -2,7 +2,7 @@ import cupy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from nptyping.ndarray import NDArray
+from typing import Any as NDArray
 
 from src.add_ons.loss_function import LossFunction
 from src.config import LEARNING_RATE, DEBUGGING

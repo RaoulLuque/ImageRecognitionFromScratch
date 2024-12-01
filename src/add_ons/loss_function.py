@@ -1,5 +1,6 @@
 import cupy as np
-from nptyping import NDArray
+from typing import Any as NDArray
+
 from enum import Enum
 
 

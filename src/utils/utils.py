@@ -1,5 +1,5 @@
 import cupy as np
-from nptyping.ndarray import NDArray
+from typing import Any as NDArray
 
 
 def shuffle_in_unison(array_one: NDArray, array_two: NDArray) -> tuple[NDArray, NDArray]:

@@ -2,7 +2,7 @@ import time
 
 import cupy as np
 import random
-from nptyping.ndarray import NDArray
+from typing import Any as NDArray
 
 from src.add_ons.data_augmentation import DataAugmentation
 from src.add_ons.early_stopping import EarlyStopping, apply_weights

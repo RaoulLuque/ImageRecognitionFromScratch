@@ -1,4 +1,4 @@
-from nptyping.ndarray import NDArray
+from typing import Any as NDArray
 
 
 class Layer:

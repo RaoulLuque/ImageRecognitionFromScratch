@@ -1,5 +1,5 @@
 import cupy as np
-from nptyping.ndarray import NDArray
+from typing import Any as NDArray
 
 
 def get_im2col_indices(input_shape, filter_height: int = 5, filter_width: int = 3, padding: int = 2, stride: int = 1):

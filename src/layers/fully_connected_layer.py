@@ -1,9 +1,9 @@
 from typing import Any
+from typing import Any as NDArray
 
 from src.add_ons.weight_initialization import WeightInitialization
 from src.layers.layer import Layer
 import cupy as np
-from nptyping import NDArray, Shape
 
 from src.add_ons.optimizers import Optimizer
 
@@ -24,8 +24,8 @@ class FCLayer(Layer):
         """
         super().__init__()
         # Initialization of weights and bias
-        self.weights: NDArray[Shape["input_size, output_size"], Any] = weight_initialization.initialize_weights(np.array([input_size, output_size]), input_size, output_size)
-        self.bias: NDArray[Shape["1, output_size"], Any] = weight_initialization.initialize_bias(np.array([1, output_size]), input_size, output_size)
+        self.weights = weight_initialization.initialize_weights(np.array([input_size, output_size]), input_size, output_size)
+        self.bias = weight_initialization.initialize_bias(np.array([1, output_size]), input_size, output_size)
 
         self.number_of_neurons = output_size
         self.convolutional_network = convolutional_network
@@ -50,11 +50,11 @@ class FCLayer(Layer):
                 # If batch has just started, initialize and reset input array to save input data for backpropagation at the end of the batch
                 self.input = np.zeros((size_of_current_batch, 1, self.weights.shape[0]))
             self.input[current_sample_index] = input_data
-            self.output: NDArray[Shape["self.number_of_neurons"], Any] = np.dot(self.input[current_sample_index], self.weights) + self.bias
+            self.output = np.dot(self.input[current_sample_index], self.weights) + self.bias
             return self.output
         else:
             self.input = input_data
-            self.output: NDArray = np.dot(input_data, self.weights) + self.bias
+            self.output = np.dot(input_data, self.weights) + self.bias
             return self.output
 
     # computes dC/dW, dC/dB for a given output_error=dC/dZ. Returns input_error=dC/dA.

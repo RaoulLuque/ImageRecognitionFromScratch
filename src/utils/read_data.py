@@ -1,5 +1,5 @@
 import cupy as np
-from nptyping import NDArray
+from typing import Any as NDArray
 
 
 def read_data() -> tuple[NDArray, NDArray, NDArray, NDArray]:

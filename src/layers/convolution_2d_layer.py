@@ -1,7 +1,7 @@
 from src.add_ons.weight_initialization import WeightInitialization
 from src.layers.layer import Layer
 import cupy as np
-from nptyping import NDArray
+from typing import Any as NDArray
 
 from src.add_ons.optimizers import Optimizer
 from src.utils.convolution_utils import im2col_indices, col2im_indices

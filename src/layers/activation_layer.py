@@ -1,7 +1,7 @@
 import cupy as np
 
 from src.layers.layer import Layer
-from nptyping import NDArray
+from typing import Any as NDArray
 
 from src.add_ons.activation_function import ActivationFunction
 
