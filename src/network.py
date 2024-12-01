@@ -3,6 +3,7 @@ import time
 import numpy as np
 import random
 from nptyping.ndarray import NDArray
+from tqdm import tqdm
 
 from src.add_ons.data_augmentation import DataAugmentation
 from src.add_ons.early_stopping import EarlyStopping, apply_weights
@@ -131,7 +132,9 @@ class Network:
 
             # Error of the epoch to be displayed
             err = 0
-            for current_batch_index in range(len(x_train_batches)):
+            progress_bar_range = tqdm(range(len(x_train_batches)))
+            for current_batch_index in progress_bar_range:
+                progress_bar_range.set_description(f"Epoch {epoch_index + 1}" + " " * (len(str(self.epochs)) - len(str(epoch_index + 1))) + f"/{self.epochs}")
                 if self.data_augmentation is not None:
                     # Apply data augmentation with a certain chance
                     if random.random() < self.data_augmentation.chance_of_altering_data:
@@ -174,10 +177,10 @@ class Network:
             err /= number_of_samples
             end_time = time.time()
             elapsed_time = end_time - start_time
-            string_to_be_logged = (f"epoch {epoch_index + 1}" + " " * (len(str(self.epochs)) - len(str(epoch_index + 1))) + f"/{self.epochs}   "
-                                   + "time: " + "{:.2f}".format(elapsed_time) + "s   "
-                                   + "error=" + "{:.2e}".format(err) + "   "
-                                   + "learning rate=" + "{:.2e}".format(learning_rate))
+            string_to_be_logged = (f"Epoch {epoch_index + 1}" + " " * (len(str(self.epochs)) - len(str(epoch_index + 1))) + f"/{self.epochs}   "
+                                   + "Time: " + "{:.2f}".format(elapsed_time) + "s   "
+                                   + "Error=" + "{:.2e}".format(err) + "   "
+                                   + "Learning rate=" + "{:.2e}".format(learning_rate))
             print(string_to_be_logged)
             with open(LOG_FILE, 'a') as log_file:
                 log_file.write(string_to_be_logged + "\n")
