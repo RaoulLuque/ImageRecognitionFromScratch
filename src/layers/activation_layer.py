@@ -3,7 +3,7 @@ import numpy as np
 from src.layers.layer import Layer
 from nptyping import NDArray
 
-from src.layers.activation_function import ActivationFunction
+from src.add_ons.activation_function import ActivationFunction
 
 
 class ActivationLayer(Layer):

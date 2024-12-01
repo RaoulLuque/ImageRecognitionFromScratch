@@ -6,7 +6,7 @@ from nptyping.ndarray import NDArray
 
 from src.add_ons.loss_function import LossFunction
 from src.config import LEARNING_RATE, DEBUGGING
-from src.layers.activation_function import ActivationFunction
+from src.add_ons.activation_function import ActivationFunction
 from src.layers.convolution_2d_layer import Convolution2D
 from src.layers.flatten_layer import FlattenLayer
 from src.layers.fully_connected_layer import FCLayer

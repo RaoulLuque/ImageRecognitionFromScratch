@@ -7,9 +7,8 @@ import numpy as np
 from src.add_ons.data_augmentation import DataAugmentation
 from src.add_ons.early_stopping import EarlyStopping
 from src.add_ons.weight_initialization import WeightInitialization
-from src.layers.activation_function import ActivationFunction
+from src.add_ons.activation_function import ActivationFunction
 from src.layers.activation_layer import ActivationLayer
-from src.layers.batch_normalization import BatchNormalization
 from src.layers.convolution_2d_layer import Convolution2D
 from src.layers.dropout_layer import DropoutLayer
 from src.layers.flatten_layer import FlattenLayer
