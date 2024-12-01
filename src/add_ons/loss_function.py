@@ -40,7 +40,6 @@ def mean_squared_error_derivative(y_true: NDArray, y_pred: NDArray) -> NDArray:
 def categorical_cross_entropy(y_true: NDArray, y_pred: NDArray) -> np.floating:
     """Computes the categorical cross entropy loss function."""
     return -np.sum(y_true * np.log(y_pred))
-    # return -np.sum(y_true * np.log(np.exp(y_pred) / np.sum(np.exp(y_pred))))
 
 
 def categorical_cross_entropy_derivative(y_true: NDArray, y_pred: NDArray) -> NDArray:
@@ -51,4 +50,4 @@ def categorical_cross_entropy_derivative(y_true: NDArray, y_pred: NDArray) -> ND
 
     *ATTENTION*: This function is only supposed to be used in combination with softmax.
     """
-    return y_pred - y_true
+    return (y_pred - y_true) / y_pred.shape[0]
