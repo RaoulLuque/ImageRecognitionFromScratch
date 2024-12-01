@@ -57,7 +57,9 @@ def tunable_learning_rate_scheduler(learning_rate: float, epoch: int, halve_afte
     :return: New learning rate
     """
     if epoch < halve_after:
-        return learning_rate + (learning_rate / (epoch + 1))
+        if epoch == 0:
+            return learning_rate
+        return learning_rate + (learning_rate / epoch)
     if epoch % halve_after == 0:
         return learning_rate * 0.5
     return learning_rate
