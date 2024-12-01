@@ -209,7 +209,7 @@ def create_small_convolution_model() -> Network:
         learning_rate_scheduler=LearningRateScheduler.tunable,
         learning_rate_halve_after=LEARNING_RATE_HALVE_AFTER,
         batch_size=BATCH_SIZE,
-        data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
+        # data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
         early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
         convolution_network=True,
     )
