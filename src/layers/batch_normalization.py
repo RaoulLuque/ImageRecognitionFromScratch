@@ -43,8 +43,8 @@ class BatchNormalization(Layer):
         # Mean and variance (both versions) are of shape C x H x W
         self.mean: NDArray | None = None
         self.variance: NDArray | None = None
-        self.running_mean: NDArray | None = None
-        self.running_variance: NDArray | None = None
+        self.running_mean: NDArray = np.zeros((C_number_channels, H_height_input, W_width_input))
+        self.running_variance: NDArray = np.ones((C_number_channels, H_height_input, W_width_input))
         self.input_normalized: NDArray | None = None
 
         self.optimizer = optimizer
@@ -71,6 +71,9 @@ class BatchNormalization(Layer):
         :param size_of_current_batch: (not used for this layer) Size of the current batch
         :param current_sample_index: (not used for this layer) Index of the current sample in the batch
         """
+        # Set batch_size, if it changes or model is predicting
+        self.D_batch_size = size_of_current_batch
+
         self.input = input_data
 
         # Mean and variance will be of shape C x H x W
@@ -81,8 +84,8 @@ class BatchNormalization(Layer):
         self.input_normalized = (input_data - self.mean) / np.sqrt(self.variance + EPSILON)
         output = self.gamma * self.input_normalized + self.beta
 
-        self.running_mean
-        self.running_variance
+        self.running_mean = 0.9 * self.running_mean + 0.1 * self.mean
+        self.running_variance = 0.9 * self.running_variance + 0.1 * self.variance
 
         return output
 
@@ -146,5 +149,8 @@ class BatchNormalization(Layer):
         return input_error
 
     def predict(self, input_data: NDArray, batch_size: int = 1) -> NDArray:
-        # This is a pooling layer, so we can just forward propagate
-        return self.forward_propagation(input_data, batch_size, 0)
+        # Normalize input data. Does not change shape. Use running parameters for this
+        self.input_normalized = (input_data - self.running_mean) / np.sqrt(self.running_variance + EPSILON)
+        output = self.gamma * self.input_normalized + self.beta
+
+        return output

@@ -1,12 +1,14 @@
 import numpy as np
+import pytest
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from nptyping.ndarray import NDArray
 
 from src.add_ons.loss_function import LossFunction
-from src.config import LEARNING_RATE, DEBUGGING
+from src.config import LEARNING_RATE, DEBUGGING, EPSILON
 from src.add_ons.activation_function import ActivationFunction
+from src.layers.batch_normalization import BatchNormalization
 from src.layers.convolution_2d_layer import Convolution2D
 from src.layers.flatten_layer import FlattenLayer
 from src.layers.fully_connected_layer import FCLayer
@@ -90,11 +92,19 @@ def forward_convolution_network(batch_size: int = 16, number_of_channels: int = 
 
     print_difference_numpy(output_own, output_pytorch_conv.detach().numpy(), "Convolutional layer forward")
 
+    # Batch normalization layer (pytorch implementation uses channel normalization and we normalize over batch)
+    batch_norm_own = BatchNormalization(D_batch_size=batch_size, C_number_channels=number_of_filters, H_height_input=height_input, W_width_input=width_input)
+
+    output_own = batch_norm_own.forward_propagation(output_own, batch_size, 0)
+    output_pytorch_batch_norm = (output_pytorch_conv - torch.mean(output_pytorch_conv, dim=0, keepdim=True)) / (torch.sqrt(torch.var(output_pytorch_conv, dim=0, unbiased=False, keepdim=True) + EPSILON))
+
+    print_difference_numpy(output_own, output_pytorch_batch_norm.double().detach().numpy(), "Batch normalization forward")
+
     # Flatten layer
     flatten_layer = FlattenLayer(D_batch_size=batch_size, C_number_channels=number_of_filters, H_height_input=height_input, W_width_input=width_input)
 
     output_own = flatten_layer.forward_propagation(output_own, batch_size, 0)
-    output_pytorch_flatten = output_pytorch_conv.view(output_pytorch_conv.size(0), -1)
+    output_pytorch_flatten = output_pytorch_batch_norm.double().view(output_pytorch_batch_norm.size(0), -1)
 
     print_difference_numpy(output_own, output_pytorch_flatten.detach().numpy(), "Flatten layer forward")
 
@@ -127,6 +137,7 @@ def forward_convolution_network(batch_size: int = 16, number_of_channels: int = 
     input_tensor.retain_grad()
     logits_pytorch_fc.retain_grad()
     output_pytorch_flatten.retain_grad()
+    output_pytorch_batch_norm.retain_grad()
     output_pytorch_conv.retain_grad()
 
     # Compute gradients
@@ -157,9 +168,15 @@ def forward_convolution_network(batch_size: int = 16, number_of_channels: int = 
 
     # -- Flatten layer
     grad_own = flatten_layer.backward_propagation(grad_own, LEARNING_RATE, 1)
-    grad_pytorch = output_pytorch_conv.grad
+    grad_pytorch = output_pytorch_batch_norm.grad
 
     print_difference_numpy(grad_own, grad_pytorch.detach().numpy(), "Flatten layer gradients")
+
+    # Batch normalization
+    grad_own = batch_norm_own.backward_propagation(grad_own, LEARNING_RATE, 1)
+    grad_pytorch = output_pytorch_conv.grad
+
+    print_difference_numpy(grad_own, grad_pytorch.detach().numpy(), "Batch normalization gradients")
 
     # Convolutional layer
     grad_own = conv_layer_own.backward_propagation(grad_own, LEARNING_RATE, 1)
@@ -178,58 +195,19 @@ def forward_convolution_network(batch_size: int = 16, number_of_channels: int = 
     print_difference_numpy(grad_own_weights, grad_pytorch_weights.detach().numpy(), "Convolutional layer weights gradients")
 
 
-def test_convolution_network_propagation():
-    for number_of_filters in [8, 16, 32, 64]:
-        forward_convolution_network(
-            batch_size=16,
-            number_of_channels=1,
-            number_of_filters=number_of_filters,
-            height_input=28,
-            width_input=28,
-            artifical_data=False
-        )
+varying_number_of_filters_and_batch_size = [
+    (16, 8), (16, 16), (16, 32), (16, 64),
+    (32, 8), (32, 16), (32, 32), (32, 64),
+]
 
-        forward_convolution_network(
-            batch_size=32,
-            number_of_channels=1,
-            number_of_filters=number_of_filters,
-            height_input=28,
-            width_input=28,
-            artifical_data=False
-        )
 
-        forward_convolution_network(
-            batch_size=16,
-            number_of_channels=1,
-            number_of_filters=number_of_filters,
-            height_input=28,
-            width_input=28,
-            artifical_data=True
-        )
-
-        forward_convolution_network(
-            batch_size=16,
-            number_of_channels=16,
-            number_of_filters=number_of_filters,
-            height_input=28,
-            width_input=28,
-            artifical_data=True
-        )
-
-        forward_convolution_network(
-            batch_size=16,
-            number_of_channels=32,
-            number_of_filters=number_of_filters,
-            height_input=28,
-            width_input=28,
-            artifical_data=True
-        )
-
-        forward_convolution_network(
-            batch_size=16,
-            number_of_channels=64,
-            number_of_filters=number_of_filters,
-            height_input=28,
-            width_input=28,
-            artifical_data=True
-        )
+@pytest.mark.parametrize("batch_size,number_of_filters", varying_number_of_filters_and_batch_size)
+def test_convolution_network_propagation(batch_size, number_of_filters):
+    forward_convolution_network(
+        batch_size=batch_size,
+        number_of_channels=1,
+        number_of_filters=number_of_filters,
+        height_input=28,
+        width_input=28,
+        artifical_data=False
+    )
