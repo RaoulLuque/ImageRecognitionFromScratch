@@ -223,7 +223,7 @@ def test_model(model: Network, x_test, y_test):
 
     # Predict the output for the test data
     predictions = model.predict(x_test)
-    predictions_flattened = np.array(predictions).reshape(len(predictions), 10)
+    predictions_flattened = predictions.reshape(len(predictions), 10)
 
     # Convert predictions to label indices
     predicted_labels = np.argmax(predictions_flattened, axis=1)
