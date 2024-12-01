@@ -113,7 +113,7 @@ class Network:
         """
         number_of_samples = len(x_train)
         learning_rate = self.learning_rate
-
+        early_stopped = False
         # training loop
         for epoch_index in range(self.epochs):
             start_time = time.time()
@@ -186,10 +186,11 @@ class Network:
             if self.early_stopping is not None:
                 if self.early_stopping.monitor == "val_loss":
                     if self.early_stopping.should_stop(err, self.layers, epoch_index + 1):
+                        early_stopped = True
                         break
 
         # Test if better model was found in earlier epoch
-        if self.early_stopping is not None:
+        if self.early_stopping is not None and not early_stopped:
             best_weight_index = np.argmin(self.early_stopping.metric_values)
             best_weights = self.early_stopping.weights[best_weight_index]
             apply_weights(self.layers, best_weights)
