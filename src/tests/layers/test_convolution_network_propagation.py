@@ -85,7 +85,7 @@ def forward_convolution_network(batch_size: int = 16, number_of_channels: int = 
     conv_layer_pytorch.weight = torch.nn.Parameter(torch.from_numpy(conv_layer_own.weights))
     conv_layer_pytorch.bias = torch.nn.Parameter(torch.from_numpy(conv_layer_own.bias.reshape(number_of_filters)))
 
-    output_own = conv_layer_own.forward_propagation(input_data, 0, 0)
+    output_own = conv_layer_own.forward_propagation(input_data, batch_size, 0)
     output_pytorch_conv = conv_layer_pytorch(input_tensor)
 
     print_difference_numpy(output_own, output_pytorch_conv.detach().numpy(), "Convolutional layer forward")
@@ -93,7 +93,7 @@ def forward_convolution_network(batch_size: int = 16, number_of_channels: int = 
     # Flatten layer
     flatten_layer = FlattenLayer(D_batch_size=batch_size, C_number_channels=number_of_filters, H_height_input=height_input, W_width_input=width_input)
 
-    output_own = flatten_layer.forward_propagation(output_own, 0, 0)
+    output_own = flatten_layer.forward_propagation(output_own, batch_size, 0)
     output_pytorch_flatten = output_pytorch_conv.view(output_pytorch_conv.size(0), -1)
 
     print_difference_numpy(output_own, output_pytorch_flatten.detach().numpy(), "Flatten layer forward")
@@ -104,7 +104,7 @@ def forward_convolution_network(batch_size: int = 16, number_of_channels: int = 
     fc_layer_pytorch.weight = torch.nn.Parameter(torch.from_numpy(fc_layer_own.weights.T))
     fc_layer_pytorch.bias = torch.nn.Parameter(torch.from_numpy(fc_layer_own.bias.reshape(10)))
 
-    logits_own = fc_layer_own.forward_propagation(output_own, 0, 0)
+    logits_own = fc_layer_own.forward_propagation(output_own, batch_size, 0)
     logits_pytorch_fc = fc_layer_pytorch(output_pytorch_flatten)
 
     print_difference_numpy(logits_own, logits_pytorch_fc.detach().numpy(), "Fully connected layer forward")
