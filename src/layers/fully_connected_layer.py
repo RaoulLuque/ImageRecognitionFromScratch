@@ -2,7 +2,7 @@ from typing import Any
 
 from src.add_ons.weight_initialization import WeightInitialization
 from src.layers.layer import Layer
-import numpy as np
+import cupy as np
 from nptyping import NDArray, Shape
 
 from src.add_ons.optimizers import Optimizer

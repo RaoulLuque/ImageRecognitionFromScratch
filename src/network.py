@@ -1,6 +1,6 @@
 import time
 
-import numpy as np
+import cupy as np
 import random
 from nptyping.ndarray import NDArray
 

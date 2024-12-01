@@ -1,5 +1,5 @@
 from src.layers.layer import Layer
-import numpy as np
+import cupy as np
 from nptyping import NDArray
 
 from src.utils.convolution_utils import im2col_indices, col2im_indices

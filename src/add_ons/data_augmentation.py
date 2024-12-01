@@ -1,7 +1,7 @@
 import random
 
 import cv2
-import numpy as np
+import cupy as np
 from nptyping import NDArray
 
 

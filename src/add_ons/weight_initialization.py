@@ -1,4 +1,4 @@
-import numpy as np
+import cupy as np
 from nptyping import NDArray
 from enum import Enum
 

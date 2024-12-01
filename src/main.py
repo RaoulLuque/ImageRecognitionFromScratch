@@ -2,7 +2,7 @@ import datetime
 import pickle
 import time
 
-import numpy as np
+import cupy as np
 
 from src.add_ons.data_augmentation import DataAugmentation
 from src.add_ons.early_stopping import EarlyStopping

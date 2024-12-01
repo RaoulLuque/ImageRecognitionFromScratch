@@ -1,7 +1,7 @@
 import random
 from unittest.mock import patch
 
-import numpy as np
+import cupy as np
 
 from src.add_ons.data_augmentation import shift_horizontally, zoom, rotate
 
