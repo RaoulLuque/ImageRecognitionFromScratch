@@ -5,7 +5,7 @@ import random
 from nptyping.ndarray import NDArray
 
 from src.add_ons.data_augmentation import DataAugmentation
-from src.add_ons.early_stopping import EarlyStopping
+from src.add_ons.early_stopping import EarlyStopping, apply_weights
 from src.layers.layer import Layer
 from src.add_ons.learning_rate_schedulers import LearningRateScheduler
 from src.add_ons.loss_function import LossFunction
@@ -184,3 +184,14 @@ class Network:
                 if self.early_stopping.monitor == "val_loss":
                     if self.early_stopping.should_stop(err, self.layers, epoch_index + 1):
                         break
+
+        # Test if better model was found in earlier epoch
+        if self.early_stopping is not None:
+            best_weight_index = np.argmin(self.early_stopping.metric_values)
+            best_weights = self.early_stopping.weights[best_weight_index]
+            apply_weights(self.layers, best_weights)
+            # Log restoring weights
+            string_to_be_logged = f"Training finished: Restoring best weights from epoch {self.epochs - self.early_stopping.patience + best_weight_index + 1}"
+            print(string_to_be_logged)
+            with open(LOG_FILE, 'a') as log_file:
+                log_file.write(string_to_be_logged + "\n")
