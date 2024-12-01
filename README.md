@@ -166,6 +166,42 @@ The logs of the respective models can be found by clicking the links below the r
 - 175 epochs (early stopping after 91)
 - Fixed learning rate of 0.0005
 
+# Ninth model
+[712a13e](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/712a13e6be3114f63187c794fe71220213aadf41)
+- Mini batch gradient descent (batch size of 16)
+- Cross entropy loss function
+- Softmax activation function on last layer
+- Adam optimizer
+- Dropout layers
+- (Default) Data augmentation (0.25 Chance to do so)
+- Early stopping (min relative delta 0.005 and patience of 20)
+- He weight initialization
+- 2 2D convolutional layers
+- Model layout:
+    ```
+    # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 8, 28, 28)
+    model.add_layer( Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=8, H_height_input=28, W_width_input=28, optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=8, H_height_input=28, W_width_input=28))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 2: input_shape=(BATCH_SIZE, 8, 28, 28) output_shape=(BATCH_SIZE, 16, 14, 14)
+    model.add_layer( Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=8, NF_number_of_filters=16, H_height_input=14, W_width_input=14, optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=16, H_height_input=14, W_width_input=14))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 3: input_shape=(BATCH_SIZE, 16, 7, 7) output_shape=(BATCH_SIZE, 16 * 7 * 7)
+    model.add_layer(FlattenLayer(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=7, W_width_input=7))
+
+    # Block 4: input_shape=(BATCH_SIZE, 128 * 7 * 7) output_shape=(BATCH_SIZE, 10)
+    model.add_layer(FCLayer(16 * 7 * 7, 10, optimizer=Optimizer.Adam, convolutional_network=True))
+    model.add_layer(ActivationLayer(ActivationFunction.softmax, 10, convolutional_network=True))
+    ```
+- 0.80% error rate
+- 150 epochs (early stopping after 29)
+- Fixed learning rate of 0.001
+
 # Running a model
 To start up the application, one will have to install the dependencies first. [uv](https://github.com/astral-sh/uv) is recommended to be installed. An installation guide can be found [here](https://docs.astral.sh/uv/getting-started/). If [pipx](https://pipx.pypa.io/stable/) is already installed on the machine, it is as easy as
 ````commandline
