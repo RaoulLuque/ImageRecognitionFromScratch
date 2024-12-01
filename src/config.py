@@ -14,4 +14,4 @@ MIN_DELTA_REL = 0.005
 LOG_FILE = "learning.log"
 
 # For debug
-DEBUGGING = True
+DEBUGGING = False
