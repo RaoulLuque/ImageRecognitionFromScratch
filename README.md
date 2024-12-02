@@ -6,7 +6,7 @@ To run the code or a specific model, please refer to the [running a model](#runn
 
 The logs of the respective models can be found by clicking the links below the respective model to browse the repositories at the respective state and opening the [best_result.log](best_result.log) or [best_result.txt](best_result.log) file (depending on how old the model is).
 
-## First model
+## First model (09-10% error rate)
 [3f5521c](https://github.com/RaoulLuque/image-recognition-neural-network/tree/3f5521c3a99c06911f46d639afd329db93781204)
 - Stochastic gradient descent (batch size of 1)
 - Mean square error function
@@ -23,7 +23,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 100 epochs
 - Fixed learning rate of 0.1
 
-## Second model
+## Second model (06.75% error rate)
 [9eac97e](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/9eac97e44408121367c2a4befaad8b49598b5123)
 - Mini batch gradient descent (batch size of 32)
 - Mean square error function
@@ -38,7 +38,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 100 epochs
 - Fixed learning rate of 0.1
 
-## Third model
+## Third model (03.10% error rate)
 [73111ee](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/73111ee333557ac0d6c4aefa3cfc2a775a0cccdd)
 - Mini batch gradient descent (batch size of 32)
 - Cross entropy loss function
@@ -54,7 +54,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 100 epochs
 - Fixed learning rate of 0.1
 
-## Fourth model
+## Fourth model (02.64% error rate)
 [d578b4b](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/d578b4b0c7c053d292ae270f1e7d40fed14926c5)
 - Mini batch gradient descent (batch size of 32)
 - Cross entropy loss function
@@ -71,7 +71,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 30 epochs
 - Fixed learning rate of 0.01
 
-## Fifth model
+## Fifth model (02.19% error rate)
 [1a608e1](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/1a608e1aa6394129d516857bde713eeddd258f84)
 - Mini batch gradient descent (batch size of 32)
 - Cross entropy loss function
@@ -90,7 +90,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 50 epochs
 - Fixed learning rate of 0.001
 
-## Sixth model
+## Sixth model (02.02% error rate)
 [251738c](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/251738c9ff68e2344f4ee6ded2dfd62f122815c1)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
@@ -113,7 +113,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 200 epochs
 - Fixed learning rate of 0.0005
 
-## Seventh model
+## Seventh model (01.93% error rate)
 [0ae6882](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/0ae68824cf0889e8a7dcfc6b965cf504ea153767)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
@@ -139,7 +139,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 100 epochs
 - Fixed learning rate of 0.0005
 
-# Eight model
+# Eight model (01.58% error rate)
 [c07da15](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/c07da150ba8dee6527e3e1474645f096351a8467)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
@@ -166,7 +166,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 175 epochs (early stopping after 91)
 - Fixed learning rate of 0.0005
 
-# Ninth model
+# Ninth model (00.80% error rate)
 [712a13e](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/712a13e6be3114f63187c794fe71220213aadf41)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
@@ -201,6 +201,49 @@ The logs of the respective models can be found by clicking the links below the r
 - 0.80% error rate
 - 150 epochs (early stopping after 29)
 - Fixed learning rate of 0.001
+
+# Tenth model (00.44% error rate)
+
+- Mini batch gradient descent (batch size of 16)
+- Cross entropy loss function
+- Softmax activation function on last layer
+- Adam optimizer
+- Dropout layers
+- (Default) Data augmentation (0.5 Chance to do so)
+- Early stopping (min relative delta 0.005 and patience of 25)
+- He weight initialization
+- 3 2D convolutional layers
+- Model layout:
+    ```
+    # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 16, 14, 14)
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=16, H_height_input=28, W_width_input=28, optimizer=Optimizer.Adam))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=16, H_height_input=28, W_width_input=28))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 2: input_shape=(BATCH_SIZE, 16, 14, 14) output_shape=(BATCH_SIZE, 32, 14, 14)
+    model.add_layer( Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=16, NF_number_of_filters=32, H_height_input=14, W_width_input=14, optimizer=Optimizer.Adam))
+    model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=32, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 3: input_shape=(BATCH_SIZE, 32, 14, 14) output_shape=(BATCH_SIZE, 48, 7, 7)
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=32, NF_number_of_filters=48, H_height_input=14, W_width_input=14, optimizer=Optimizer.Adam))
+    model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=48, H_height_input=14, W_width_input=14))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 4: input_shape=(BATCH_SIZE, 48, 7, 7) output_shape=(BATCH_SIZE, 48 * 7 * 7)
+    model.add_layer(FlattenLayer(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=7, W_width_input=7))
+
+    # Block 5: input_shape=(BATCH_SIZE, 48 * 7 * 7) output_shape=(BATCH_SIZE, 10)
+    model.add_layer(FCLayer(48 * 7 * 7, 10, optimizer=Optimizer.Adam, convolutional_network=True))
+    model.add_layer(ActivationLayer(ActivationFunction.softmax, 10, convolutional_network=True))
+    ```
+- 0.44% error rate
+- 150 epochs (early stopping after 48)
+- Tunable learning rate scheduler (starting learning rate of 0.001)
 
 # Running a model
 To start up the application, one will have to install the dependencies first. [uv](https://github.com/astral-sh/uv) is recommended to be installed. An installation guide can be found [here](https://docs.astral.sh/uv/getting-started/). If [pipx](https://pipx.pypa.io/stable/) is already installed on the machine, it is as easy as
