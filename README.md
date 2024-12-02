@@ -139,7 +139,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 100 epochs
 - Fixed learning rate of 0.0005
 
-# Eight model (01.58% error rate)
+## Eight model (01.58% error rate)
 [c07da15](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/c07da150ba8dee6527e3e1474645f096351a8467)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
@@ -166,7 +166,7 @@ The logs of the respective models can be found by clicking the links below the r
 - 175 epochs (early stopping after 91)
 - Fixed learning rate of 0.0005
 
-# Ninth model (00.80% error rate)
+## Ninth model (00.80% error rate)
 [712a13e](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/712a13e6be3114f63187c794fe71220213aadf41)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
@@ -202,8 +202,8 @@ The logs of the respective models can be found by clicking the links below the r
 - 150 epochs (early stopping after 29)
 - Fixed learning rate of 0.001
 
-# Tenth model (00.44% error rate)
-
+## Tenth model (00.44% error rate)
+[b883661](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/b8836618da58081a6959b4dbdd59d24a59aab2e7)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
 - Softmax activation function on last layer
