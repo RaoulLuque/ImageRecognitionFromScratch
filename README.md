@@ -222,14 +222,12 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
 
     # Block 2: input_shape=(BATCH_SIZE, 16, 14, 14) output_shape=(BATCH_SIZE, 32, 14, 14)
-    model.add_layer( Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=16, NF_number_of_filters=32, H_height_input=14, W_width_input=14, optimizer=Optimizer.Adam))
-    model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=32, H_height_input=14, W_width_input=14))
+    model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=16, NF_number_of_filters=32, H_height_input=14, W_width_input=14, optimizer=Optimizer.Adam))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
 
     # Block 3: input_shape=(BATCH_SIZE, 32, 14, 14) output_shape=(BATCH_SIZE, 48, 7, 7)
     model.add_layer(Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=32, NF_number_of_filters=48, H_height_input=14, W_width_input=14, optimizer=Optimizer.Adam))
-    model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=48, H_height_input=14, W_width_input=14))
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
