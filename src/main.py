@@ -63,7 +63,7 @@ def main():
     start_time = time.time()
     if model_to_load is None:
         # If there is no model to load, create a new neural network
-        model = create_medium_convolution_model()
+        model = create_medium_large_convolution_model()
 
         # Log hyper Parameters:
         string_to_be_logged = f"Hyperparameters: EPOCHS={model.epochs}, LEARNING_RATE={LEARNING_RATE}, BATCH_SIZE={model.batch_size}, LEARNING_RATE_SCHEDULER={model.learning_rate_scheduler}, LEARNING_RATE_HALVER_AFTER={model.learning_rate_halve_after}, \n CONVOLUTION_MODEL={model.convolution_network}, DATA_AUGMENTATION={model.data_augmentation is not None}, EARLY_STOPPING={model.early_stopping is not None}"
@@ -164,6 +164,68 @@ def create_convolution_model() -> Network:
         epochs=EPOCHS,
         learning_rate=LEARNING_RATE,
         learning_rate_scheduler=LearningRateScheduler.const,
+        batch_size=BATCH_SIZE,
+        data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
+        early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
+        convolution_network=True,
+    )
+
+    return model
+
+
+def create_medium_large_convolution_model() -> Network:
+    model = Network()
+    optimizer = Optimizer.Adam
+
+    # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 16, 14, 14)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=16, H_height_input=28,
+                      W_width_input=28, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=28, W_width_input=28))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 2: input_shape=(BATCH_SIZE, 16, 28, 28) output_shape=(BATCH_SIZE, 32, 7, 7)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=16, NF_number_of_filters=32, H_height_input=28,
+                      W_width_input=28, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=32, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=32,
+                                      H_height_input=28, W_width_input=28))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 3: input_shape=(BATCH_SIZE, 32, 14, 14) output_shape=(BATCH_SIZE, 48, 14, 14)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=32, NF_number_of_filters=48, H_height_input=14,
+                      W_width_input=14, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 4: input_shape=(BATCH_SIZE, 48, 14, 14) output_shape=(BATCH_SIZE, 64, 7, 7)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=48, NF_number_of_filters=64, H_height_input=14,
+                      W_width_input=14, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=64,
+                                      H_height_input=14, W_width_input=14))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 4: input_shape=(BATCH_SIZE, 64, 7, 7) output_shape=(BATCH_SIZE, 64 * 7 * 7)
+    model.add_layer(FlattenLayer(D_batch_size=BATCH_SIZE, C_number_channels=64, H_height_input=7, W_width_input=7))
+
+    # Block 5: input_shape=(BATCH_SIZE, 48 * 7 * 7) output_shape=(BATCH_SIZE, 10)
+    model.add_layer(FCLayer(64 * 7 * 7, 10, optimizer=optimizer, convolutional_network=True))
+    model.add_layer(ActivationLayer(ActivationFunction.softmax, 10, convolutional_network=True))
+
+    # Set (hyper)parameters
+    model.set_hyperparameters(
+        epochs=EPOCHS,
+        learning_rate=LEARNING_RATE,
+        learning_rate_scheduler=LearningRateScheduler.tunable,
+        learning_rate_halve_after=LEARNING_RATE_HALVE_AFTER,
         batch_size=BATCH_SIZE,
         data_augmentation=DataAugmentation(chance_of_altering_data=CHANCE_OF_ALTERING_DATA),
         early_stopping=EarlyStopping(patience=PATIENCE, min_delta_rel=MIN_DELTA_REL),
