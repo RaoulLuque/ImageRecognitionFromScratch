@@ -243,6 +243,126 @@ The logs of the respective models can be found by clicking the links below the r
 - 150 epochs (early stopping after 48)
 - Tunable learning rate scheduler (starting learning rate of 0.001)
 
+## Eleventh model (00.42% error rate)
+
+- Mini batch gradient descent (batch size of 16)
+- Cross entropy loss function
+- Softmax activation function on last layer
+- Adam optimizer
+- Dropout layers
+- (Default) Data augmentation (0.5 Chance to do so)
+- Early stopping (min relative delta 0.005 and patience of 25)
+- He weight initialization
+- 4 2D convolutional layers
+- Model layout:
+    ```
+    # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 16, 14, 14)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=16, H_height_input=28,
+                      W_width_input=28, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=28, W_width_input=28))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 2: input_shape=(BATCH_SIZE, 16, 28, 28) output_shape=(BATCH_SIZE, 32, 7, 7)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=16, NF_number_of_filters=32, H_height_input=28,
+                      W_width_input=28, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=32, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=32,
+                                      H_height_input=28, W_width_input=28))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 3: input_shape=(BATCH_SIZE, 32, 14, 14) output_shape=(BATCH_SIZE, 48, 14, 14)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=32, NF_number_of_filters=48, H_height_input=14,
+                      W_width_input=14, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 4: input_shape=(BATCH_SIZE, 48, 14, 14) output_shape=(BATCH_SIZE, 64, 7, 7)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=48, NF_number_of_filters=64, H_height_input=14,
+                      W_width_input=14, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=64,
+                                      H_height_input=14, W_width_input=14))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 5: input_shape=(BATCH_SIZE, 64, 7, 7) output_shape=(BATCH_SIZE, 64 * 7 * 7)
+    model.add_layer(FlattenLayer(D_batch_size=BATCH_SIZE, C_number_channels=64, H_height_input=7, W_width_input=7))
+
+    # Block 6: input_shape=(BATCH_SIZE, 64 * 7 * 7) output_shape=(BATCH_SIZE, 10)
+    model.add_layer(FCLayer(64 * 7 * 7, 10, optimizer=optimizer, convolutional_network=True))
+    model.add_layer(ActivationLayer(ActivationFunction.softmax, 10, convolutional_network=True))
+    ```
+- 0.42% error rate
+- 150 epochs (early stopping after 70)
+- Tunable learning rate scheduler (starting learning rate of 0.001). Halve after every 5 epochs
+
+## Twelfth model (00.40% error rate)
+
+- Mini batch gradient descent (batch size of 16)
+- Cross entropy loss function
+- Softmax activation function on last layer
+- Adam optimizer
+- Dropout layers
+- (Default) Data augmentation (0.8 Chance to do so)
+- Early stopping (min relative delta 0.005 and patience of 15)
+- He weight initialization
+- 4 2D convolutional layers
+- Model layout:
+    ```
+    # Block 1: input_shape=(BATCH_SIZE, 1, 28, 28) output_shape=(BATCH_SIZE, 16, 14, 14)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=16, H_height_input=28,
+                      W_width_input=28, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=28, W_width_input=28))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 2: input_shape=(BATCH_SIZE, 16, 28, 28) output_shape=(BATCH_SIZE, 32, 7, 7)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=16, NF_number_of_filters=32, H_height_input=28,
+                      W_width_input=28, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=32, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=32,
+                                      H_height_input=28, W_width_input=28))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 3: input_shape=(BATCH_SIZE, 32, 14, 14) output_shape=(BATCH_SIZE, 48, 14, 14)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=32, NF_number_of_filters=48, H_height_input=14,
+                      W_width_input=14, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 4: input_shape=(BATCH_SIZE, 48, 14, 14) output_shape=(BATCH_SIZE, 64, 7, 7)
+    model.add_layer(
+        Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=48, NF_number_of_filters=64, H_height_input=14,
+                      W_width_input=14, optimizer=optimizer))
+    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
+    model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
+    model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=64,
+                                      H_height_input=14, W_width_input=14))
+    model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
+
+    # Block 5: input_shape=(BATCH_SIZE, 64, 7, 7) output_shape=(BATCH_SIZE, 64 * 7 * 7)
+    model.add_layer(FlattenLayer(D_batch_size=BATCH_SIZE, C_number_channels=64, H_height_input=7, W_width_input=7))
+
+    # Block 6: input_shape=(BATCH_SIZE, 64 * 7 * 7) output_shape=(BATCH_SIZE, 10)
+    model.add_layer(FCLayer(64 * 7 * 7, 10, optimizer=optimizer, convolutional_network=True))
+    model.add_layer(ActivationLayer(ActivationFunction.softmax, 10, convolutional_network=True))
+    ```
+- 0.40% error rate
+- 150 epochs (early stopping after 42)
+- Tunable learning rate scheduler (starting learning rate of 0.001). Halve after every 3 epochs
+
 # Running a model
 To start up the application, one will have to install the dependencies first. [uv](https://github.com/astral-sh/uv) is recommended to be installed. An installation guide can be found [here](https://docs.astral.sh/uv/getting-started/). If [pipx](https://pipx.pypa.io/stable/) is already installed on the machine, it is as easy as
 ````commandline

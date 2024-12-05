@@ -213,10 +213,10 @@ def create_medium_large_convolution_model() -> Network:
                                       H_height_input=14, W_width_input=14))
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
 
-    # Block 4: input_shape=(BATCH_SIZE, 64, 7, 7) output_shape=(BATCH_SIZE, 64 * 7 * 7)
+    # Block 5: input_shape=(BATCH_SIZE, 64, 7, 7) output_shape=(BATCH_SIZE, 64 * 7 * 7)
     model.add_layer(FlattenLayer(D_batch_size=BATCH_SIZE, C_number_channels=64, H_height_input=7, W_width_input=7))
 
-    # Block 5: input_shape=(BATCH_SIZE, 48 * 7 * 7) output_shape=(BATCH_SIZE, 10)
+    # Block 6: input_shape=(BATCH_SIZE, 64 * 7 * 7) output_shape=(BATCH_SIZE, 10)
     model.add_layer(FCLayer(64 * 7 * 7, 10, optimizer=optimizer, convolutional_network=True))
     model.add_layer(ActivationLayer(ActivationFunction.softmax, 10, convolutional_network=True))
 
