@@ -260,7 +260,6 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=16, H_height_input=28,
                       W_width_input=28, optimizer=optimizer))
-    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=28, W_width_input=28))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
 
@@ -268,7 +267,6 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=16, NF_number_of_filters=32, H_height_input=28,
                       W_width_input=28, optimizer=optimizer))
-    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=32, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=32,
                                       H_height_input=28, W_width_input=28))
@@ -278,7 +276,6 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=32, NF_number_of_filters=48, H_height_input=14,
                       W_width_input=14, optimizer=optimizer))
-    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
 
@@ -286,7 +283,6 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=48, NF_number_of_filters=64, H_height_input=14,
                       W_width_input=14, optimizer=optimizer))
-    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=64,
                                       H_height_input=14, W_width_input=14))
@@ -320,7 +316,6 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=1, NF_number_of_filters=16, H_height_input=28,
                       W_width_input=28, optimizer=optimizer))
-    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=16, H_height_input=28, W_width_input=28))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
 
@@ -328,7 +323,6 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=16, NF_number_of_filters=32, H_height_input=28,
                       W_width_input=28, optimizer=optimizer))
-    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=32, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=32,
                                       H_height_input=28, W_width_input=28))
@@ -338,7 +332,6 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=32, NF_number_of_filters=48, H_height_input=14,
                       W_width_input=14, optimizer=optimizer))
-    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(DropoutLayer(0.2, 0, convolutional_network=True))
 
@@ -346,7 +339,6 @@ The logs of the respective models can be found by clicking the links below the r
     model.add_layer(
         Convolution2D(D_batch_size=BATCH_SIZE, C_number_channels=48, NF_number_of_filters=64, H_height_input=14,
                       W_width_input=14, optimizer=optimizer))
-    # model.add_layer(BatchNormalization(D_batch_size=BATCH_SIZE, C_number_channels=48, H_height_input=14, W_width_input=14))
     model.add_layer(ActivationLayer(ActivationFunction.ReLu, 0, convolutional_network=True))
     model.add_layer(MaxPoolingLayer2D(D_batch_size=BATCH_SIZE, PS_pool_size=2, S_stride=2, C_number_channels=64,
                                       H_height_input=14, W_width_input=14))
@@ -361,7 +353,7 @@ The logs of the respective models can be found by clicking the links below the r
     ```
 - 0.40% error rate
 - 150 epochs (early stopping after 42)
-- Tunable learning rate scheduler (starting learning rate of 0.001). Halve after every 3 epochs
+- Tunable learning rate scheduler (starting learning rate of 0.001). Halve after every 5 epochs (and every 3 epochs after the 20th epoch)
 
 # Running a model
 To start up the application, one will have to install the dependencies first. [uv](https://github.com/astral-sh/uv) is recommended to be installed. An installation guide can be found [here](https://docs.astral.sh/uv/getting-started/). If [pipx](https://pipx.pypa.io/stable/) is already installed on the machine, it is as easy as
