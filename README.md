@@ -244,7 +244,7 @@ The logs of the respective models can be found by clicking the links below the r
 - Tunable learning rate scheduler (starting learning rate of 0.001)
 
 ## Eleventh model (00.42% error rate)
-
+[b91ea97](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/b91ea97b311aa2ebd95666acc398832be9c0db9a)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
 - Softmax activation function on last layer
@@ -300,7 +300,7 @@ The logs of the respective models can be found by clicking the links below the r
 - Tunable learning rate scheduler (starting learning rate of 0.001). Halve after every 5 epochs
 
 ## Twelfth model (00.40% error rate)
-
+[403d08d](https://github.com/RaoulLuque/ImageRecognitionFromScratch/tree/403d08d3e5fdfde9250b921cfb6bbc894aaadee7)
 - Mini batch gradient descent (batch size of 16)
 - Cross entropy loss function
 - Softmax activation function on last layer
