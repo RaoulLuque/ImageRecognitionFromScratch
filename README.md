@@ -1,3 +1,5 @@
+# Image recognition from scratch
+This repository documents the progress for a developing a convolutional neural network from scratch. The goal was to classify the MNIST dataset and the best model achieves an error rate of 0.40%. This work is also accompanied by a written work, see [ImageRecognitionFromScratch](Image_recognition_from_scratch.pdf).
 
 # Models
 The following is a brief summary of different models that represent different checkpoints in development process.
@@ -5,6 +7,8 @@ The following is a brief summary of different models that represent different ch
 To run the code or a specific model, please refer to the [running a model](#running-a-model) section.
 
 The logs of the respective models can be found by clicking the links below the respective model to browse the repositories at the respective state and opening the [best_result.log](best_result.log) or [best_result.txt](best_result.log) file (depending on how old the model is).
+
+The best model using this library is the [twelfth](#twelfth-model-0040-error-rate) with an error rate of 0.40% on the MNIST dataset test images. To load this model just download the repository at this state and refer to the [running a model](#running-a-model) section. Note that a pretrained model is stored in the [models](models) directory. Since the goal of this assignment was  to achieve an error rate of 0.30% and this repositories implementation does not have GPU support, a Jupyter notebook is provided with which a TensorFlow model can be setup that achieves a sub 0.30% error rate. Said model could be setup with this library as well, would however take a very long time to train.
 
 ## First model (09-10% error rate)
 [3f5521c](https://github.com/RaoulLuque/image-recognition-neural-network/tree/3f5521c3a99c06911f46d639afd329db93781204)
@@ -387,3 +391,5 @@ poe run
 ```
 
 To run a specific model, click on the link provided below the model in this README, and download the source code of that specific commit and proceed as described above.
+
+For some models, a pre-trained model is provided in the [models](models) directory is provided. This is either a zipped model which has to be extracted or a .pkl file, whose name can be provided at line 61 in [main.py](src/main.py) as the `model_to_load` variable.
