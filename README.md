@@ -1,5 +1,5 @@
 # Image recognition from scratch
-This repository documents the progress for a developing a convolutional neural network from scratch. The goal was to classify the MNIST dataset and the best model achieves an error rate of 0.40%. This work is also accompanied by a written work, see [ImageRecognitionFromScratch](Image_recognition_from_scratch.pdf).
+This repository documents the progress of developing a convolutional neural network from scratch. The goal was to classify the MNIST dataset and the best model achieves an error rate of 0.40%. This work is also accompanied by a written work, see [ImageRecognitionFromScratch](Image_recognition_from_scratch.pdf).
 
 # Models
 The following is a brief summary of different models that represent different checkpoints in development process.
